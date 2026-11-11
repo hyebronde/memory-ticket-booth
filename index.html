@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Ticket Booth">
-<title>Memory Ticket Booth</title>
+<meta name="apple-mobile-web-app-title" content="Tuva">
+<title>Tuva · Ticket to Anywhere</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
@@ -149,7 +149,7 @@ textarea.inp{height:auto;min-height:96px;padding:12px 14px;resize:vertical;font-
 .marquee h1{margin:0;display:flex;flex-direction:column;align-items:center;text-align:center;line-height:1}
 .marquee h1 small{font-family:var(--mono);font-size:10px;letter-spacing:4px}
 .marquee h1 span{font-family:var(--display);font-weight:300;font-size:clamp(28px,9vw,38px);letter-spacing:4px;white-space:nowrap}
-.marquee h1 span.thin{font-weight:500;font-size:clamp(15px,4.6vw,19px);letter-spacing:9px;margin-top:4px}
+.marquee h1 span.thin{font-weight:500;font-size:clamp(11px,3.4vw,14px);letter-spacing:5px;margin-top:6px}
 .screen{width:100%;background:#1E0D10;border-radius:12px;border:2px solid #8F877B;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono)}
 .screen small{display:block;font-size:10px;color:var(--muted);letter-spacing:1px}
 .press{width:168px;height:168px;border-radius:84px;background:#2A0D12;display:flex;align-items:center;justify-content:center;text-decoration:none}
@@ -387,6 +387,8 @@ select.inp{appearance:none;-webkit-appearance:none}
 .sleeve .mini{animation:none}
 .pno{display:block;text-align:center;font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:8px}
 /* v0.6 */
+.tagline{margin:16px 6px 0;text-align:center;font-family:var(--hand,var(--body));font-size:15px;line-height:1.6;color:var(--paper);opacity:.85}
+.tagline span{display:block;margin-top:6px;font-family:var(--mono);font-size:10px;letter-spacing:3px;color:var(--muted)}
 .chip.mood .me{font-size:16px;line-height:1}
 .chip.mood[aria-pressed=true]{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 .chip.mood.pop .me{animation:pop .35s}
@@ -632,7 +634,7 @@ function bulbs(n, cls){ var h = ''; for (var i=0;i<n;i++) h += '<i style="--b:'+
 function posterHTML(t){
   var g = GMAP[t.genre] || GMAP.doc, u = blobURL(t.posterId);
   if (u) return '<div class="poster"><img src="'+u+'" alt="โปสเตอร์ '+esc(t.title)+'"></div>';
-  return '<div class="poster" style="background:#1D1B19"><div class="ph-title" style="color:'+g.c+'"><span>'+esc(t.releaseYear||'MEMORY TICKET')+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b></div></div>';
+  return '<div class="poster" style="background:#1D1B19"><div class="ph-title" style="color:'+g.c+'"><span>'+esc(t.releaseYear||'TUVA')+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b></div></div>';
 }
 function band(t){
   var g = GMAP[t.genre] || GMAP.doc;
@@ -650,7 +652,7 @@ function ticketFront(t, glare){
     '<div class="tinfo"><span class="big">'+fmtDate(t.date)+'</span><span class="big r">'+(t.time?esc(t.time):'—')+'</span>'+
     '<span class="s">'+esc(t.venue||'ไม่ระบุโรง')+'</span><span class="mono r" style="font-size:13px">'+esc(t.format||'')+'</span>'+
     (sl?'<span class="mono" style="font-size:12px;grid-column:1/3">'+sl+'</span>':'')+'</div>'+
-    '<div class="stubPart"><div class="perf"><i class="l"></i><i class="r"></i></div><div class="tfoot">'+(ed?'✦ '+t.no+' MEMORIES ✦':'✦ MEMORY TICKET ✦')+'</div><div class="tdisc">ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม</div></div>'+
+    '<div class="stubPart"><div class="perf"><i class="l"></i><i class="r"></i></div><div class="tfoot">'+(ed?'✦ '+t.no+' MEMORIES ✦':'✦ TICKET TO ANYWHERE ✦')+'</div><div class="tdisc">ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม</div></div>'+
     (glare?'<div class="glare"></div>':'')+'</article>';
 }
 function ticketBack(t, glare){
@@ -724,7 +726,7 @@ function viewHome(){
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
     '<div class="top" style="margin-bottom:10px"><span class="eyebrow">'+fmtDate(todayISO(), true)+'</span><span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon" href="#me" aria-label="โปรไฟล์ของฉัน" style="overflow:hidden;padding:0;border:2px solid var(--lime)">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="" style="width:100%;height:100%;object-fit:cover">':ICON('user',20))+'</a></span></div>'+
     '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+
-      '<div class="marquee">'+bulbs(16)+'<h1><small>NOW PRINTING</small><span>MEMORY</span><span class="thin">TICKET BOOTH</span></h1>'+bulbs(16)+'</div>'+
+      '<div class="marquee">'+bulbs(16)+'<h1><small>NOW PRINTING</small><span>TUVA</span><span class="thin">TICKET TO ANYWHERE</span></h1>'+bulbs(16)+'</div>'+
       '<div class="screen"><div><small>NEXT TICKET</small><span style="font-size:20px;color:var(--lime)">'+ticketNo(S.meta.nextNo)+'</span></div>'+
         '<div style="text-align:right"><small>RANK · '+S.tickets.length+'</small><span style="font-size:14px">'+(rankOf(S.tickets.length)>=0?RANKS[rankOf(S.tickets.length)].en:'—')+'</span></div></div>'+
       '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small style="font-size:11px;margin-top:4px">พิมพ์ตั๋วใหม่</small></span></a>'+
@@ -733,6 +735,7 @@ function viewHome(){
       (last ? '<a class="stub" href="#ticket/'+last.id+'" aria-label="ตั๋วล่าสุด '+esc(last.title)+'">'+band(last)+'<span class="mono" style="font-size:10px">ล่าสุด · '+esc(last.title)+' · '+fmtDate(last.date)+'</span></a>'
             : '<div class="stub" style="align-items:center;justify-content:center;color:#6E665D;font-size:12px">ยังไม่มีตั๋ว · กด START เลย</div>')+
       '</div></section>'+
+    '<p class="tagline">“ภาพยนตร์คือตั๋วที่พาเราไปได้ทุกที่<br>ที่อยากไป เป็นคนที่อยากเป็น ทำสิ่งที่อยากทำ”<span>EVERY FILM IS A TICKET TO ANYWHERE</span></p>'+
     challengeHTML(todayISO().slice(0,4), true)+comingSoonHTML()+
     (otd ? '<a class="otd" href="#ticket/'+otd.id+'"><span class="th">'+(blobURL(otd.posterId)?'<img src="'+blobURL(otd.posterId)+'" alt="">':'<span style="display:block;height:100%;border-top:4px solid '+GMAP[otd.genre].c+'"></span>')+'</span>'+
       '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '');
@@ -1030,7 +1033,7 @@ function drawTicket(t, side, hidePrivate){
         ctx.font = '300 96px '+F.d; setLS(ctx, 1);
         var tl = wrapText(ctx, t.title, IW-100).slice(0,5);
         tl.forEach(function(l, i){ ctx.fillText(l, P+50, y+ph-60-(tl.length-1-i)*104); });
-        ctx.font = '400 30px '+F.m; setLS(ctx, 6); ctx.fillText(t.releaseYear || 'MEMORY TICKET', P+50, y+ph-60-tl.length*104);
+        ctx.font = '400 30px '+F.m; setLS(ctx, 6); ctx.fillText(t.releaseYear || 'TUVA', P+50, y+ph-60-tl.length*104);
       }
       ctx.restore();
       y += ph + 60; ctx.fillStyle = '#1B1713'; ctx.textBaseline = 'alphabetic'; setLS(ctx, 0);
@@ -1040,7 +1043,7 @@ function drawTicket(t, side, hidePrivate){
       ctx.font = '400 34px '+F.m; ctx.textAlign = 'right'; ctx.fillText(t.format || '', W-P-10, y);
       if (t.hall || t.seat) { y += 56; ctx.textAlign = 'left'; ctx.font = '400 32px '+F.m; ctx.fillText([t.hall?'โรง '+t.hall:'', t.seat?'ที่นั่ง '+t.seat:''].filter(Boolean).join(' · '), P+10, y); }
       y += 56; drawPerf(ctx, P, y, IW, cut);
-      y += 70; ctx.textAlign = 'center'; ctx.font = '400 36px '+F.d; setLS(ctx, 14); ctx.fillText(edc ? '✦ '+t.no+' MEMORIES ✦' : '✦ MEMORY TICKET ✦', W/2, y);
+      y += 70; ctx.textAlign = 'center'; ctx.font = '400 36px '+F.d; setLS(ctx, 14); ctx.fillText(edc ? '✦ '+t.no+' MEMORIES ✦' : '✦ TICKET TO ANYWHERE ✦', W/2, y);
       y += 44; ctx.font = '300 22px '+F.b; setLS(ctx, 0); ctx.fillStyle = '#6E665D'; ctx.fillText('ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม', W/2, y);
     } else {
       ctx.fillStyle = '#4F483F'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.font = '400 26px '+F.m; setLS(ctx, 5);
@@ -1096,8 +1099,8 @@ function exportImage(t, mode, hidePrivate){
       c.width = 1080; c.height = 1920; ctx.fillStyle = '#141312'; ctx.fillRect(0, 0, 1080, 1920);
       ctx.fillStyle = '#E6DCC9'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
       ctx.font = '400 26px '+F.m; setLS(ctx, 8); ctx.fillText('NOW PRINTING', 540, 150);
-      ctx.font = '300 74px '+F.d; setLS(ctx, 12); ctx.fillText('MEMORY', 540, 240);
-      ctx.font = '500 34px '+F.d; setLS(ctx, 22); ctx.fillText('TICKET BOOTH', 540, 296);
+      ctx.font = '300 74px '+F.d; setLS(ctx, 12); ctx.fillText('TUVA', 540, 240);
+      ctx.font = '500 30px '+F.d; setLS(ctx, 12); ctx.fillText('TICKET TO ANYWHERE', 540, 296);
       var maxH = 1380, sc = Math.min(860/f.width, maxH/f.height), w = f.width*sc, h = f.height*sc;
       ctx.save(); ctx.translate(540, 340 + h/2); ctx.rotate(-0.025); ctx.drawImage(f, -w/2, -h/2, w, h); ctx.restore();
       ctx.fillStyle = '#9E978D'; ctx.font = '300 30px '+F.b; setLS(ctx, 0);
@@ -1494,7 +1497,7 @@ function wrappedData(y){
 function wi(d, html, extra){ return '<div class="wi" style="--d:'+d+';'+(extra||'')+'">'+html+'</div>'; }
 function buildWrapped(y){
   var D = wrappedData(y), s = [], st = D.st;
-  s.push({bg:'#C5D46E', fg:'#1B1713', html: wi(0,'<span class="eyebrow" style="color:#1B1713">MEMORY TICKET BOOTH · WRAPPED</span>')+wi(1,'<div class="wbig">'+y+'</div>')+wi(2,'<div style="font-size:22px">ปีนี้ของคุณในโรงหนัง</div>')+wi(4,'<div class="small" style="margin-top:30px">แตะเพื่อไปต่อ →</div>')});
+  s.push({bg:'#C5D46E', fg:'#1B1713', html: wi(0,'<span class="eyebrow" style="color:#1B1713">TUVA · WRAPPED</span>')+wi(1,'<div class="wbig">'+y+'</div>')+wi(2,'<div style="font-size:22px">ปีนี้ของคุณในโรงหนัง</div>')+wi(4,'<div class="small" style="margin-top:30px">แตะเพื่อไปต่อ →</div>')});
   s.push({bg:'#141312', fg:'#E6DCC9', html: wi(0,'<div style="font-size:20px">คุณเข้าโรงหนัง</div>')+wi(1,'<div class="wbig"><span data-count="'+st.visits+'">'+st.visits+'</span></div>')+wi(2,'<div class="wmid">ครั้ง</div>')+wi(3,'<div class="mono" style="font-size:15px;color:#9E978D">'+st.films+' เรื่อง · ดูซ้ำ '+st.rewatches+' ครั้ง</div>')});
   if (D.topG) s.push({bg:D.topG.c, fg:'#1B1713', html: wi(0,'<div style="font-size:20px">แนวที่คุณดูบ่อยที่สุด</div>')+wi(1,'<div class="wbig" style="font-size:min(20vw,88px);letter-spacing:2px">'+D.topG.en+'</div>')+wi(2,'<div class="wmid" style="font-size:30px">'+D.topG.th+'</div>')+
     wi(3,'<div class="mono">'+D.topGn+' จาก '+st.visits+' ครั้ง</div>')+wi(4,'<div class="stack" style="height:16px;margin-top:10px;background:rgba(0,0,0,.15)">'+D.gs.map(function(g){ return '<span style="flex:'+st.genres[g]+' 1 0;background:'+(g===D.gs[0]?'#1B1713':GMAP[g].c)+';outline:1px solid rgba(0,0,0,.25)"></span>'; }).join('')+'</div>')});
@@ -1567,7 +1570,7 @@ function shareWrapped(y){
     x.fillStyle = '#141312'; x.fillRect(0,0,1080,1920);
     x.fillStyle = '#C5D46E'; rr(x, 60, 60, 960, 420, 36); x.fill();
     x.fillStyle = '#1B1713'; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
-    x.font = '400 28px '+F.m; setLS(x, 6); x.fillText('MEMORY TICKET BOOTH · WRAPPED', 110, 140);
+    x.font = '400 28px '+F.m; setLS(x, 6); x.fillText('TUVA · WRAPPED', 110, 140);
     x.font = '300 260px '+F.d; setLS(x, -4); x.fillText(y, 96, 400);
     var row = function(yy, label, val, color){ x.fillStyle = '#9E978D'; x.font = '300 34px '+F.b; setLS(x, 0); x.fillText(label, 110, yy);
       x.fillStyle = color || '#E6DCC9'; x.font = '300 76px '+F.d; setLS(x, 1); var lines = wrapText(x, String(val), 860).slice(0,2); lines.forEach(function(l,i){ x.fillText(l, 110, yy+86+i*84); }); return yy + 86 + (lines.length-1)*84; };
@@ -1582,7 +1585,7 @@ function shareWrapped(y){
     if (wtm && yy < 1400) yy = row(yy, 'อารมณ์ประจำปี', wtm.e+' '+wtm.verb+' '+wmc[wtm.id]+' เรื่อง') + 110;
     if (D.top && yy < 1500) { yy = row(yy, 'คะแนนสูงสุด', D.top.title+'  ★ '+D.top.rating) + 110; }
     if (img) { x.save(); rr(x, 760, 820, 260, 390, 18); x.clip(); drawCover(x, img, 760, 820, 260, 390); x.restore(); }
-    x.fillStyle = '#9E978D'; x.font = '300 30px '+F.b; x.textAlign = 'center'; x.fillText('แสตมป์ปีนี้ '+D.stamps.length+' ดวง · MEMORY TICKET BOOTH', 540, 1840);
+    x.fillStyle = '#9E978D'; x.font = '300 30px '+F.b; x.textAlign = 'center'; x.fillText('แสตมป์ปีนี้ '+D.stamps.length+' ดวง · TUVA', 540, 1840);
     return canvasBlob(c, 'image/png');
   }).then(function(b){ return shareBlob(b, 'wrapped-'+y+'.png', 'Wrapped '+y); });
 }
@@ -1651,7 +1654,7 @@ function editionOf(no){
 function printStampSVG(dateStr){
   return '<svg class="stampSvg" id="stamp" viewBox="0 0 150 150" aria-hidden="true"><defs><path id="sRing" d="M75 75 m-50 0 a50 50 0 1 1 100 0 a50 50 0 1 1 -100 0"/></defs>'+
     '<circle cx="75" cy="75" r="66" fill="rgba(230,220,201,.9)" stroke="var(--stamp)" stroke-width="3"/><circle cx="75" cy="75" r="38" fill="none" stroke="var(--stamp)" stroke-width="1.5"/>'+
-    '<text fill="var(--stamp)" style="font-family:Jost,sans-serif;font-weight:500;font-size:11px;letter-spacing:3px"><textPath href="#sRing">MEMORY TICKET BOOTH ✦ ดูแล้ว ✦ ADMIT ONE MEMORY ✦</textPath></text>'+
+    '<text fill="var(--stamp)" style="font-family:Jost,sans-serif;font-weight:500;font-size:11px;letter-spacing:3px"><textPath href="#sRing">TUVA ✦ ดูแล้ว ✦ TICKET TO ANYWHERE ✦</textPath></text>'+
     '<g transform="translate(57 50) scale(1.5)" fill="none" stroke="var(--stamp)" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"><path d="'+ICONS.clapper+'"/></g>'+
     '<text x="75" y="100" text-anchor="middle" fill="var(--stamp)" style="font-family:DM Mono,monospace;font-size:11px">'+dateStr+'</text></svg>';
 }
@@ -1717,7 +1720,7 @@ function viewMe(){
   V.innerHTML =
     '<div class="top"><span class="eyebrow">MY CINEMA ID</span><span style="display:flex;gap:8px"><button class="icon" data-x="shareStory" data-v="id" aria-label="แชร์บัตร Cinema ID ลง Story">'+IC.share+'</button><a class="icon" href="#meedit" aria-label="แก้ไขโปรไฟล์">'+IC.edit+'</a></span></div>'+
     '<article class="idcard" aria-label="บัตรประจำตัวคนดูหนัง"><div style="display:flex;justify-content:space-between;gap:12px">'+
-      '<div style="display:flex;flex-direction:column;gap:4px;padding-top:4px;min-width:0"><span style="font-family:var(--display);font-weight:300;font-size:30px;line-height:1">memory</span><span style="font-family:var(--display);font-weight:500;font-size:10px;letter-spacing:5px">TICKET BOOTH</span>'+
+      '<div style="display:flex;flex-direction:column;gap:4px;padding-top:4px;min-width:0"><span style="font-family:var(--display);font-weight:300;font-size:30px;line-height:1">tuva</span><span style="font-family:var(--display);font-weight:500;font-size:10px;letter-spacing:4px">TICKET TO ANYWHERE</span>'+
       '<span class="mono" style="margin-top:20px;font-size:12px;letter-spacing:3px">CINEMA ID</span><span class="mono" style="font-size:10px;color:#6E665D">'+n+' TICKETS · '+earnedStampIds().length+' STAMPS</span></div>'+
       '<button class="pol" data-x="mePhoto" aria-label="'+(P.photoId?'เปลี่ยนรูปโปรไฟล์':'เพิ่มรูปโปรไฟล์')+'"><div class="ph2">'+(blobURL(P.photoId)?'<img src="'+blobURL(P.photoId)+'" alt="รูปโปรไฟล์">':'แตะเพื่อเพิ่มรูป')+'</div>'+
       '<svg class="clip" width="26" height="70" viewBox="0 0 26 70" fill="none" stroke="#8F877B" stroke-width="2.2" aria-hidden="true"><path d="M8 62V12a5 5 0 0 1 10 0v44a3 3 0 0 1-6 0V16"/></svg></button></div>'+
@@ -1853,7 +1856,7 @@ function celebrate(t){
 function storyCanvas(bg){ var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'); x.fillStyle = bg; x.fillRect(0,0,1080,1920); return {c:c, x:x}; }
 function storyFooter(x, color, line){
   x.fillStyle = color; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-  x.font = '500 30px '+F.d; setLS(x, 14); x.fillText('MEMORY TICKET BOOTH', 540, 1800);
+  x.font = '500 30px '+F.d; setLS(x, 14); x.fillText('TUVA · TICKET TO ANYWHERE', 540, 1800);
   x.font = '300 30px '+F.b; setLS(x, 0); x.globalAlpha = .8; x.fillText(line + ' · ' + location.host, 540, 1852); x.globalAlpha = 1;
 }
 function drawRankCard(x, i, cx, cy, w, rot){
@@ -1880,8 +1883,8 @@ function storyID(){
     x.save(); x.translate(540, 900); x.rotate(-0.035);
     x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 60; x.shadowOffsetY = 30; x.fillStyle = '#E6DCC9'; rr(x, -450, -660, 900, 1320, 12); x.fill(); x.shadowColor = 'transparent';
     x.fillStyle = '#1B1713'; x.textAlign = 'left';
-    x.font = '300 76px '+F.d; setLS(x, 2); x.fillText('memory', -400, -540);
-    x.font = '500 24px '+F.d; setLS(x, 12); x.fillText('TICKET BOOTH', -400, -496);
+    x.font = '300 76px '+F.d; setLS(x, 2); x.fillText('tuva', -400, -540);
+    x.font = '500 24px '+F.d; setLS(x, 12); x.fillText('TICKET TO ANYWHERE', -400, -496);
     x.font = '400 26px '+F.m; setLS(x, 6); x.fillText('NAME', -400, -400);
     x.font = '400 68px '+F.h; setLS(x, 0); x.fillText(P.name || 'คนดูหนัง', -400, -320);
     if (p) { x.font = '400 26px '+F.m; setLS(x, 6); x.fillText('ฉายา', -400, -240); x.font = '400 44px '+F.h; setLS(x, 0); wrapText(x, p.name, 430).slice(0,2).forEach(function(l,k){ x.fillText(l, -400, -180 + k*56); }); }
@@ -1958,7 +1961,7 @@ function storyPersona(){
 function shareStory(kind, arg){
   var job = kind==='id' ? storyID() : kind==='rank' ? storyRank(arg!=null ? arg : Math.max(0, rankOf(S.tickets.length))) : kind==='shelf' ? storyShelf(String(arg || S.yearView || todayISO().slice(0,4))) : storyPersona();
   toast('กำลังสร้างรูป…');
-  return job.then(function(c){ return canvasBlob(c, 'image/png'); }).then(function(b){ return shareBlob(b, 'story-'+kind+'.png', 'Memory Ticket Booth'); }).catch(function(){ toast('สร้างรูปไม่สำเร็จ'); });
+  return job.then(function(c){ return canvasBlob(c, 'image/png'); }).then(function(b){ return shareBlob(b, 'story-'+kind+'.png', 'Tuva'); }).catch(function(){ toast('สร้างรูปไม่สำเร็จ'); });
 }
 
 /* ---------- invite ---------- */
@@ -2024,7 +2027,7 @@ function viewInvReceive(data){
       '<div style="display:flex;justify-content:space-between;font-size:13px"><span>'+esc(inv.v||'')+'</span><span class="mono">'+esc(inv.f||'')+'</span></div>'+
       (inv.m?'<div style="border-top:1.5px dashed #B3AA9B;padding-top:8px;font-family:var(--hand);font-size:15px;text-align:center">“'+esc(inv.m)+'”</div>':'')+'</div></section>'+
     (have ? '<p class="small muted" style="text-align:center">เรื่องนี้อยู่ในรายการอยากดูของคุณแล้ว</p>' : '<button class="btn" data-x="ivSave" data-v="'+esc(data)+'">เก็บเข้ารายการอยากดู</button>')+
-    '<p class="small muted" style="line-height:1.6;margin-top:14px">Memory Ticket Booth คือแอปเก็บตั๋วหนังเป็นของที่ระลึก ฟรี ไม่ต้องสมัคร · บน iPhone กดปุ่มแชร์ของ Safari → "เพิ่มไปยังหน้าจอโฮม" แล้วเปิดลิงก์นี้อีกครั้งจากแอป เพื่อให้ตั๋วเชิญเก็บอยู่ในแอป</p>'+
+    '<p class="small muted" style="line-height:1.6;margin-top:14px">Tuva คือแอปเก็บตั๋วหนังเป็นของที่ระลึก ฟรี ไม่ต้องสมัคร · บน iPhone กดปุ่มแชร์ของ Safari → "เพิ่มไปยังหน้าจอโฮม" แล้วเปิดลิงก์นี้อีกครั้งจากแอป เพื่อให้ตั๋วเชิญเก็บอยู่ในแอป</p>'+
     '<a class="btn out sm" href="#home" style="margin-top:6px">ดูแอป</a>';
 }
 
@@ -2260,7 +2263,7 @@ function storyChallenge(y){
   var p = chProgress(y); if (!p) return Promise.reject();
   return fontsReady().then(function(){
     var s = storyCanvas('#5E1E28'), x = s.x; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-    x.fillStyle = '#E6DCC9'; x.font = '400 30px '+F.m; setLS(x, 8); x.fillText('MEMORY TICKET BOOTH · CHALLENGE', 540, 260);
+    x.fillStyle = '#E6DCC9'; x.font = '400 30px '+F.m; setLS(x, 8); x.fillText('TUVA · CHALLENGE', 540, 260);
     x.font = '300 120px '+F.d; setLS(x, 2); x.fillText(y, 540, 420);
     x.font = '300 360px '+F.d; setLS(x, -6); x.fillStyle = '#C5D46E'; x.fillText(String(p.n), 540, 860);
     x.fillStyle = '#E6DCC9'; x.font = '300 64px '+F.d; setLS(x, 2); x.fillText('/ '+p.goal+' เรื่อง', 540, 970);
@@ -2301,7 +2304,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Memory Ticket Booth · v0.6<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.6<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */

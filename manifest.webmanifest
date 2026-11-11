@@ -1,7 +1,7 @@
 {
-  "name": "Memory Ticket Booth",
-  "short_name": "Ticket Booth",
-  "description": "สะสมตั๋วหนังความทรงจำ",
+  "name": "Tuva · Ticket to Anywhere",
+  "short_name": "Tuva",
+  "description": "ภาพยนตร์คือตั๋วที่พาเราไปได้ทุกที่ · เก็บความทรงจำโรงหนังเป็นตั๋ว",
   "lang": "th",
   "start_url": "./index.html#home",
   "scope": "./",
@@ -10,8 +10,21 @@
   "background_color": "#111111",
   "theme_color": "#111111",
   "icons": [
-    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
-    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
   ]
 }
