@@ -3345,7 +3345,7 @@ function viewYear(){
     '<section class="ycard"><span class="yh">TOP GENRES</span>'+bars+'</section>'+
     '<section class="ycard"><span class="yh">BY MONTH</span><div class="mbars">'+mb+'</div></section>'+
     moodYearSpec(list)+
-    (ps.length?'<section class="ycard"><span class="yh"><span>CINEMA BUDDY</span><a href="#people/'+y+'">ALL →</a></span>'+ps.map(function(p,i){ return '<a class="brow" href="#collection" data-act="goWho" data-v="'+esc(p)+'"><b>'+(i+1)+'</b><span>'+esc(p)+'</span><em>'+st.people[p]+' เรื่อง</em></a>'; }).join('')+'</section>':'')+
+    (ps.length?'<section class="ycard"><span class="yh"><span>CINEMA BUDDY</span><a href="#people/'+y+'">ALL →</a></span>'+ps.map(function(p,i){ return '<a class="brow" href="#collection" data-act="goWho" data-v="'+esc(p)+'"><b>'+(i+1)+'</b><span>'+esc(p)+'</span><em>'+st.people[p]+' FILMS</em></a>'; }).join('')+'</section>':'')+
     '<section class="ycard"><span class="yh"><span>CALENDAR</span><a href="#year" data-act="yMode" data-v="calendar">OPEN →</a></span><div class="heat">'+heat+'</div></section>';
   countUp();
 }
