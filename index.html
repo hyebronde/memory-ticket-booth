@@ -1034,6 +1034,29 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .kf svg{width:16px;height:16px}
 .kf b{font-family:var(--dot);font-weight:900;font-size:11px}
 .kf[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
+.wnew{position:fixed;inset:0;z-index:80;background:rgba(10,10,11,.78);display:flex;align-items:center;justify-content:center;padding:24px;animation:wnIn .25s ease-out}
+.wnew.out{opacity:0;transition:opacity .25s}
+@keyframes wnIn{from{opacity:0}}
+.wnCard{width:100%;max-width:342px;border-radius:26px;background:var(--cream);overflow:hidden;box-shadow:0 30px 60px rgba(0,0,0,.6);color:#0B0B0C}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .wnCard{animation:wnPop .45s cubic-bezier(.3,1.4,.5,1)}}
+@keyframes wnPop{from{transform:translateY(30px) scale(.94);opacity:0}}
+.wnH{position:relative;height:96px;padding:16px 20px;background:radial-gradient(160px 160px at 40px 0,#FF3B3B,rgba(255,59,59,0)),radial-gradient(170px 170px at 100% 100%,#4A060C,rgba(74,6,12,0)),#C4161F}
+.wnH .e{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.wnH b{display:block;margin-top:6px;font-family:'Unbounded',sans-serif;font-weight:700;font-size:26px;letter-spacing:-.03em;color:var(--cream)}
+.wnH .v{position:absolute;right:20px;top:18px;font-family:var(--dot);font-weight:900;font-size:22px;color:var(--cream)}
+.wnL{padding:6px 20px 0}
+.wnL div{display:flex;gap:12px;align-items:flex-start;margin-top:12px}
+.wnL i{width:10px;height:10px;border-radius:5px;margin-top:4px;flex:none}
+.wnL p{margin:0;font-size:13px;line-height:1.35}
+.wnL b{font-family:'Unbounded',sans-serif;font-weight:700;font-size:12px}
+.wnP{position:relative;height:28px;margin-top:14px}
+.wnP::before{content:"";position:absolute;left:20px;right:20px;top:13px;border-top:2px dashed rgba(11,11,12,.3)}
+.wnP i{position:absolute;top:0;width:28px;height:28px;border-radius:14px;background:#0a0a0b}
+.wnP i.l{left:-14px}.wnP i.r{right:-14px}
+.wnB{padding:6px 20px 20px;display:flex;flex-direction:column;gap:8px}
+.wnB .e{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;color:#6E6A64;text-align:center}
+.wnB .ig{height:50px;border-radius:25px;background:#0B0B0C;color:var(--cream);display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;text-decoration:none}
+.wnB .ok{height:44px;border-radius:22px;border:1.5px solid rgba(11,11,12,.35);background:transparent;color:#0B0B0C;font-family:var(--body);font-size:14px}
 </style>
 </head>
 <body>
@@ -3279,7 +3302,7 @@ DB.open().then(function(){
   S.meta.challenges = r[9] || {};
   S.meta.seenRank = (r[8]===undefined || r[8]===null) ? rankOf(S.tickets.length) : r[8]; if (r[8]===undefined || r[8]===null) DB.put('meta', S.meta.seenRank, 'seenRank');
   if (!S.meta.seenStamps) { S.meta.seenStamps = earnedStampIds(); DB.put('meta', S.meta.seenStamps, 'seenStamps'); }
-  reindex(); render();
+  reindex(); render(); setTimeout(maybeWhatsNew, 900);
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(x){}
 });
 if ('serviceWorker' in navigator && location.protocol==='https:' && window.self===window.top) {
@@ -3806,6 +3829,33 @@ function kindSeat(t){
   if (K === 'movie') return {l:'ON', v:(t.platform||'HOME').toUpperCase().slice(0,12)};
   if (K === 'series') return {l:'EPISODES', v:epLabel(t)};
   return {l:'SEAT', v:t.seat||'—'};
+}
+
+/* ---------- what's new (once per version) ---------- */
+var APP_VER = '0.9';
+var WHATS_NEW = [['MOVIE + SERIES','บันทึกหนังที่ดูที่บ้านและซีรีส์ได้แล้ว','#C5D46E'],['NEW BOOTH','ตู้หน้าแรกใหม่ ตั๋วพิมพ์ออกมาเต็มใบ','#E0262F'],['NEW STORIES','แชร์สตอรี่พร้อมโมชั่นตู้พิมพ์ตั๋ว','#FFB547'],['LONGER NOTES','เขียนโน้ตได้ 3,000 ตัวอักษร','#6EC1CF']];
+var IG_URL = 'https://www.instagram.com/tuva.club/';
+function maybeWhatsNew(){
+  var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
+  if (seen === APP_VER) return;
+  try { localStorage.setItem('mtb-seen-ver', APP_VER); } catch(x){}
+  if (!S.tickets.length || document.querySelector('.sheet, .cele')) return;
+  showWhatsNew();
+}
+function showWhatsNew(){
+  var el = document.createElement('div'); el.className = 'wnew';
+  el.innerHTML = '<div class="wnCard" role="dialog" aria-modal="true" aria-labelledby="wnT">'+
+    '<div class="wnH"><span class="e">★ UPDATE ★</span><b id="wnT">WHAT\'S NEW</b><span class="v">v'+APP_VER+'</span></div>'+
+    '<div class="wnL">'+WHATS_NEW.map(function(w){ return '<div><i style="background:'+w[2]+'"></i><p><b>'+w[0]+'</b><br>'+w[1]+'</p></div>'; }).join('')+'</div>'+
+    '<div class="wnP" aria-hidden="true"><i class="l"></i><i class="r"></i></div>'+
+    '<div class="wnB"><span class="e">FOLLOW FOR NEWS &amp; UPDATES</span>'+
+    '<a class="ig" href="'+IG_URL+'" target="_blank" rel="noopener"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>@tuva.club</a>'+
+    '<button class="ok" data-close>เข้าใจแล้ว เริ่มใช้เลย</button></div></div>';
+  document.body.appendChild(el);
+  var close = function(){ el.classList.add('out'); setTimeout(function(){ el.remove(); }, 250); };
+  el.addEventListener('click', function(e){ if (e.target.closest('[data-close]') || e.target === el) close(); });
+  el.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
+  var b = el.querySelector('.ok'); if (b) b.focus();
 }
 </script>
 </body>
