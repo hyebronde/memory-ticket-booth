@@ -611,16 +611,324 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .spine .sn{font-family:var(--dot);font-weight:900;font-size:8px}
 @media (prefers-reduced-motion:reduce){.press::before,.tk2 *,.vend *,.slot .dl i{animation:none !important}}
 .reduce .press::before,.reduce .tk2 *,.reduce .vend *{animation:none !important}
+/* ===== v0.8 spec-exact ===== */
+.top.hdr{margin-bottom:14px}
+.top.hdr .icon.cream{background:var(--cream);color:#0B0B0C;overflow:hidden}
+.top.hdr .icon.cream img{width:100%;height:100%;object-fit:cover}
+.top h1.tno{flex:1;text-align:center;font-family:var(--dot);font-weight:900;font-size:14px;letter-spacing:1px}
+/* tabs + fab */
+.tabs{display:flex;gap:10px;align-items:center;max-width:456px;margin:0 auto}
+.tabs .in{flex:1;margin:0;max-width:none}
+.tabs a{font-size:8px}
+.tabs a span{display:block}
+.tabs .fab{flex:none;width:64px;height:64px;border-radius:32px;background:linear-gradient(150deg,#FF3B3B,#8E0F1A);color:var(--cream);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,.55)}
+/* home */
+.booth .screen .l3{font-size:11px}
+.hrow{display:flex;gap:8px;margin-top:14px}
+.hcirc{width:84px;height:84px;flex:none;border-radius:42px;background:var(--panel);color:var(--cream);text-decoration:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.hcirc b{font-family:var(--dot);font-weight:900;font-size:20px;line-height:1}
+.hcirc span{font-size:10px;color:#B9B4AD}
+.wpill{flex:1;min-width:0;height:84px;border-radius:42px;background:#C5D46E;color:#12180F;text-decoration:none;display:flex;align-items:center;gap:10px;padding:0 10px}
+.wpill .wi{width:60px;height:60px;flex:none;border-radius:30px;background:#0B0B0C;color:#C5D46E;display:flex;align-items:center;justify-content:center}
+.wpill .wt{display:flex;flex-direction:column;min-width:0}
+.wpill .wt b{font-family:'Unbounded',sans-serif;font-weight:600;font-size:13px}
+.wpill .wt span{font-size:11px}
+.stub{margin-top:12px}
+.stub .nl,.stub .nr{position:absolute;top:50%;width:24px;height:24px;margin-top:-12px;border-radius:12px;background:var(--bg)}
+.stub{-webkit-mask:radial-gradient(circle 12px at 0 50%,transparent 11.5px,#000 12px) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,transparent 11.5px,#000 12px) right/51% 100% no-repeat;mask:radial-gradient(circle 12px at 0 50%,transparent 11.5px,#000 12px) left/51% 100% no-repeat,radial-gradient(circle 12px at 100% 50%,transparent 11.5px,#000 12px) right/51% 100% no-repeat}
+.otd{margin-top:12px}
+/* form */
+.fmach{padding:12px 16px 16px;gap:10px;margin-bottom:16px}
+.fmach .screen{padding:12px 18px}
+.fmach .screen b{font-size:30px}
+.fcard{background:var(--panel);border-radius:22px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.flab{display:block;font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px;color:#B9B4AD;margin-bottom:-4px}
+.fcard .inp{height:48px;border-radius:14px;background:#2A2A2C;border:0;color:var(--cream);font-size:15px;padding:0 14px}
+.fcard textarea.inp{height:auto;min-height:96px;padding:12px 14px;font-family:'Mali','Anuphan',cursive;line-height:1.6}
+.fcard .inp.dt{font-family:var(--dot);font-weight:900;font-size:18px}
+.fcard .inp::placeholder{color:#6E6A64}
+.frow{display:flex;gap:8px}
+.frow .inp{flex:1;min-width:0}
+.frow .chip{flex:none}
+.fcard .posterPick{display:flex;gap:12px;align-items:stretch}
+.fcard .posterBox{width:104px;height:156px;flex:none;border-radius:12px;overflow:hidden;border:1.5px dashed #3A3A3C;background:#2A2A2C;color:#B9B4AD;display:flex;align-items:center;justify-content:center;padding:0}
+.fcard .posterBox img{width:100%;height:100%;object-fit:cover}
+.fcard .posterBox span{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11px}
+.fcard .posterBox:has(img){border:0;box-shadow:0 0 0 2px rgba(242,238,232,.5)}
+.pcol{flex:1;min-width:0;display:flex;flex-direction:column;gap:8px}
+.fhint{font-size:11px;color:#6E6A64}
+.tlink{align-self:flex-start;background:none;border:0;padding:4px 0;color:#B9B4AD;font-size:12px;text-decoration:underline;text-underline-offset:3px;min-height:32px}
+.fchips{display:flex;flex-wrap:wrap;gap:6px}
+.fcard .gchip{height:36px;min-height:36px;padding:0 12px;border-radius:18px;border:1px solid #3A3A3C;background:transparent;color:var(--cream);display:inline-flex;align-items:center;gap:6px;font-size:12px;font-family:var(--body)}
+.fcard .gchip .dot{display:inline-block}
+.fcard .gchip[aria-pressed=true]{background:var(--gc);border-color:var(--gc);color:#0B0B0C}
+.fcard .gchip[aria-pressed=true] .dot{background:#0B0B0C !important}
+.fcard .gchip.sec{height:32px;min-height:32px;font-size:11px}
+.fcard details.g2 summary{font-size:12px;color:#B9B4AD;cursor:pointer;min-height:32px;display:flex;align-items:center}
+.fcard .chip{min-height:36px;height:36px;padding:0 14px;border-radius:18px;border:1px solid #3A3A3C;background:transparent;color:var(--cream);font-size:13px}
+.fcard .fchips.sm .chip{height:32px;min-height:32px;font-size:12px}
+.fcard .fmt .chip{font-family:var(--dot) !important;font-weight:900}
+.fcard .chip[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
+.fcard .tag{height:36px;padding:0 6px 0 14px;border-radius:18px;background:var(--cream);color:#0B0B0C;display:inline-flex;align-items:center;gap:4px;font-size:13px}
+.fcard .tag button{background:none;border:0;color:#0B0B0C;min-width:32px;min-height:32px}
+.fcard .check{font-size:12px;color:#B9B4AD}
+.fsec{margin:18px 4px 10px;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px;color:#B9B4AD}
+.frate{display:flex;align-items:center;gap:10px}
+.frate .fst{background:transparent;padding:0;gap:4px}
+.frate .fst .star{width:38px;height:38px}
+.frate>b{font-family:var(--dot);font-weight:900;font-size:24px;color:var(--amber);margin-left:auto}
+.fcard .field{gap:10px}
+.fcard .mood{font-family:var(--body) !important}
+.fph{display:flex;gap:8px;align-items:center}
+.fph .ph{width:56px;height:56px;flex:none;border-radius:12px;background:#2A2A2C;border:1px dashed #3A3A3C;color:#B9B4AD;font-size:20px}
+.fph .camBtn{flex:1;height:48px;border-radius:24px;border:0;background:var(--cream);color:#0B0B0C;display:flex;align-items:center;justify-content:center;gap:6px;font-size:13px}
+.fph .camBtn svg{width:18px;height:18px}
+.btn.ptk{height:58px;border-radius:29px;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:15px;letter-spacing:.5px;box-shadow:0 6px 0 #8C8478}
+/* print compact ticket */
+.tkS{width:240px;margin:0 auto;padding:16px 16px 0;gap:0;border-radius:18px;background:var(--gc);color:#0B0B0C;display:flex;flex-direction:column;align-items:center;overflow:hidden;isolation:isolate}
+.tkS::before{content:"";position:absolute;width:200px;height:200px;right:-70px;top:-90px;border-radius:100px;background:var(--gc2);filter:blur(36px);z-index:-1}
+.tkS .sP{width:76px;height:112px;border-radius:8px;overflow:hidden;background:var(--gc2);box-shadow:0 0 0 2px rgba(242,238,232,.6)}
+.tkS .sP img{width:100%;height:100%;object-fit:cover}
+.tkS .sG{margin-top:10px;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.tkS .sT{margin-top:4px;text-align:center;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:16px;line-height:1.15;letter-spacing:-.3px}
+.tkS .stubPart{position:relative;align-self:stretch;margin:14px -16px 0;padding:14px 16px;border-top:2px dashed rgba(11,11,12,.3);text-align:center;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px}
+.tkS .stubPart i{position:absolute;top:-12px;width:22px;height:22px;border-radius:11px;background:var(--bg)}
+.tkS .stubPart i.nl{left:-11px}.tkS .stubPart i.nr{right:-11px}
+.pbar{display:flex;gap:10px;margin-top:16px}
+.pbar .btn{flex:1}
+.icon.big{width:52px;height:52px;border-radius:26px}
+/* ticket back */
+.tkB{padding:0;gap:0;border-radius:26px;background:var(--cream);color:#0B0B0C;height:100%;display:flex;flex-direction:column}
+.tkB .bH{position:relative;flex:none;height:64px;background:var(--gc);overflow:hidden;isolation:isolate;padding:14px 20px 0}
+.tkB .bH::before{content:"";position:absolute;width:200px;height:200px;right:-60px;top:-110px;border-radius:100px;background:var(--gc2);filter:blur(40px);z-index:-1}
+.tkB .bH .e{display:block;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.tkB .bH b{display:block;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:17px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding-right:76px}
+.tkB .bH .no{position:absolute;right:20px;top:22px;font-family:var(--dot);font-weight:900;font-size:14px}
+.tkB .bBody{flex:1;min-height:0;overflow:hidden;padding:14px 20px 0;display:flex;flex-direction:column;gap:6px}
+.tkB .bRate{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.tkB .bSt{display:flex;gap:3px}.tkB .bSt svg{width:26px;height:26px}
+.tkB .bRate b{font-family:var(--dot);font-weight:900;font-size:22px}.tkB .bRate small{font-size:12px}
+.tkB .sec-h{font-size:10px;letter-spacing:2px;opacity:.6;margin-top:4px}
+.tkB .note{margin:0;font-family:'Mali','Anuphan',cursive;font-size:16px;line-height:32px;background:repeating-linear-gradient(transparent 0 31px,rgba(11,11,12,.18) 31px 32px);min-height:96px;max-height:128px;overflow:hidden;white-space:pre-wrap;word-break:break-word}
+.tkB .bMoods{display:flex;gap:6px;flex-wrap:wrap}
+.tkB .bMoods span{height:30px;padding:0 12px;border-radius:15px;background:rgba(11,11,12,.08);display:inline-flex;align-items:center;font-size:12px}
+.tkB .bMoods span.on{background:var(--gc)}
+.tkB .bQ{margin:0;font-family:'Unbounded','Anuphan',sans-serif;font-size:14px;line-height:1.4}
+.tkB .bWho{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-top:4px}
+.tkB .bWho .w{display:block;font-size:14px;margin-top:4px}
+.tkB .strip{width:132px;flex:none;background:#fff;padding:6px;display:grid;gap:4px;transform:rotate(-3deg);box-shadow:0 4px 10px rgba(0,0,0,.2)}
+.tkB .strip img{width:100%;height:52px;object-fit:cover;display:block}
+.tkB .perf{flex:none;height:24px;margin:8px 22px 0}
+.tkB .perf::before{border-top:2px dashed rgba(11,11,12,.3)}
+.tkB .perf i{top:-2px;width:28px;height:28px;border-radius:14px}.tkB .perf i.l{left:-36px}.tkB .perf i.r{right:-36px}
+.tkB .bF{flex:none;display:flex;justify-content:space-between;padding:6px 20px 0;font-family:var(--dot);font-weight:900;font-size:12px}
+.tkB .tkFoot{flex:none;display:flex;justify-content:space-between;align-items:center;padding:12px 20px 18px}
+.tkB .tkFoot .bc{width:120px;height:14px;background:repeating-linear-gradient(90deg,#0B0B0C 0 2px,transparent 2px 4px,#0B0B0C 4px 5px,transparent 5px 8px)}
+.tkB .tkFoot span:last-child{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px}
+.tkB .glare{border-radius:26px}
+/* collection */
+.ypill{height:40px;padding:0 30px 0 14px;border-radius:20px;border:0;background:var(--cream) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%230B0B0C'/%3E%3C/svg%3E") no-repeat right 12px center;color:#0B0B0C;font-family:var(--body);font-size:13px;-webkit-appearance:none;appearance:none}
+.dchip{height:30px;padding:0 12px;border-radius:15px;background:var(--panel);display:inline-flex;align-items:center;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:1px}
+.vpills{display:flex;gap:6px;align-items:center;margin-bottom:12px}
+.vpills button:not(.icon){height:44px;padding:0 16px;border-radius:22px;border:1px solid #3A3A3C;background:transparent;color:var(--cream);font-family:var(--body);font-size:13px}
+.vpills button[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
+.vpills .srch{margin-left:auto}
+.vpills .srch[aria-expanded=true]{background:var(--cream);color:#0B0B0C}
+.qrow{margin-bottom:10px}
+.qrow .inp{height:44px;border-radius:22px;background:var(--panel);border:0}
+.gscroll{display:flex;gap:6px;overflow-x:auto;margin:0 -16px 10px;padding:0 16px;scrollbar-width:none}
+.gscroll::-webkit-scrollbar{display:none}
+.gpill{height:32px;padding:0 12px;border-radius:16px;border:0;background:var(--panel);color:var(--cream);display:inline-flex;align-items:center;gap:6px;font-size:12px;white-space:nowrap;flex:none;font-family:var(--body)}
+.gpill i{width:8px;height:8px;border-radius:4px}
+.gpill[aria-pressed=true]{background:var(--cream);color:#0B0B0C}
+.csum{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.csum .stats3{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:1px;color:#B9B4AD}
+.csum .stats3 b{font-weight:900;color:#B9B4AD}
+.ssel{height:32px;border:0;background:transparent;color:#B9B4AD;font-family:var(--body);font-size:12px;text-align:right;-webkit-appearance:none;appearance:none;padding-right:2px}
+.vend .grid{grid-auto-rows:auto}
+/* shelf */
+.spills{display:flex;gap:6px;margin-bottom:12px}
+.spill{height:40px;padding:0 16px;border-radius:20px;border:1px solid #3A3A3C;background:transparent;color:var(--cream);font-size:13px;font-family:var(--body)}
+.spill[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
+.kiosk .kb{position:absolute;left:18px;right:18px;top:11px;display:flex;justify-content:space-between;align-items:center}
+.kiosk .kb .bulbs{position:static;display:flex;gap:10px;padding:0}
+.kiosk .kb .bulbs i{width:8px;height:8px;visibility:visible !important}
+.kiosk .kHead{position:static;flex:1;text-align:center}
+.kiosk .shelfWrap{background:#1E1A16;padding:10px 10px 6px;display:flex;flex-direction:column;gap:10px}
+.shelfBlk{display:flex;flex-direction:column}
+.kiosk .shelfRow{height:160px;border-bottom:0;padding:0 4px;gap:3px}
+.sBoard{display:block;height:12px;background:#3A2F25;box-shadow:0 3px 0 #241C16}
+.sLab{align-self:flex-start;margin:-10px 0 0 10px;height:9px;padding:0 6px;background:var(--cream);color:#0B0B0C;font-family:var(--dot);font-weight:900;font-size:8px;line-height:9px;letter-spacing:1px;position:relative}
+/* binder */
+.binder{margin:0 -16px;padding:0 16px 6px}
+.bpage{background:#1A1A1C;border:1px solid #2A2A2C;border-radius:22px;box-shadow:inset 10px 0 0 #B3121B;padding:16px 14px 40px 56px;min-height:0}
+.bpage .rings{left:22px;top:0;bottom:0;justify-content:space-around}
+.bpage .rings i{width:20px;height:20px;border-radius:10px;background:#0B0B0C;box-shadow:inset 0 0 0 4px #6E6862}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sleeve{padding:6px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);min-height:0}
+.sleeve.empty{min-height:210px;border-style:dashed;background:transparent}
+.sleeve.empty::after{display:none}
+.mini.bc2{position:relative;display:block;height:196px;padding:0;border-radius:10px;overflow:hidden;isolation:isolate;background:var(--gc);color:#0B0B0C;text-decoration:none}
+.mini.bc2 .bP{position:absolute;left:0;right:0;top:0;height:130px}
+.mini.bc2 .bP img{width:100%;height:100%;object-fit:cover;display:block}
+.mini.bc2 .bP::after{content:"";position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(rgba(0,0,0,0),var(--gc))}
+.mini.bc2 .bA{position:absolute;width:140px;height:140px;right:-50px;top:-50px;border-radius:70px;background:var(--gc2);filter:blur(30px)}
+.mini.bc2 .bG{position:absolute;left:8px;top:8px;height:20px;padding:0 8px;border-radius:10px;background:rgba(11,11,12,.6);color:var(--cream);font-family:var(--dot);font-weight:900;font-size:9px;display:inline-flex;align-items:center}
+.mini.bc2 .bT{position:absolute;left:10px;right:10px;top:132px;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:11px;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.mini.bc2 .bD{position:absolute;left:10px;bottom:8px;font-family:var(--dot);font-weight:900;font-size:18px}
+.bpage .pno{position:absolute;left:0;right:0;bottom:12px;text-align:center;font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px;color:#6E6A64}
+/* year */
+.yboard{margin-bottom:12px}
+.yboard .screen b.ybig{font-size:80px;line-height:.95;text-shadow:0 0 12px rgba(255,181,71,.6)}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .yboard .ybig{animation:flick 5s steps(1) infinite}}
+.yboard .tiles{display:block;margin:0;font-size:11px;letter-spacing:1px}
+.yboard .tile{display:inline;background:none;padding:0;border-radius:0;color:var(--amber)}
+.yboard .tile b{font-family:var(--dot);font-weight:900;font-size:11px;line-height:1}
+.ychips{display:flex;gap:8px}
+.ychips>*{flex:1;height:34px;border-radius:17px;background:#0B0B0C;display:flex;align-items:center;justify-content:center;font-family:var(--dot);font-weight:900;font-size:11px;color:var(--amber);text-decoration:none}
+.ychips .cr{background:var(--cream);color:#0B0B0C;font-family:var(--body);font-weight:400;font-size:12px}
+.ycard{background:var(--panel);border-radius:22px;padding:16px;margin-bottom:12px;display:flex;flex-direction:column}
+.yh{display:flex;justify-content:space-between;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px;color:#B9B4AD}
+.yh a{color:var(--cream);text-decoration:none}
+.gbar{display:flex;align-items:center;gap:10px;margin-top:8px;color:var(--cream);text-decoration:none}
+.gbar .gl{width:76px;font-family:var(--dot);font-weight:900;font-size:10px}
+.gbar .gt{flex:1;height:14px;border-radius:7px;background:#2A2A2C;overflow:hidden}
+.gbar .gt i{display:block;height:100%;border-radius:7px}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .gbar .gt i,html:not(.reduce) .ycard .bar i{animation:fillP 1s ease-out both}}
+.gbar b{width:22px;text-align:right;font-family:var(--dot);font-weight:900;font-size:13px}
+.mbars{display:flex;gap:6px;height:96px;margin-top:12px}
+.mbars a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;text-decoration:none}
+.mbars i{width:100%;border-radius:4px 4px 0 0}
+.mbars span{font-family:var(--dot);font-weight:900;font-size:8px;color:#B9B4AD}
+.brow{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--cream);text-decoration:none}
+.brow b{width:16px;font-family:var(--dot);font-weight:900;font-size:16px;color:var(--amber)}
+.brow span{flex:1;font-size:15px}
+.brow em{font-style:normal;font-family:var(--dot);font-weight:900;font-size:12px}
+.heat{display:grid;grid-template-columns:repeat(12,1fr);gap:4px;margin-top:12px}
+.heat a{aspect-ratio:1;border-radius:3px}
+/* profile */
+.mcard{position:relative;width:100%;max-width:330px;min-height:470px;margin:0 auto 22px;padding:0;border-radius:26px;overflow:hidden;isolation:isolate;background:#C4161F;color:#0B0B0C}
+.mcard::before{content:"";position:absolute;width:300px;height:300px;left:-100px;top:-120px;border-radius:150px;background:#FF3B3B;filter:blur(60px);z-index:-1}
+.mcard::after{content:"";position:absolute;width:300px;height:300px;right:-120px;bottom:-120px;border-radius:150px;background:#4A060C;filter:blur(60px);z-index:-1}
+.mcard .foil{position:absolute;top:-20%;bottom:-20%;left:0;width:30%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.25),transparent);transform:translateX(-120%);pointer-events:none}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .mcard .foil{animation:foil 5s ease-in-out infinite}html:not(.reduce) .mcard{animation:floatC 6s ease-in-out infinite}}
+@keyframes floatC{50%{transform:translateY(-4px)}}
+.mcard .mTop{display:flex;justify-content:space-between;align-items:center;padding:20px 22px 0}
+.mcard .mLogo{font-family:'Unbounded',sans-serif;font-weight:700;font-size:18px}
+.mcard .mId{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.mcard .mMid{display:flex;gap:16px;padding:20px 22px 0}
+.mcard .pol{width:128px;height:160px;padding:0;transform:none;border-radius:12px;overflow:hidden;background:#7A0B12;box-shadow:0 0 0 3px var(--cream)}
+.mcard .pol .ph2{height:100%;background:transparent;color:#F2EEE8}
+.mcard .mF{flex:1;min-width:0;display:flex;flex-direction:column;gap:2px;padding-top:4px}
+.mcard .mF>span{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px}
+.mcard .mF>b{font-family:var(--body);font-weight:600;font-size:15px;margin-bottom:8px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mcard .mF>b:first-of-type{font-size:18px}
+.mcard .mF>b.d{font-family:var(--dot);font-weight:900;font-size:16px}
+.mcard .mF>b.r{font-family:'Unbounded',sans-serif;font-size:11px;white-space:normal}
+.mcard .mF a{color:#0B0B0C}
+.mcard .mPer{display:inline-flex;align-items:center;height:28px;margin:16px 22px 0;padding:0 12px;border-radius:14px;background:#0B0B0C;color:var(--cream);font-size:12px}
+.mcard .perf{height:28px;margin:22px 24px 0}
+.mcard .perf::before{border-top:2px dashed rgba(11,11,12,.4)}
+.mcard .perf i{top:0;width:28px;height:28px;border-radius:14px}.mcard .perf i.l{left:-38px}.mcard .perf i.r{right:-38px}
+.mcard .mStats{display:flex;justify-content:space-between;padding:6px 22px 0}
+.mcard .mStats span{display:flex;flex-direction:column;align-items:center;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:1px}
+.mcard .mStats b{font-size:30px;line-height:1}
+.mcard .mFoot{position:absolute;left:22px;right:22px;bottom:20px;display:flex;justify-content:space-between;align-items:center;font-family:var(--dot);font-weight:900;font-size:10px}
+.mcard .mFoot .bc{width:150px;height:26px;background:repeating-linear-gradient(90deg,#0B0B0C 0 2px,transparent 2px 4px,#0B0B0C 4px 5px,transparent 5px 8px)}
+.msec{margin-bottom:22px}
+.msec .h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.msec .h .eyebrow{font-size:11px;color:#B9B4AD}
+.msec .h a,.msec .h .small{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px;color:var(--cream);text-decoration:none}
+.mabout{background:var(--panel);border-radius:22px;padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.mabout div{display:flex;flex-direction:column;gap:2px}
+.mabout span{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;color:#B9B4AD}
+.mabout b{font-weight:500;font-size:14px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.mabout b i{width:8px;height:8px;border-radius:4px}
+.t10row{display:flex;gap:6px;overflow-x:auto;margin:0 -16px;padding:0 16px 4px;scrollbar-width:none}
+.t10row::-webkit-scrollbar{display:none}
+.t10row .t10{width:54px;height:80px;flex:none;aspect-ratio:auto;border-radius:6px}
+.t10row .t10 .n{font-family:var(--dot);font-weight:900;font-size:14px;left:4px;top:2px;text-shadow:0 1px 3px #000}
+.t10row .t10.empty{border:1px dashed #3A3A3C;display:flex;align-items:center;justify-content:center;color:#6E6A64}
+.t10row .t10.empty .n{position:static;text-shadow:none;color:#6E6A64}
+.t10row .t10 .tt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);padding:0}
+.pspec{position:relative;display:block;overflow:hidden;isolation:isolate;border-radius:22px;padding:16px;background:var(--gc);color:#0B0B0C;text-decoration:none;min-height:120px}
+.pspec::before{content:"";position:absolute;width:200px;height:200px;right:-60px;top:-80px;border-radius:100px;background:var(--gc2);filter:blur(40px);z-index:-1}
+.pspec .pe{font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px}
+.pspec .pn{display:block;margin-top:6px;font-family:var(--body);font-size:24px;font-weight:500}
+.pspec .tr{display:block;margin-top:6px;font-size:12px}
+.rrow{display:flex;gap:8px}
+.rtile{flex:1;height:112px;border-radius:14px;background:var(--panel);color:#6E6A64;border:1px dashed #3A3A3C;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;text-align:center;text-decoration:none}
+.rtile.got{background:var(--red);color:var(--cream);border:0}
+.rtile b{font-family:var(--dot);font-weight:900;font-size:18px}
+.rtile span{font-family:'Unbounded',sans-serif;font-weight:600;font-size:8px;line-height:1.2}
+.msec .bar{height:8px;border-radius:4px;background:#2A2A2C;margin:12px 0 6px;overflow:hidden}
+.msec .bar i{display:block;height:100%;border-radius:4px;background:var(--red)}
+.msec .row2 .btn{height:46px;border-radius:23px;font-size:13px}
+@media (prefers-reduced-motion:reduce){.mcard,.mcard *,.gbar *,.yboard *{animation:none !important}}
+.reduce .mcard,.reduce .mcard *,.reduce .gbar *,.reduce .yboard *{animation:none !important}
+/* v0.8 print exact */
+.printWrap{display:flex;flex-direction:column;min-height:calc(100dvh - 110px - var(--safe-b))}
+.pmach{height:452px;flex:none;display:block;padding:0;border-radius:34px 34px 22px 22px}
+.pmach .bulbs{position:absolute;left:22px;right:22px;top:14px;display:flex;justify-content:space-between;padding:0}
+.pmach .bulbs i{width:10px;height:10px;background:#FFD98A;box-shadow:0 0 8px #FFB547;animation:none}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .pmach .bulbs.lit i{animation:bulbP 1.3s ease-in-out infinite;animation-delay:calc(var(--b)*.1s)}}
+@keyframes bulbP{50%{opacity:.45;box-shadow:none}}
+.pmach .lcd{position:absolute;left:20px;right:20px;top:40px;height:128px;padding:16px 18px;box-sizing:border-box}
+.pmach .lcd b{font-size:46px}
+.pmach .lcd .prog{margin-top:auto;border-radius:2px}
+.pmach .pbtns{position:absolute;left:20px;right:20px;top:196px}
+.pmach .pbtns .k{width:64px;height:64px;border-radius:32px}
+.pmach .prow{position:absolute;left:28px;right:28px;top:316px;padding:0}
+.pmach .prow .coin i{height:40px}
+.pmach .plip{position:absolute;left:34px;right:34px;top:402px;margin:0}
+.printWrap .slotWin{position:relative;z-index:2;width:auto;align-self:stretch;margin:-38px 44px 0;height:176px;overflow:hidden}
+.printWrap .slotWin .in{padding:0;height:176px}
+.printWrap #out{width:100%}
+.tkS{position:relative;width:100%;height:168px;margin:0;padding:0;border-radius:0 0 18px 18px;display:block;background:var(--gc);color:#0B0B0C;overflow:hidden;isolation:isolate}
+.tkS::before{display:none}
+.tkS .a1{position:absolute;width:200px;height:200px;right:-70px;top:-60px;border-radius:100px;background:var(--gc2);filter:blur(34px);z-index:-1}
+.tkS .a2{position:absolute;width:140px;height:140px;left:-50px;bottom:-50px;border-radius:70px;background:#F2EEE8;filter:blur(34px);opacity:.5;z-index:-1}
+.tkS .sP{position:absolute;left:14px;top:18px;width:52px;height:78px;border-radius:8px;overflow:hidden;background:var(--gc2);box-shadow:0 0 0 2px rgba(242,238,232,.5)}
+.tkS .sP img{width:100%;height:100%;object-fit:cover}
+.tkS .sG{position:absolute;left:78px;right:12px;top:22px;margin:0;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:0}
+.tkS .sT{position:absolute;left:78px;right:12px;top:40px;margin:0;text-align:left;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:19px;line-height:1.1;letter-spacing:-.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tkS .stubPart{position:absolute;left:0;right:0;top:116px;bottom:0;margin:0;padding:0 16px 16px;border-top:0;display:flex;align-items:flex-end;text-align:left;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.tkS .stubPart::before{content:"";position:absolute;left:16px;right:16px;top:0;border-top:2px dashed rgba(11,11,12,.35)}
+.tkS .stubPart i{position:absolute;top:-10px;width:22px;height:22px;border-radius:11px;background:#0B0B0C}
+.tkS .stubPart i.nl{left:-11px}.tkS .stubPart i.nr{right:-11px}
+.pbar{margin-top:auto !important;padding-top:16px;padding-bottom:10px}
+.pbar .btn{flex:1;width:auto;height:54px;border-radius:27px;font-size:15px}
+.pbar .icon.big{width:54px;height:54px;border-radius:27px;background:transparent;border:1px solid #3A3A3C}
+/* ticket view */
+.tk2 .tkTop{aspect-ratio:360/470}
+.tk2 .tdisc{display:none}
+/* form stars */
+.frate .fst .star svg{width:38px;height:38px}
+.fcard #quote{font-family:'Unbounded','Anuphan',sans-serif;font-size:14px;line-height:1.4}
+.csum .stats3{display:block;grid-template-columns:none;margin:0;background:none;padding:0}
+.csum .stats3 b{font-family:var(--dot);font-size:11px;display:inline;line-height:1}
+.pbar{align-self:stretch}
+.printWrap #out.go{animation:emerge8 2.4s cubic-bezier(.3,.1,.2,1) forwards}
+@keyframes emerge8{0%{transform:translateY(-100%)}15%{transform:translateY(-86%)}25%{transform:translateY(-84%)}45%{transform:translateY(-52%)}55%{transform:translateY(-50%)}100%{transform:translateY(0)}}
+.kiosk .kHead{white-space:nowrap}
+.bpage{min-height:560px}
+.ychips{align-self:stretch}
+.ymt{display:flex;align-items:center;gap:12px;margin-top:10px;color:var(--cream);text-decoration:none;background:none;padding:0}
+.ymt i{font-style:normal;font-size:40px;line-height:1}
+.ymt span{font-size:15px}
+.ymt b{font-family:var(--dot);font-weight:900;font-size:22px;color:var(--amber)}
+.ymg{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;grid-template-columns:none}
+.ymg a{height:26px;padding:0 10px;border-radius:13px;background:#2A2A2C;display:inline-flex;align-items:center;font-size:12px;color:var(--cream);text-decoration:none;flex-direction:row}
 </style>
 </head>
 <body>
 <div id="app"><main id="view" tabindex="-1"></main></div>
 <nav class="tabs" id="tabs" aria-label="แท็บหลัก"><div class="in">
-  <a href="#home" data-tab="home"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/><path d="M14 7v10" stroke-dasharray="2 2"/></svg>Booth</a>
-  <a href="#collection" data-tab="collection" id="tabCollection"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="3" width="7.5" height="11" rx="1.5"/><rect x="13.5" y="3" width="7.5" height="11" rx="1.5"/><path d="M3 18h18M3 21h18"/></svg>Collection</a>
-  <a href="#me" data-tab="me"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M12 4a4 4 0 1 0 .01 0z M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg>Me</a>
-  <a href="#year" data-tab="year"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M5 20V12M10 20V6M15 20v-9M20 20V4"/></svg>Year</a>
-</div></nav>
+  <a href="#home" data-tab="home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/></svg><span>BOOTH</span></a>
+  <a href="#collection" data-tab="collection" id="tabCollection"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z"/></svg><span>COLLECTION</span></a>
+  <a href="#me" data-tab="me"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4a4 4 0 1 0 .01 0z M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>ME</span></a>
+  <a href="#year" data-tab="year"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 20V11 M12 20V5 M18 20v-6"/></svg><span>YEAR</span></a>
+</div><a class="fab" href="#gacha" aria-label="ตู้สุ่มหนัง"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z M8.5 8.5h.01 M15.5 15.5h.01 M15.5 8.5h.01 M8.5 15.5h.01 M12 12h.01"/></svg></a></nav>
 <input type="file" id="filePoster" accept="image/*" class="sr" tabindex="-1" aria-hidden="true">
 <input type="file" id="filePhoto" accept="image/*" class="sr" tabindex="-1" aria-hidden="true">
 <input type="file" id="fileBackup" accept="application/json,.json" class="sr" tabindex="-1" aria-hidden="true">
@@ -864,7 +1172,7 @@ function ticketFront(t, glare){
     '<div class="tkTop">'+top+'<i class="foil" aria-hidden="true"></i><i class="fade" aria-hidden="true"></i>'+tkSparkles()+
       '<div class="tkChips"><span class="tkChip"><i style="background:'+g.c+'"></i>'+g.en+'</span><span class="tkChip"><i></i>'+ticketNo(t.no||S.meta.nextNo).replace(' ','')+'</span></div>'+
       (ed?'<span class="edBadge" style="background:'+ed.bg+'">✦ NO.'+t.no+' '+ed.short+'</span>':'')+
-      '<div class="tkTitle"><span class="tkEye">'+(t._n>1?'REWATCH ×'+t._n+' · ':'NOW SHOWING · ')+(dd.getFullYear()+543)+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
+      '<div class="tkTitle"><span class="tkEye">'+(t._n>1?'REWATCH ×'+t._n+' · ':'NOW SHOWING · ')+g.en+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
     '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
     '<div class="tkStub"><span class="tkDate"><b class="dd">'+pad(dd.getDate())+'</b><span><b>'+pad(dd.getMonth()+1)+'</b><small>'+(t.time?esc(t.time):'--:--')+'</small></span></span>'+
       '<span class="tkSeat"><small>SEAT</small><b>'+(t.seat?esc(t.seat):'—')+'</b></span></div>'+
@@ -876,12 +1184,12 @@ function ticketFront(t, glare){
 function ticketBack(t, glare){
   var photos = (t.photoIds||[]).filter(blobURL);
   var strip = photos.length ? '<div class="sec-h">A MOMENT FROM THAT NIGHT</div><div class="strip" style="grid-template-columns:repeat('+photos.length+',minmax(0,1fr))">'+photos.map(function(id){return '<img src="'+blobURL(id)+'" alt="รูปความทรงจำ">';}).join('')+'</div>' : '';
-  var quote = t.quote ? '<div style="padding:0 4px"><div class="sec-h">QUOTE · ประโยคเด็ด</div><p class="quote">“'+esc(t.quote)+'”</p></div>' : '';
-  var who = (t.companions||[]).length ? '<div style="padding:0 4px"><div class="sec-h">WATCHED WITH · ดูกับ</div><div style="font-size:14px;font-weight:400;margin-top:4px">'+t.companions.map(esc).join(', ')+'</div></div>' : '';
+  var quote = t.quote ? '<div style="padding:0 4px"><div class="sec-h">QUOTE</div><p class="quote">“'+esc(t.quote)+'”</p></div>' : '';
+  var who = (t.companions||[]).length ? '<div style="padding:0 4px"><div class="sec-h">WATCHED WITH</div><div style="font-size:14px;font-weight:400;margin-top:4px">'+t.companions.map(esc).join(', ')+'</div></div>' : '';
   return '<article class="ticket" aria-label="ตั๋ว '+esc(t.title)+' ด้านหลัง" style="gap:12px">'+band(t)+
-    '<div style="display:flex;flex-direction:column;gap:6px;padding:0 4px"><div class="sec-h">MY RATING · คะแนน</div>'+
+    '<div style="display:flex;flex-direction:column;gap:6px;padding:0 4px"><div class="sec-h">MY RATING</div>'+
     (t.rating!=null ? '<div class="stars">'+starsRow(t.rating,32)+'<span class="mono" style="margin-left:auto">'+t.rating+' / 5</span></div>' : '<div class="small" style="color:#6E665D">ยังไม่ให้คะแนน</div>')+'</div>'+
-    '<div style="display:flex;flex-direction:column;gap:2px;padding:0 4px"><div class="sec-h">MY NOTE · โน้ต</div><p class="note">'+(t.note?esc(t.note):'<span style="color:#9C948A">ยังไม่มีโน้ต</span>')+'</p></div>'+
+    '<div style="display:flex;flex-direction:column;gap:2px;padding:0 4px"><div class="sec-h">MY NOTE</div><p class="note">'+(t.note?esc(t.note):'<span style="color:#9C948A">ยังไม่มีโน้ต</span>')+'</p></div>'+
     moodBackHTML(t)+quote+who+(strip ? '<div style="display:flex;flex-direction:column;gap:8px;padding:0 4px">'+strip+'</div>' : '')+
     '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
     '<div style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:11px;padding:0 4px 2px"><span>'+fmtDate(t.date)+(t.time?' · '+esc(t.time):'')+'</span><span>ดูครั้งที่ '+(t._n||1)+'</span></div>'+
@@ -897,7 +1205,7 @@ function slotCode(i){ return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(i/2)
 function vendHTML(list){
   return '<section class="vend" aria-label="ตู้ตั๋ว"><div class="vendHead" aria-hidden="true"><span>MEMORY VENDING</span><span class="on">● OPEN</span></div><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
     list.map(function(t, i){ return '<div class="vslot">'+miniCard(t, i)+'<i class="rail" aria-hidden="true"></i><span class="vlab" aria-hidden="true">'+slotCode(i)+' · '+pad(t.no||0,4)+'</span></div>'; }).join('')+
-    '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH · หยิบตั๋ว</span><i></i></div></section>';
+    '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH</span><i></i></div></section>';
 }
 function setTabs(active){
   var tabs = document.getElementById('tabs');
@@ -981,7 +1289,7 @@ function viewForm(editId){
   } else if (!S.draft || S.draft.id) S.draft = newDraft();
   var d = S.draft, popAt = d._pop; d._pop = null; if (!d.moods) d.moods = []; var popMood = d._popMood; d._popMood = null;
   var titles = {}; S.tickets.forEach(function(t){ titles[t.title + (t.releaseYear?' ('+t.releaseYear+')':'')] = true; });
-  var gchips = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="genre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.en+' · '+g.th+'</button>'; }).join('');
+  var gchips = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="genre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.en+'</button>'; }).join('');
   var g2 = GENRES.filter(function(g){ return g.id!==d.genre; }).map(function(g){ return '<button type="button" class="gchip sec" style="--gc:'+g.c+'" data-act="genre2" data-v="'+g.id+'" aria-pressed="'+(d.genres2.indexOf(g.id)>=0)+'">'+g.th+'</button>'; }).join('');
   var favs = S.meta.favVenues || [];
   var vchip = function(v, star){ return '<button type="button" class="chip" style="min-height:32px;font-size:12px;font-family:var(--body)" data-act="venue" data-v="'+esc(v)+'" aria-pressed="'+(d.venue===v)+'">'+(star?'★ ':'')+esc(v)+'</button>'; };
@@ -995,46 +1303,57 @@ function viewForm(editId){
   var photos = ''; for (var p=0;p<3;p++){ var pid = d.photoIds[p];
     photos += pid ? '<div class="ph"><img src="'+blobURL(pid)+'" alt="รูปที่ '+(p+1)+'"><button type="button" class="x" data-act="rmPhoto" data-v="'+p+'" aria-label="ลบรูปที่ '+(p+1)+'">✕</button></div>'
                   : (p===d.photoIds.length ? '<button type="button" class="ph" data-act="addPhoto" aria-label="เลือกรูปจากคลัง">+</button>' : '<div class="ph" aria-hidden="true" style="opacity:.35"></div>'); }
+  var fstars = stars.replace(/#C5D46E/g,'#FFB547').replace(/<svg viewBox="0 0 24 24" aria-hidden="true">/g,'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+STAR_P+'" fill="#3A3A3C"/>').replace(/ stroke="#1B1713" stroke-width="1.1"/g,'');
+  var lab = function(t, forId){ return forId ? '<label class="flab" for="'+forId+'">'+t+'</label>' : '<span class="flab">'+t+'</span>'; };
   V.innerHTML =
-    '<div class="top"><a class="icon ghost" href="'+(d.id?'#ticket/'+d.id:'#home')+'" aria-label="ย้อนกลับ">'+IC.back+'</a><h1 class="c">'+(d.id?'แก้ไขตั๋ว':'TICKET BOOTH')+'</h1><span style="width:44px"></span></div>'+
+    '<div class="top hdr">'+logoHTML(22)+'<a class="icon" href="'+(d.id?'#ticket/'+d.id:'#home')+'" aria-label="ปิด">'+ICON_X+'</a></div>'+
+    '<h1 class="sr">'+(d.id?'แก้ไขตั๋ว':'พิมพ์ตั๋วใหม่')+'</h1>'+
+    '<section class="booth fmach" aria-hidden="true">'+bulbs(13)+'<div class="screen"><span class="l1"><span>'+(d.id?'TICKET BOOTH · EDIT':'TICKET BOOTH · STEP 1/2')+'</span></span><b>'+ticketNo(d.id?d.no:S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b></div></section>'+
     '<form id="f" novalidate>'+
-    '<section class="card"><h2>หนังที่ดู</h2>'+
-      '<div class="posterPick"><button type="button" class="posterBox" data-act="poster" aria-label="'+(d.posterId?'เปลี่ยนโปสเตอร์':'เพิ่มโปสเตอร์ ถ่ายหรือเลือกจากคลังรูป')+'">'+(d.posterId?'<img src="'+blobURL(d.posterId)+'" alt="">':IC.cam+'<span>โปสเตอร์</span>')+'</button>'+
-      '<div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0"><div class="field"><label for="title">ชื่อหนัง *</label><input class="inp" id="title" name="title" list="titleList" autocomplete="off" value="'+esc(d.title)+'" placeholder="พิมพ์ชื่อไทยหรืออังกฤษ"></div>'+
-      '<div class="field"><label for="ry">ปีที่ออกฉาย (ไม่บังคับ · ช่วยแยกรีเมก)</label><input class="inp" id="ry" name="releaseYear" inputmode="numeric" maxlength="4" value="'+esc(d.releaseYear)+'" placeholder="2014" style="height:42px"></div></div></div>'+
+    '<section class="fcard">'+lab('FILM','title')+
+      '<div class="posterPick"><button type="button" class="posterBox" data-act="poster" aria-label="'+(d.posterId?'เปลี่ยนโปสเตอร์':'เพิ่มโปสเตอร์ ถ่ายหรือเลือกจากคลังรูป')+'">'+(d.posterId?'<img src="'+blobURL(d.posterId)+'" alt="">':'<span>'+IC.cam+'<small>โปสเตอร์</small></span>')+'</button>'+
+      '<div class="pcol"><input class="inp" id="title" name="title" list="titleList" autocomplete="off" value="'+esc(d.title)+'" placeholder="ชื่อหนัง *">'+
+      '<label class="sr" for="ry">ปีที่ออกฉาย</label><input class="inp" id="ry" name="releaseYear" inputmode="numeric" maxlength="4" value="'+esc(d.releaseYear)+'" placeholder="ปีที่ฉาย (ไม่บังคับ)">'+
+      '<span class="fhint">แตะโปสเตอร์เพื่อ'+(d.posterId?'เปลี่ยนรูป':'เพิ่มรูป')+'</span>'+(d.posterId?'<button type="button" class="tlink" data-act="rmPoster">ลบโปสเตอร์</button>':'')+'</div></div>'+
       '<datalist id="titleList">'+Object.keys(titles).map(function(x){return '<option value="'+esc(x)+'">';}).join('')+'</datalist>'+
-      (d.posterId?'<button type="button" class="chip" data-act="rmPoster" style="align-self:flex-start;font-size:12px;min-height:32px">ลบโปสเตอร์</button>':'')+
-      '<div class="field"><span class="lbl">แนวหลัก * · กำหนดสีตั๋ว</span><div class="chips">'+gchips+'</div></div>'+
-      (d.genre?'<div class="field"><span class="lbl">แนวรอง (ไม่บังคับ · ใช้ค้นหา ไม่นับในสถิติ)</span><div class="chips">'+g2+'</div></div>':'')+
     '</section>'+
-    '<section class="card"><h2>การดูครั้งนี้</h2>'+
-      '<div class="row2"><div class="field"><label for="date">วันที่ดู *</label><input class="inp" type="date" id="date" name="date" value="'+esc(d.date)+'" max="'+todayISO()+'"></div>'+
-      '<div class="field"><label for="time">รอบ</label><input class="inp" type="time" id="time" name="time" value="'+esc(d.time)+'"'+(d.unknownTime?' disabled':'')+'></div></div>'+
+    '<section class="fcard">'+lab('GENRE *')+'<div class="fchips">'+gchips+'</div>'+
+      (d.genre?'<details class="g2"'+(d.genres2.length?' open':'')+'><summary>+ แนวรอง (ไม่บังคับ)</summary><div class="fchips">'+g2+'</div></details>':'')+
+    '</section>'+
+    '<section class="fcard">'+lab('WHEN &amp; WHERE')+
+      '<div class="frow"><label class="sr" for="date">วันที่ดู</label><input class="inp dt" type="date" id="date" name="date" value="'+esc(d.date)+'" max="'+todayISO()+'" style="flex:3">'+
+      '<label class="sr" for="time">รอบ</label><input class="inp dt" type="time" id="time" name="time" value="'+esc(d.time)+'"'+(d.unknownTime?' disabled':'')+' style="flex:2"></div>'+
       '<label class="check"><input type="checkbox" name="unknownTime"'+(d.unknownTime?' checked':'')+'> ไม่ทราบเวลารอบ</label>'+
-      '<div class="field"><label for="venue">โรงภาพยนตร์ · พิมพ์ค้นหาหรือเพิ่มเอง</label><input class="inp" id="venue" name="venue" list="venueList" autocomplete="off" value="'+esc(d.venue)+'" placeholder="Major Cineplex รังสิต"></div>'+
+      '<label class="sr" for="venue">โรงภาพยนตร์</label><input class="inp" id="venue" name="venue" list="venueList" autocomplete="off" value="'+esc(d.venue)+'" placeholder="โรงภาพยนตร์ · พิมพ์ค้นหาหรือเพิ่มเอง">'+
       '<datalist id="venueList">'+VENUES.map(function(v){return '<option value="'+esc(v.name)+'" label="'+esc(v.chain)+'">'+(v.en?'<option value="'+esc(v.name)+'" label="'+esc(v.en)+'">':'');}).join('')+'</datalist>'+
-      (recents?'<div class="chips" aria-label="โรงโปรดและโรงล่าสุด">'+recents+'</div>':'')+
-      (d.venue.trim()?'<button type="button" class="chip" data-act="favVenue" aria-pressed="'+!!isFav+'" style="align-self:flex-start;min-height:32px;font-size:12px">'+(isFav?'★ โรงโปรดแล้ว':'☆ ตั้งเป็นโรงโปรด')+'</button>':'')+
-      '<span class="small muted">เมเจอร์: จากเว็บทางการ · SF: จาก thaiware.com (ไม่ใช่เว็บทางการ) ตรวจ 11 พ.ย. 2569 · โรงอิสระเป็นตัวอย่าง · ยังไม่ครบทุกโรงในไทย พิมพ์ชื่อเองได้เสมอ</span>'+
-      '<div class="row2"><div class="field"><label for="hall">โรงที่ (ไม่บังคับ)</label><input class="inp" id="hall" name="hall" maxlength="12" value="'+esc(d.hall)+'" placeholder="5"></div>'+
-      '<div class="field"><label for="seat">ที่นั่ง (ไม่บังคับ)</label><input class="inp" id="seat" name="seat" maxlength="10" value="'+esc(d.seat)+'" placeholder="G12" style="text-transform:uppercase"></div></div>'+
-      '<div class="field"><span class="lbl">ฟอร์แมต (ไม่บังคับ)</span><div class="chips">'+fmts+'</div></div>'+
-      '<div class="field"><label for="who">ดูกับใคร (ไม่บังคับ)</label><div style="display:flex;gap:8px"><input class="inp" id="who" maxlength="30" placeholder="ชื่อเพื่อน แฟน ครอบครัว" enterkeyhint="done"><button type="button" class="chip" data-act="addWhoInput" style="min-height:48px">เพิ่ม</button></div>'+
-      (tags?'<div class="chips">'+tags+'</div>':'')+(sugg?'<div class="chips">'+sugg+'</div>':'')+'</div>'+
+      (recents?'<div class="fchips sm" aria-label="โรงโปรดและโรงล่าสุด">'+recents+'</div>':'')+
+      (d.venue.trim()?'<button type="button" class="tlink" data-act="favVenue" aria-pressed="'+!!isFav+'">'+(isFav?'★ โรงโปรดแล้ว':'☆ ตั้งเป็นโรงโปรด')+'</button>':'')+
+      '<div class="fchips fmt" aria-label="ฟอร์แมต">'+fmts+'</div>'+
     '</section>'+
-    '<section class="card"><h2>หลังตั๋ว <span class="small muted" style="font-family:var(--body);letter-spacing:0;text-transform:none">เติมทีหลังได้</span></h2>'+
-      '<div class="field"><span class="lbl">คะแนน '+(d.rating!=null?'· '+d.rating+' / 5':'')+'</span><div class="stars" style="background:var(--paper);border-radius:12px;padding:4px 8px;align-self:flex-start">'+stars+'</div>'+
-      (d.rating!=null?'<button type="button" class="chip" data-act="rate" data-v="" style="align-self:flex-start;font-size:12px;min-height:32px">ล้างคะแนน</button>':'')+'</div>'+
-      moodChipsForm({moods:d.moods, _popMood:popMood})+'<div class="field"><label for="quote">ประโยคเด็ดจากหนัง (ไม่บังคับ)</label><textarea class="inp" id="quote" name="quote" maxlength="160" placeholder="Do not go gentle into that good night." style="min-height:64px;font-family:var(--mono);font-style:italic;font-size:14px">'+esc(d.quote||'')+'</textarea></div>'+
-      '<div class="field"><label for="note">โน้ตความรู้สึก</label><textarea class="inp" id="note" name="note" maxlength="400" placeholder="ดูแล้วรู้สึกยังไง…">'+esc(d.note)+'</textarea></div>'+
-      '<div class="field"><span class="lbl">รูปความทรงจำ · แถบ photobooth สูงสุด 3 รูป (ไม่บังคับ)</span>'+
-      (d.photoIds.length<3?'<button type="button" class="btn out sm" data-act="openCam">'+IC.cam+' ถ่ายแบบ Photobooth · นับ 3‑2‑1</button>':'')+
-      '<div class="photoRow">'+photos+'</div><span class="small muted">รูปและโน้ตเก็บในเครื่องนี้เท่านั้น · กด + เพื่อเลือกจากคลังรูป</span></div>'+
+    '<section class="fcard">'+lab('SEAT')+
+      '<div class="frow"><label class="sr" for="hall">โรงที่</label><input class="inp" id="hall" name="hall" maxlength="12" value="'+esc(d.hall)+'" placeholder="โรง 2">'+
+      '<label class="sr" for="seat">ที่นั่ง</label><input class="inp dt" id="seat" name="seat" maxlength="10" value="'+esc(d.seat)+'" placeholder="J8" style="text-transform:uppercase"></div>'+
+    '</section>'+
+    '<section class="fcard">'+lab('WITH','who')+
+      '<div class="frow"><input class="inp" id="who" maxlength="30" placeholder="+ เพิ่มชื่อ" enterkeyhint="done"><button type="button" class="chip" data-act="addWhoInput">เพิ่ม</button></div>'+
+      (tags?'<div class="fchips">'+tags+'</div>':'')+(sugg?'<div class="fchips sm">'+sugg+'</div>':'')+
+    '</section>'+
+    '<h2 class="fsec">BACK OF TICKET · OPTIONAL</h2>'+
+    '<section class="fcard">'+lab('MY RATING')+'<div class="frate"><div class="stars fst">'+fstars+'</div><b>'+(d.rating!=null?d.rating:'–')+'</b></div>'+
+      (d.rating!=null?'<button type="button" class="tlink" data-act="rate" data-v="">ล้างคะแนน</button>':'')+
+      moodChipsForm({moods:d.moods, _popMood:popMood}).replace('<span class="lbl">ดูแล้วรู้สึก · เลือกได้สูงสุด 3 (ไม่บังคับ)</span><div class="chips">','<span class="flab">FELT · MAX 3</span><div class="fchips">')+
+    '</section>'+
+    '<section class="fcard">'+lab('MY NOTE','note')+'<textarea class="inp note" id="note" name="note" maxlength="400" placeholder="ดูแล้วรู้สึกยังไง…">'+esc(d.note)+'</textarea>'+
+      lab('QUOTE','quote')+'<textarea class="inp" id="quote" name="quote" maxlength="160" placeholder="Whatever it takes." style="min-height:52px">'+esc(d.quote||'')+'</textarea>'+
+    '</section>'+
+    '<section class="fcard">'+lab('PHOTOBOOTH')+'<div class="photoRow fph">'+photos+
+      (d.photoIds.length<3?'<button type="button" class="camBtn" data-act="openCam">'+IC.cam+' เปิดตู้ถ่ายรูป</button>':'')+'</div>'+
+      '<span class="fhint">รูปและโน้ตเก็บในเครื่องนี้เท่านั้น</span>'+
     '</section>'+
     (d.id?'<button type="button" class="btn danger sm" data-act="delete">'+IC.trash+' ลบตั๋วใบนี้</button>':'')+
     '</form>'+
     '<div class="sticky"><div class="in">'+(d._err?'<span class="err" role="alert">'+esc(d._err)+'</span>':'')+
-    '<button type="button" class="btn" data-act="submit">'+(d.id?'บันทึกการแก้ไข':'ดูตัวอย่าง &amp; พิมพ์')+'</button></div></div>';
+    '<button type="button" class="btn ptk" data-act="submit">'+(d.id?'SAVE TICKET':'PRINT TICKET')+'</button></div></div>';
 }
 function validate(d){
   if (!d.title.trim()) return 'ใส่ชื่อหนังก่อนนะ';
@@ -1060,7 +1379,7 @@ function viewPrint(){
   var dd = parseISO(t.date);
   V.innerHTML =
     '<div class="top">'+logoHTML(22)+'<a class="icon" href="#new" aria-label="กลับไปแก้ไข">'+IC.back+'</a></div>'+
-    '<section class="printWrap" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="pmach">'+bulbs(13,'fast')+
+    '<section class="printWrap" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="pmach">'+bulbs(13,'lit')+
       '<div class="lcd" role="status"><span>PRINTING TICKET<span class="cur">_</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="prog" aria-hidden="true"><i></i></span></div>'+
       '<div class="pbtns" aria-hidden="true"><span><i class="k cr">'+ICON('ticket',20)+'</i>PRINT</span><span><i class="k">'+IC.cam+'</i>PHOTO</span><span><i class="k">'+ICON('clapper',20)+'</i>STAMP</span></div>'+
       '<div class="prow" aria-hidden="true"><i class="grill"></i><span class="coin"><i></i>INSERT MEMORY</span><i class="led"></i></div>'+
@@ -1071,7 +1390,7 @@ function viewPrint(){
       '<button class="btn" data-act="save">ฉีกตั๋ว &amp; เก็บเข้าคอลเลกชัน</button>'+
       '<a class="btn out sm" href="#new">แก้ไขก่อนเก็บ</a></div></section>';
   var out = document.getElementById('out'), btns = document.getElementById('printBtns'), pw = document.getElementById('pw');
-  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done'); var pl = pw.querySelector('.bulbs'); if (pl) pl.classList.remove('fast'); };
+  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done');  };
   if (isReduced()) { show(); return; }
   requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
   out.addEventListener('animationend', show); setTimeout(show, 2800);
@@ -1169,12 +1488,12 @@ function viewTicket(id){
   if (!t) { V.innerHTML = '<div class="empty">ไม่พบตั๋วใบนี้<a class="btn out sm" href="#collection" style="max-width:220px">กลับคอลเลกชัน</a></div>'; return; }
   var needPerm = window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function' && !S.tiltOn;
   V.innerHTML =
-    '<div class="top"><a class="icon ghost" href="#collection" aria-label="กลับคอลเลกชัน">'+IC.back+'</a><h1 class="c">'+esc(t.title)+'</h1><a class="icon" href="#edit/'+t.id+'" aria-label="แก้ไขตั๋ว">'+IC.edit+'</a></div>'+
+    '<div class="top hdr"><a class="icon" href="#collection" aria-label="กลับคอลเลกชัน">'+ICON_BACK+'</a><h1 class="c tno"><span class="sr">'+esc(t.title)+' </span>'+ticketNo(t.no).replace(' ','')+(S.flipped?' · ด้านหลัง':'')+'</h1><a class="icon" href="#edit/'+t.id+'" aria-label="แก้ไขตั๋ว">'+IC.edit+'</a></div>'+
     '<div class="tilt" id="tilt"><div class="flip'+(S.flipped?' on':'')+'" id="flip"><div class="inner"><div class="face front" aria-hidden="'+S.flipped+'">'+ticketFront(t,true)+'</div><div class="face back" aria-hidden="'+(!S.flipped)+'">'+ticketBack(t,true)+'</div></div></div></div>'+
-    '<div style="display:flex;gap:10px;margin-top:16px"><button class="btn out" data-act="flip">'+IC.flip+(S.flipped?' ดูด้านหน้า':' พลิกตั๋ว')+'</button><button class="btn" data-act="share" data-v="'+t.id+'" style="width:auto;padding:0 20px">'+IC.share+' แชร์</button></div>'+
-    '<div style="display:flex;gap:10px;margin-top:10px"><a class="btn out sm" href="#new" data-act="rewatch" data-v="'+t.id+'" style="border-color:var(--line2)">ดูซ้ำ · พิมพ์ตั๋วใหม่</a><button class="btn danger sm" data-act="deleteT" data-v="'+t.id+'" style="width:auto;padding:0 18px" aria-label="ลบตั๋ว">'+IC.trash+'</button></div>'+
+    '<div style="display:flex;gap:10px;margin-top:16px"><button class="btn out" data-act="flip">'+IC.flip+(S.flipped?' พลิกดูด้านหน้า':' พลิกดูโน้ต')+'</button><button class="btn" data-act="share" data-v="'+t.id+'" style="width:auto;padding:0 20px">'+IC.share+' แชร์</button></div>'+
+    '<div style="display:flex;gap:10px;margin-top:10px"><a class="btn out sm" href="#new" data-act="rewatch" data-v="'+t.id+'" style="border-color:var(--line2)">ดูซ้ำ · พิมพ์ตั๋วใหม่</a><button class="btn danger sm" data-act="deleteT" data-v="'+t.id+'" style="width:64px;padding:0" aria-label="ลบตั๋ว">ลบ</button></div>'+
     (needPerm && !isReduced() ? '<button class="btn out sm" data-act="tiltPerm" style="margin-top:10px;border-color:var(--line2)">'+IC.sun+' เปิดแสงสะท้อนตามการเอียงมือถือ</button>' : '')+
-    '<p class="small muted" style="text-align:center;margin-top:14px">'+(t._total>1?'ดูเรื่องนี้ทั้งหมด '+t._total+' ครั้ง · ':'')+'แนวรอง: '+((t.genres2||[]).map(function(g){return GMAP[g].th;}).join(', ')||'—')+'</p>';
+    (t._total>1||(t.genres2||[]).length ? '<p class="small muted" style="text-align:center;margin-top:14px">'+[t._total>1?'ดูเรื่องนี้ทั้งหมด '+t._total+' ครั้ง':'', (t.genres2||[]).length?'แนวรอง: '+t.genres2.map(function(g){return GMAP[g].th;}).join(', '):''].filter(Boolean).join(' · ')+'</p>' : '');
   setupTilt();
 }
 var tiltHandler = null;
@@ -1275,7 +1594,7 @@ function drawTicket(t, side, hidePrivate){
       y += 44; ctx.font = '300 22px '+F.b; setLS(ctx, 0); ctx.fillStyle = '#6E665D'; ctx.fillText('ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม', W/2, y);
     } else {
       ctx.fillStyle = '#4F483F'; ctx.textAlign = 'left'; ctx.textBaseline = 'alphabetic'; ctx.font = '400 26px '+F.m; setLS(ctx, 5);
-      y += 40; ctx.fillText('MY RATING · คะแนน', P+10, y);
+      y += 40; ctx.fillText('MY RATING', P+10, y);
       y += 30;
       if (t.rating != null) {
         for (var i=1;i<=5;i++){ var sx = P+10+(i-1)*110, f = t.rating>=i?1:t.rating>=i-.5?.5:0;
@@ -1285,7 +1604,7 @@ function drawTicket(t, side, hidePrivate){
         ctx.fillStyle = '#1B1713'; ctx.font = '400 40px '+F.m; setLS(ctx, 0); ctx.textAlign = 'right'; ctx.fillText(t.rating+' / 5', W-P-10, y+70); ctx.textAlign = 'left';
       } else { ctx.fillStyle = '#6E665D'; ctx.font = '300 34px '+F.b; setLS(ctx, 0); ctx.fillText('ยังไม่ให้คะแนน', P+10, y+60); }
       var mz = (t.moods||[]).filter(function(m){ return MMAP[m]; }); if (mz.length) { ctx.fillStyle = '#1B1713'; ctx.font = '300 32px '+F.b; setLS(ctx, 0); ctx.textAlign = 'left'; ctx.fillText(mz.map(function(m){ return MMAP[m].e+' '+MMAP[m].th; }).join('    '), P+10, y+150); y += 50; }
-      y += 120 + 60; ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('MY NOTE · โน้ต', P+10, y);
+      y += 120 + 60; ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('MY NOTE', P+10, y);
       setLS(ctx, 0); y += 20;
       if (hidePrivate) { ctx.fillStyle = '#9C948A'; ctx.font = '300 34px '+F.b; ctx.fillText('— โน้ตส่วนตัว —', P+10, y+70); y += 152; }
       else {
@@ -1295,9 +1614,9 @@ function drawTicket(t, side, hidePrivate){
         y += rows*76;
       }
       y += 40;
-      if (t.quote) { ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('QUOTE · ประโยคเด็ด', P+10, y+20); setLS(ctx, 0); ctx.fillStyle = '#1B1713'; ctx.font = 'italic 400 34px '+F.m;
+      if (t.quote) { ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('QUOTE', P+10, y+20); setLS(ctx, 0); ctx.fillStyle = '#1B1713'; ctx.font = 'italic 400 34px '+F.m;
         var ql = wrapText(ctx, '“'+t.quote+'”', IW-40).slice(0,5); ql.forEach(function(l,i){ ctx.fillText(l, P+10, y+80+i*52); }); y += 70 + ql.length*52; }
-      if ((t.companions||[]).length) { ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('WATCHED WITH · ดูกับ', P+10, y+20); setLS(ctx, 0); ctx.fillStyle = '#1B1713'; ctx.font = '400 38px '+F.b; ctx.fillText(t.companions.join(', '), P+10, y+80); y += 130; }
+      if ((t.companions||[]).length) { ctx.fillStyle = '#4F483F'; ctx.font = '400 26px '+F.m; setLS(ctx, 5); ctx.fillText('WATCHED WITH', P+10, y+20); setLS(ctx, 0); ctx.fillStyle = '#1B1713'; ctx.font = '400 38px '+F.b; ctx.fillText(t.companions.join(', '), P+10, y+80); y += 130; }
       if (!hidePrivate && photos.length) {
         var sw2 = (IW-60)/3, sh2 = Math.round(sw2*4/3); y += 20;
         ctx.save(); ctx.translate(W/2, y+sh2/2+20); ctx.rotate(-0.03); ctx.fillStyle = '#FFFFFF';
@@ -1308,7 +1627,7 @@ function drawTicket(t, side, hidePrivate){
       if (hidePrivate) y += 0;
       drawPerf(ctx, P, y, IW, cut);
       y += 66; ctx.fillStyle = '#1B1713'; ctx.font = '400 30px '+F.m; ctx.textAlign = 'left'; ctx.fillText(fmtDate(t.date)+(t.time?' · '+t.time:''), P+10, y);
-      ctx.textAlign = 'right'; ctx.fillText('ดูครั้งที่ '+(t._n||1), W-P-10, y);
+      ctx.textAlign = 'right'; ctx.fillText('WATCH #'+(t._n||1), W-P-10, y);
     }
     return c;
   });
@@ -1530,7 +1849,7 @@ function comingSoonHTML(){
   var list = watchSorted(), n = list.length;
   var row = list.slice(0,6).map(function(w){ var c = countdown(w);
     return '<a class="cmini" href="#watch" aria-label="'+esc(w.title)+' · '+c.sub+'"><span class="th">'+watchThumb(w)+(c.tag?'<span class="cdb">'+c.tag+'</span>':'')+'</span><span class="t">'+esc(w.title)+'</span></a>'; }).join('');
-  return '<section style="margin-top:20px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span class="eyebrow">COMING SOON · อยากดู</span>'+(n?'<a href="#watch" class="small" style="color:var(--lime);text-decoration:none">ทั้งหมด '+n+' →</a>':'')+'</div>'+
+  return '<section style="margin-top:20px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span class="eyebrow">COMING SOON</span>'+(n?'<a href="#watch" class="small" style="color:var(--lime);text-decoration:none">ทั้งหมด '+n+' →</a>':'')+'</div>'+
     (n ? '<div class="comingRow">'+row+'</div>' : '<p class="small muted" style="margin:0 0 4px">จดหนังที่รอเข้าโรงไว้ พร้อมนับถอยหลังและลิงก์ trailer</p>')+
     '<div class="row2" style="margin-top:12px"><a class="btn out sm" href="#watchnew">+ หนังที่อยากดู</a><a class="btn sm" href="#gacha">ตู้สุ่มหนัง</a></div></section>';
 }
@@ -1952,20 +2271,20 @@ function viewMe(){
       '<span class="mono" style="margin-top:20px;font-size:12px;letter-spacing:3px">CINEMA ID</span><span class="mono" style="font-size:10px;color:#6E665D">'+n+' TICKETS · '+earnedStampIds().length+' STAMPS</span></div>'+
       '<button class="pol" data-x="mePhoto" aria-label="'+(P.photoId?'เปลี่ยนรูปโปรไฟล์':'เพิ่มรูปโปรไฟล์')+'"><div class="ph2">'+(blobURL(P.photoId)?'<img src="'+blobURL(P.photoId)+'" alt="รูปโปรไฟล์">':'แตะเพื่อเพิ่มรูป')+'</div>'+
       '<svg class="clip" width="26" height="70" viewBox="0 0 26 70" fill="none" stroke="#8F877B" stroke-width="2.2" aria-hidden="true"><path d="M8 62V12a5 5 0 0 1 10 0v44a3 3 0 0 1-6 0V16"/></svg></button></div>'+
-      '<div class="idf" style="margin-top:18px"><div><span>NAME · ชื่อ</span><b>'+(esc(P.name)||'<a href="#meedit" style="color:#6E665D">ใส่ชื่อ</a>')+'</b></div>'+
-      '<div><span>RANK · ยศ</span><b>'+(ri>=0?RANKS[ri].en.replace(/\b\w+/g,function(w){return w.charAt(0)+w.slice(1).toLowerCase();})+' · ':'')+n+' เรื่อง</b></div>'+
-      (P.seat?'<div><span>SIGNATURE SEAT · ที่นั่งประจำ</span><b>'+esc(P.seat)+'</b></div>':'')+'</div>'+
+      '<div class="idf" style="margin-top:18px"><div><span>NAME</span><b>'+(esc(P.name)||'<a href="#meedit" style="color:#6E665D">ใส่ชื่อ</a>')+'</b></div>'+
+      '<div><span>RANK</span><b>'+(ri>=0?RANKS[ri].en.replace(/\b\w+/g,function(w){return w.charAt(0)+w.slice(1).toLowerCase();})+' · ':'')+n+' เรื่อง</b></div>'+
+      (P.seat?'<div><span>SIGNATURE SEAT</span><b>'+esc(P.seat)+'</b></div>':'')+'</div>'+
       (fav.length?'<div class="idg">'+fav.map(function(g,i){ return '<span class="'+(i===0?'on':'')+'">'+GMAP[g].en+(i===0?cloud:'')+'</span>'; }).join('')+'</div>':'<div style="height:14px"></div>')+
-      '<div class="idf">'+(P.snack?'<div><span>CINEMA SNACK · เมนูประจำ</span><b>'+esc(P.snack)+'</b></div>':'')+
-      '<div><span>HOME CINEMA · โรงประจำ</span><b>'+(esc(P.cinema||topV)||'—')+'</b></div>'+
-      (P.obsessed?'<div><span>CURRENTLY OBSESSED · กำลังอิน</span><b>'+esc(P.obsessed)+'</b></div>':'')+'</div>'+
+      '<div class="idf">'+(P.snack?'<div><span>CINEMA SNACK</span><b>'+esc(P.snack)+'</b></div>':'')+
+      '<div><span>HOME CINEMA</span><b>'+(esc(P.cinema||topV)||'—')+'</b></div>'+
+      (P.obsessed?'<div><span>CURRENTLY OBSESSED</span><b>'+esc(P.obsessed)+'</b></div>':'')+'</div>'+
     '</article>'+
-    '<section class="msec"><div class="h"><span class="eyebrow">TOP 10 · หนังในดวงใจ</span><span class="small muted">แตะเพื่อเลือก</span></div><div class="t10big">'+big+'</div><div class="t10sm">'+small+'</div></section>'+
-    '<section class="msec"><div class="h"><span class="eyebrow">MY MOVIE TYPE</span><a href="#persona">ดูรายละเอียด →</a></div>'+(p?personaHTML(p, true):'<p class="small muted">ต้องมีตั๋ว 5 ใบถึงจะได้ฉายา · ตอนนี้ '+n+' ใบ</p>')+'</section>'+
-    '<section class="msec"><div class="h"><span class="eyebrow">RANK CARDS · '+(ri+1)+' / 10</span><a href="#ranks">ดูทั้งหมด →</a></div>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">TOP 10</span><span class="small muted">TAP TO PICK</span></div><div class="t10big">'+big+'</div><div class="t10sm">'+small+'</div></section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">MY MOVIE TYPE</span><a href="#persona">DETAILS →</a></div>'+(p?'<a class="persona pspec" href="#persona" style="--gc:'+GMAP[p.genre].c+';--gc2:'+(GDARK[p.genre]||'#4A5568')+'"><span class="pe">'+esc(p.en)+'</span><b class="pn">'+esc(p.name)+'</b><span class="tr">'+p.traits.map(esc).join(' · ')+'</span></a>':'<p class="small muted">ต้องมีตั๋ว 5 ใบถึงจะได้ฉายา · ตอนนี้ '+n+' ใบ</p>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">RANK CARDS · '+(ri+1)+' / 10</span><a href="#ranks">ALL →</a></div>'+
       '<div class="rrow">'+[0,1,2,3].map(function(k){ var idx = Math.max(0, Math.min(6, ri-1)) + k; return rankCardHTML(idx, n, '#ranks'); }).join('')+'</div>'+
       (nextNeed?'<div class="bar"><i style="width:'+Math.round((n%10)/10*100)+'%"></i></div><span class="small muted">อีก '+(nextNeed-n)+' เรื่องจะได้การ์ด '+RANKS[ri+1].en+' ('+nextNeed+' เรื่อง)</span>':'<span class="small muted">ครบทุกยศแล้ว · ตำนานโรงหนัง</span>')+'</section>'+
-    '<section class="msec"><div class="h"><span class="eyebrow">MY SHELF · ชั้นวาง</span><a href="#collection" data-x="goShelf">เปิดชั้นวาง →</a></div>'+(shelfItems.length?'<div class="shelfWrap"><div class="shelfRow" style="height:140px">'+shelfItems.map(spineHTML).join('')+'</div></div>':'<p class="small muted">ยังไม่มีตั๋ว</p>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">MY SHELF</span><a href="#collection" data-x="goShelf">เปิดชั้นวาง →</a></div>'+(shelfItems.length?'<div class="shelfWrap"><div class="shelfRow" style="height:140px">'+shelfItems.map(spineHTML).join('')+'</div></div>':'<p class="small muted">ยังไม่มีตั๋ว</p>')+'</section>'+
     '<section class="msec"><div class="h"><span class="eyebrow">SHARE TO STORIES</span></div><div class="row2"><button class="btn out sm" data-x="shareStory" data-v="id">บัตร Cinema ID</button><button class="btn out sm" data-x="shareStory" data-v="shelf">ชั้นวางปีนี้</button></div>'+
       '<div class="row2" style="margin-top:10px"><button class="btn out sm" data-x="shareStory" data-v="persona"'+(p?'':' disabled')+'>ฉายา</button><button class="btn out sm" data-x="shareStory" data-v="rank"'+(ri>=0?'':' disabled')+'>ยศปัจจุบัน</button></div></section>'+
     '<a class="btn out sm" href="#passport" style="border-color:var(--line2)">'+ICON('clapper',18)+' สมุดแสตมป์ · '+earnedStampIds().length+' / '+STAMPS.length+'</a>';
@@ -2059,7 +2378,7 @@ function celebrate(t){
       inner = '<span class="eyebrow" style="color:'+ed.ring+'">'+ed.short+' EDITION</span><b style="font-family:var(--display);font-weight:300;font-size:42px;line-height:1">ตั๋วใบที่ '+it.t.no+'</b><div class="pop" style="width:250px">'+ticketFront(it.t)+'</div>';
       share = '<button class="btn" data-c="shareEd" style="background:'+ed.ring+'">'+IC.share+' แชร์ตั๋วใบที่ '+it.t.no+'</button>'; }
     else if (it.type==='rank') { var r = RANKS[it.i];
-      inner = '<span class="eyebrow" style="color:var(--lime)">RANK UP · ยศใหม่</span><b style="font-family:var(--display);font-weight:300;font-size:30px;line-height:1.15">ได้ยศ '+r.en+'</b><div class="pop" style="width:200px;transform:rotate(-4deg)">'+rankCardHTML(it.i, n)+'</div><span class="small">'+(it.i<9?'อีก 10 เรื่องถึง '+RANKS[it.i+1].en:'ตำนานโรงหนัง · ครบทุกยศแล้ว')+'</span>';
+      inner = '<span class="eyebrow" style="color:var(--lime)">RANK UP</span><b style="font-family:var(--display);font-weight:300;font-size:30px;line-height:1.15">ได้ยศ '+r.en+'</b><div class="pop" style="width:200px;transform:rotate(-4deg)">'+rankCardHTML(it.i, n)+'</div><span class="small">'+(it.i<9?'อีก 10 เรื่องถึง '+RANKS[it.i+1].en:'ตำนานโรงหนัง · ครบทุกยศแล้ว')+'</span>';
       share = '<button class="btn" data-c="shareRank">'+IC.share+' แชร์ยศลง Story</button>'; }
     else if (it.type==='goal' || it.type==='genres') {
       inner = '<span class="eyebrow" style="color:var(--lime)">CHALLENGE COMPLETE · '+it.y+'</span><b style="font-family:var(--display);font-weight:300;font-size:'+(it.type==='goal'?'84':'40')+'px;line-height:1">'+(it.type==='goal'?it.p.n+' / '+it.p.goal:'ครบ '+GENRES.length+' แนว')+'</b>'+
@@ -2124,7 +2443,7 @@ function storyID(){
     x.font = '500 52px '+F.d; setLS(x, 6); x.fillText(ri>=0 ? RANKS[ri].en : 'NEW VIEWER', -400, 70);
     x.textAlign = 'center'; x.font = '300 90px '+F.d; setLS(x, 0); x.fillText(String(n), 220, 60); x.fillText(String(earnedStampIds().length), 360, 60);
     x.font = '300 26px '+F.b; x.fillText('เรื่อง', 220, 104); x.fillText('แสตมป์', 360, 104);
-    x.textAlign = 'left'; x.font = '400 26px '+F.m; setLS(x, 6); x.fillText('TOP 10 · หนังในดวงใจ', -400, 200);
+    x.textAlign = 'left'; x.font = '400 26px '+F.m; setLS(x, 6); x.fillText('TOP 10', -400, 200);
     var pw = 152, ph = 228, gap = 10;
     for (var k=0;k<10;k++){ var cx = -400 + (k%5)*(pw+gap), cy = 230 + Math.floor(k/5)*(ph+gap), img = imgs[k+1], t = keys[k] ? fi[keys[k]] : null;
       x.save(); rr(x, cx, cy, pw, ph, 8); x.clip(); x.fillStyle = t ? '#2A2724' : '#D6CCB8'; x.fillRect(cx, cy, pw, ph); if (img) drawCover(x, img, cx, cy, pw, ph);
@@ -2138,7 +2457,7 @@ function storyID(){
 function storyRank(i){
   return fontsReady().then(function(){
     var s = storyCanvas('#141312'), x = s.x, n = S.tickets.length, r = RANKS[i];
-    x.fillStyle = '#C5D46E'; x.textAlign = 'center'; x.font = '400 30px '+F.m; setLS(x, 12); x.fillText('RANK · ยศของฉัน', 540, 200);
+    x.fillStyle = '#C5D46E'; x.textAlign = 'center'; x.font = '400 30px '+F.m; setLS(x, 12); x.fillText('RANK', 540, 200);
     x.fillStyle = '#E6DCC9'; x.font = '300 80px '+F.d; setLS(x, 2); x.fillText((S.profile.name||'ฉัน')+' ได้ยศ', 540, 330); x.font = '500 70px '+F.d; setLS(x, 8); x.fillText(r.en, 540, 420);
     var cc = ['#6EC1CF','#C5D46E','#DDA0BA','#DEC46A','#A497D4','#D9925C']; for (var k=0;k<30;k++){ x.save(); x.translate((k*173)%1080, 480+(k*97)%900); x.rotate(k); x.fillStyle = cc[k%6]; x.globalAlpha = .7; x.fillRect(-6,-14,12,28); x.restore(); }
     drawRankCard(x, i, 540, 1000, 600, -0.07);
@@ -2273,7 +2592,7 @@ document.addEventListener('click', function(e){
     case 't10pick': pickTop10(+v); break;
     case 't10manage': manageTop10(+v); break;
     case 'goShelf': S.colMode = 'shelf'; S.filter = blankFilter(todayISO().slice(0,4)); break;
-    case 'shelfSort': S.shelfByGenre = !!v; viewCollection(true); break;
+    case 'shelfSort': S.shelfMode = v||'month'; viewCollection(true); break;
     case 'mePhoto':
       pickFile('filePhoto').then(function(file){ if (!file) return; return cropToBlob(file, 600, 600).then(saveBlob).then(function(id){ S.profile.photoId = id; return saveProfile(); }).then(viewMe); }).catch(function(){ toast('เปิดรูปนี้ไม่ได้'); });
       break;
@@ -2372,7 +2691,7 @@ function moodChipsForm(d){
 }
 function moodBackHTML(t){
   var ms = (t.moods||[]).filter(function(m){ return MMAP[m]; }); if (!ms.length) return '';
-  return '<div style="padding:0 4px"><div class="sec-h">FELT · ดูแล้วรู้สึก</div><div class="moodRow">'+ms.map(function(m){ return '<span><i aria-hidden="true">'+MMAP[m].e+'</i>'+MMAP[m].th+'</span>'; }).join('')+'</div></div>';
+  return '<div style="padding:0 4px"><div class="sec-h">FELT</div><div class="moodRow">'+ms.map(function(m){ return '<span><i aria-hidden="true">'+MMAP[m].e+'</i>'+MMAP[m].th+'</span>'; }).join('')+'</div></div>';
 }
 function moodYearHTML(list){
   var c = moodCounts(list), ks = MOODS.filter(function(m){ return c[m.id]; }).sort(function(a,b){ return c[b.id]-c[a.id]; });
@@ -2415,7 +2734,7 @@ function viewPeople(arg){
     '<div class="top"><a class="icon ghost" href="#year" aria-label="ย้อนกลับ">'+IC.back+'</a><h1 class="c">เพื่อนดูหนัง</h1><label class="sr" for="pyv">เลือกปี</label><select id="pyv" class="inp" data-x="pScope" style="width:auto;height:40px;font-size:13px;padding:0 10px">'+opts+'</select></div>'+
     (!ps.length ? '<div class="empty">ยังไม่มีตั๋วที่ใส่ "ดูกับใคร"'+(scope!=='all'?' ในปี '+scope:'')+'<span class="small muted">ใส่ชื่อเพื่อนตอนพิมพ์ตั๋ว แล้วสรุปจะขึ้นที่นี่</span></div>' :
     '<a class="duo" href="#collection" data-x="goWhoP" data-v="'+esc(duo.name)+'" data-y="'+scope+'" style="--gc:'+duo.topG.c+'">'+
-      '<span class="eyebrow" style="color:var(--ink)">CINEMA BUDDY · คู่หูโรงหนัง</span><b class="nm">'+esc(duo.name)+'</b>'+
+      '<span class="eyebrow" style="color:var(--ink)">CINEMA BUDDY</span><b class="nm">'+esc(duo.name)+'</b>'+
       '<span class="mono">'+duo.n+' เรื่องด้วยกัน · ชอบดู '+duo.topG.en+'</span>'+
       '<span class="small">เริ่มจาก '+esc(duo.first.title)+' · '+fmtDate(duo.first.date)+'</span>'+(duo.topM?'<span class="small">ดูด้วยกันแล้วมัก'+duo.topM.th+' '+duo.topM.e+'</span>':'')+'</a>'+
     '<div class="plist">'+ps.map(function(o, i){
@@ -2532,7 +2851,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.7<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.8<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
@@ -2675,6 +2994,8 @@ document.addEventListener('click', function(e){
       if (fi>=0) fl2.splice(fi,1); else fl2.unshift(fv);
       DB.put('meta', fl2, 'favVenues'); rerenderForm(); break;
     case 'colMode': S.colMode = v; viewCollection(); break;
+    case 'srch': S.showSearch = !S.showSearch; viewCollection(true); if (S.showSearch) { var qq = document.getElementById('q'); if (qq) qq.focus(); } break;
+    case 'pSound': SFX.set(!SFX.on); b.setAttribute('aria-pressed', SFX.on); b.innerHTML = SFX.on?ICON_SND_ON:ICON_SND_OFF; break;
     case 'wrapped': location.hash = '#wrapped/'+S.yearView; break;
     case 'format': d.format = d.format===v ? '' : v; rerenderForm(); break;
     case 'rate': d.rating = v==='' ? null : (d.rating===+v ? null : +v); d._pop = d.rating; rerenderForm(); break;
@@ -2720,7 +3041,7 @@ document.addEventListener('click', function(e){
       S.flipped = !S.flipped; SFX.flip();
       var fl = document.getElementById('flip'); fl.classList.toggle('on', S.flipped);
       fl.querySelector('.front').setAttribute('aria-hidden', S.flipped); fl.querySelector('.back').setAttribute('aria-hidden', !S.flipped);
-      b.innerHTML = IC.flip + (S.flipped ? ' ดูด้านหน้า' : ' พลิกตั๋ว');
+      b.innerHTML = IC.flip + (S.flipped ? ' พลิกดูด้านหน้า' : ' พลิกดูโน้ต'); var tno = document.querySelector('.tno'); if (tno) tno.lastChild.textContent = tno.lastChild.textContent.replace(/ · ด้านหลัง$/,'') + (S.flipped ? ' · ด้านหลัง' : '');
       break;
     case 'share': shareSheet(byId(v)); break;
     case 'tiltPerm':
@@ -2837,6 +3158,235 @@ DB.open().then(function(){
 });
 if ('serviceWorker' in navigator && location.protocol==='https:' && window.self===window.top) {
   window.addEventListener('load', function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); });
+}
+/* ===== v0.8 spec-exact views ===== */
+function tabFab(){ return ''; }
+function circleBtn(href, big, small, label){ return '<a class="hcirc" href="'+href+'" aria-label="'+label+'"><b>'+big+'</b><span>'+small+'</span></a>'; }
+function nextRelease(){
+  var list = watchSorted().filter(function(w){ return w.releaseDate && daysUntil(w.releaseDate) >= 0; });
+  return list[0] ? daysUntil(list[0].releaseDate) : null;
+}
+function viewHome(){
+  setTabs('home');
+  var last = S.tickets.slice().sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); })[0];
+  var otd = onThisDay()[0], n = S.tickets.length, ri = rankOf(n), cy = todayISO().slice(0,4), ch = chProgress(cy), nr = nextRelease(), wn = watchSorted().length;
+  var lastHTML = '';
+  if (last) { var lg = GMAP[last.genre]||GMAP.doc, ld = parseISO(last.date), lu = blobURL(last.posterId);
+    lastHTML = '<a class="stub" href="#ticket/'+last.id+'" style="--gc:'+lg.c+';--gc2:'+(GDARK[lg.id]||'#4A5568')+'" aria-label="ตั๋วล่าสุด '+esc(last.title)+'"><span class="sp">'+(lu?'<img src="'+lu+'" alt="">':'')+'</span><span class="sx"><small>ความทรงจำล่าสุด · '+lg.en+'</small><b>'+esc(last.title)+'</b></span><span class="sd">'+pad(ld.getDate())+'<br>'+pad(ld.getMonth()+1)+'</span></a>'; }
+  V.innerHTML =
+    (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
+    '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
+    '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13)+
+      '<div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
+      '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></a>'+
+      '<div class="slot"><div class="lip"></div><span class="dl">TICKETS DELIVERED HERE <i>↓</i></span></div></section>'+
+    '<div class="hrow">'+
+      (ch ? circleBtn('#year', ch.n+'/'+ch.goal, 'เป้าปีนี้', 'เป้าหมายปีนี้ '+ch.n+' จาก '+ch.goal) : circleBtn('#year', '+', 'ตั้งเป้าปี', 'ตั้งเป้าดูหนังปีนี้'))+
+      circleBtn('#watch', nr==null?'—':(nr===0?'TODAY':nr+'d'), 'หนังเข้าโรง', nr==null?'ยังไม่มีหนังรอเข้าโรง':'อีก '+nr+' วันหนังเข้าโรง')+
+      '<a class="wpill" href="#watch"><span class="wi">'+'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16v10H4z M8 7V5h8v2 M10 12l2 2 4-4"/></svg></span><span class="wt"><b>Watchlist</b><span>หนังที่อยากดู '+wn+'</span></span></a></div>'+
+    (last ? lastHTML : '<div class="stub empty">ยังไม่มีตั๋ว · กด START เลย</div>')+
+    (otd ? '<a class="otd" href="#ticket/'+otd.id+'"><span class="th">'+(blobURL(otd.posterId)?'<img src="'+blobURL(otd.posterId)+'" alt="">':'<span style="display:block;height:100%;border-top:4px solid '+GMAP[otd.genre].c+'"></span>')+'</span>'+
+      '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+cy - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+cy - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '');
+}
+/* ---- compact print ticket ---- */
+function ticketMini(t){
+  var g = GMAP[t.genre] || GMAP.doc, u = blobURL(t.posterId), dd = parseISO(t.date);
+  return '<article class="ticket tkS" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+'" aria-label="ตั๋ว '+esc(t.title)+'"><i class="a1" aria-hidden="true"></i><i class="a2" aria-hidden="true"></i>'+
+    '<span class="sP">'+(u?'<img src="'+u+'" alt="">':'')+'</span><span class="sG">'+g.en+' · '+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()).slice(2)+'</span><b class="sT">'+esc(t.title)+'</b>'+
+    '<div class="stubPart"><i class="nl" aria-hidden="true"></i><i class="nr" aria-hidden="true"></i><span>✦ TICKET TO ANYWHERE ✦</span></div></article>';
+}
+function viewPrint(){
+  setTabs(null);
+  var d = S.draft;
+  if (!d || d.id) { location.hash = '#home'; return; }
+  var t = draftToTicket(d); t.no = S.meta.nextNo; t._n = viewingNumberFor(t);
+  var dd = parseISO(t.date);
+  V.innerHTML =
+    '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="icon" data-act="pSound" aria-label="'+(SFX.on?'ปิดเสียง':'เปิดเสียง')+'" aria-pressed="'+SFX.on+'">'+(SFX.on?ICON_SND_ON:ICON_SND_OFF)+'</button><a class="icon" href="#home" aria-label="ปิด กลับหน้าแรก">'+ICON_X+'</a></span></div>'+
+    '<section class="printWrap" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="pmach">'+bulbs(13,'lit')+
+      '<div class="lcd" role="status"><span>PRINTING TICKET<span class="cur">_</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="prog" aria-hidden="true"><i></i></span></div>'+
+      '<div class="pbtns" aria-hidden="true"><span><i class="k cr">'+ICON('ticket',20)+'</i>PRINT</span><span><i class="k">'+IC.cam+'</i>PHOTO</span><span><i class="k">'+ICON_STAMP+'</i>STAMP</span></div>'+
+      '<div class="prow" aria-hidden="true"><i class="grill"></i><span class="coin"><i></i>INSERT MEMORY</span><i class="led"></i></div>'+
+      '<div class="plip" aria-hidden="true"></div></div>'+
+    '<div class="slotWin"><div class="in"><div class="emerge" id="out">'+ticketMini(t)+'</div></div>'+
+      printStampSVG(pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()+543).slice(2))+'</div>'+
+    '<div id="printBtns" class="pbar" style="visibility:hidden"><button class="btn" data-act="save">ฉีกตั๋วเก็บเข้าคอลเลกชัน</button><a class="icon big" href="#new" aria-label="กลับไปแก้ไขข้อมูลตั๋ว">'+ICON_REDO+'</a></div></section>';
+  var out = document.getElementById('out'), btns = document.getElementById('printBtns'), pw = document.getElementById('pw');
+  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done');  };
+  if (isReduced()) { show(); return; }
+  requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
+  out.addEventListener('animationend', show); setTimeout(show, 2800);
+}
+var ICON_SND_ON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M17 9a4 4 0 0 1 0 6"/></svg>';
+var ICON_SND_OFF = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M16 9l5 6 M21 9l-5 6"/></svg>';
+var ICON_BACK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5 M11 6l-6 6 6 6"/></svg>';
+var ICON_X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"/></svg>';
+var ICON_REDO = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3 M18 3v4h-4"/></svg>';
+var ICON_STAMP = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3h6v6l3 3v3H6v-3l3-3z M5 19h14"/></svg>';
+/* ---- ticket back (spec F05) ---- */
+function ticketBack(t, glare){
+  var g = GMAP[t.genre] || GMAP.doc, dd = parseISO(t.date);
+  var photos = (t.photoIds||[]).filter(blobURL);
+  var moods = (t.moods||[]).filter(function(m){ return MMAP[m]; });
+  var st = ''; for (var i=1;i<=5;i++){ var f = t.rating>=i?1:t.rating>=i-.5?.5:0; st += '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="'+TK_STAR+'" fill="'+(f===1?'#0B0B0C':f===.5?'rgba(11,11,12,.45)':'rgba(11,11,12,.15)')+'"/></svg>'; }
+  return '<article class="ticket tkB" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+'" aria-label="ตั๋ว '+esc(t.title)+' ด้านหลัง">'+
+    '<div class="bH"><span class="e">'+g.en+' · MY NOTE</span><b>'+esc(t.title)+'</b><span class="no">'+ticketNo(t.no).replace(' ','')+'</span></div>'+
+    '<div class="bBody">'+
+      '<div class="bRate">'+(t.rating!=null?'<span class="bSt">'+st+'</span><b>'+t.rating+'<small> / 5</small></b>':'<span class="small" style="opacity:.6">ยังไม่ให้คะแนน</span>')+'</div>'+
+      '<span class="sec-h">MY NOTE</span><p class="note">'+(t.note?esc(t.note):'<span style="opacity:.45">ยังไม่มีโน้ต</span>')+'</p>'+
+      (moods.length?'<span class="sec-h">FELT</span><div class="bMoods">'+moods.map(function(m,i){ return '<span class="'+(i===0?'on':'')+'">'+MMAP[m].e+' '+MMAP[m].th+'</span>'; }).join('')+'</div>':'')+
+      (t.quote?'<span class="sec-h">QUOTE</span><p class="bQ">“'+esc(t.quote)+'”</p>':'')+
+      '<div class="bWho">'+((t.companions||[]).length?'<div><span class="sec-h">WITH</span><span class="w">'+t.companions.map(esc).join(', ')+'</span></div>':'<div></div>')+
+        (photos.length?'<div class="strip" style="grid-template-columns:repeat('+photos.length+',minmax(0,1fr))">'+photos.map(function(id){ return '<img src="'+blobURL(id)+'" alt="รูปความทรงจำ">'; }).join('')+'</div>':'')+'</div>'+
+    '</div>'+
+    '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
+    '<div class="bF"><span>'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()).slice(2)+(t.time?' · '+esc(t.time):'')+'</span><span>ดูครั้งที่ '+(t._n||1)+'</span></div>'+
+    '<div class="tkFoot"><span class="bc" aria-hidden="true"></span><span>✦ TICKET TO ANYWHERE ✦</span></div>'+
+    (glare?'<div class="glare"></div>':'')+'</article>';
+}
+/* ---- collection ---- */
+function colHeader(right){ return '<div class="top hdr">'+logoHTML(22)+right+'</div>'; }
+function viewPills(extra){
+  var m = S.colMode || 'grid';
+  return '<div class="vpills" role="group" aria-label="มุมมอง"><button data-act="colMode" data-v="grid" aria-pressed="'+(m==='grid')+'">ตู้ตั๋ว</button><button data-act="colMode" data-v="binder" aria-pressed="'+(m==='binder')+'">แฟ้ม</button><button data-act="colMode" data-v="shelf" aria-pressed="'+(m==='shelf')+'">ชั้นวาง</button>'+(extra||'')+'</div>';
+}
+function viewCollection(noAnim){
+  setTabs('collection');
+  var f = S.filter, years = yearsWithData();
+  if (f.year!=='all' && years.indexOf(f.year)<0) f.year = 'all';
+  var list = filtered(), base = S.tickets.filter(function(t){ return f.year==='all' || t.date.slice(0,4)===f.year; }), st = statsFor(base), m = S.colMode || 'grid';
+  var yearOpts = '<option value="all"'+(f.year==='all'?' selected':'')+'>ทุกปี</option>'+years.map(function(y){ return '<option value="'+y+'"'+(f.year===y?' selected':'')+'>'+y+'</option>'; }).join('');
+  var ysel = '<label class="sr" for="ysel">เลือกปีที่ดู</label><select id="ysel" class="ypill" data-act="fYear">'+yearOpts+'</select>';
+  var showQ = S.showSearch || !!f.q;
+  var gch = '<button class="gpill" data-act="fGenre" data-v="" aria-pressed="'+(!f.genre)+'"><i style="background:#0B0B0C"></i>ทั้งหมด</button>'+GENRES.map(function(g){ return '<button class="gpill" data-act="fGenre" data-v="'+g.id+'" aria-pressed="'+(f.genre===g.id)+'"><i style="background:'+g.c+'"></i>'+g.en+'</button>'; }).join('');
+  var extra = [];
+  if (f.month) extra.push('<button class="chip" data-act="clearF" data-v="month">เดือน '+MONTHS_TH[+f.month-1]+' ✕</button>');
+  if (f.venue) extra.push('<button class="chip" data-act="clearF" data-v="venue">'+esc(f.venue)+' ✕</button>');
+  if (f.companion) extra.push('<button class="chip" data-act="clearF" data-v="companion">ดูกับ '+esc(f.companion)+' ✕</button>');
+  if (f.mood && MMAP[f.mood]) extra.push('<button class="chip" data-act="clearF" data-v="mood">'+MMAP[f.mood].e+' '+MMAP[f.mood].th+' ✕</button>');
+  var right = m==='shelf' ? '<span class="dchip">'+list.length+' FILMS</span>' : m==='binder' ? '<span class="dchip" id="bpg">PAGE 1 / '+Math.max(1,Math.ceil(list.length/4))+'</span>' : ysel;
+  V.innerHTML = colHeader(right)+'<h1 class="sr">Collection</h1>'+
+    viewPills(m==='grid'?'<button class="icon srch" data-act="srch" aria-label="ค้นหา" aria-expanded="'+showQ+'">'+ICON_SEARCH+'</button>':'')+
+    (showQ&&m==='grid'?'<div class="qrow"><label class="sr" for="q">ค้นหา</label><input class="inp" id="q" type="search" data-act="q" value="'+esc(f.q)+'" placeholder="ค้นชื่อหนัง โรง คน หรือโน้ต"></div>':'')+
+    (m==='grid' ? '<div class="gscroll">'+gch+'</div>' : '')+
+    (extra.length?'<div class="chips" style="margin-bottom:10px">'+extra.join('')+'</div>':'')+
+    (m==='grid' && S.tickets.length ? '<div class="csum"><span class="stats3"><b>'+st.films+'</b> FILMS · <b>'+st.visits+'</b> TICKETS · <b>'+st.rewatches+'</b> REWATCH</span><label class="sr" for="ssel">เรียงลำดับ</label><select id="ssel" class="ssel" data-act="fSort">'+Object.keys(SORTS).map(function(k){ return '<option value="'+k+'"'+(f.sort===k?' selected':'')+'>'+SORTS[k]+'</option>'; }).join('')+'</select></div>' : '')+
+    (list.length ? (m==='binder' ? binderHTML(list) : m==='shelf' ? shelfHTML(list) : vendHTML(list))
+      : S.tickets.length ? '<div class="empty">ไม่พบตั๋วที่ตรงกับตัวกรอง<button class="btn out sm" data-act="clearAll" style="max-width:220px">ล้างตัวกรอง</button></div>'
+      : '<div class="empty"><span>ยังไม่มีตั๋วในคอลเลกชัน</span><a class="btn" href="#new" style="max-width:240px">พิมพ์ตั๋วใบแรก</a></div>');
+  if (noAnim) Array.prototype.forEach.call(V.querySelectorAll('.mini'), function(mm){ mm.style.animation = 'none'; });
+  var bd = document.getElementById('binder'), bp = document.getElementById('bpg');
+  if (bd && bp) bd.addEventListener('scroll', function(){ var i = Math.round(bd.scrollLeft / Math.max(1, bd.clientWidth)); bp.textContent = 'PAGE '+(i+1)+' / '+bd.children.length; }, {passive:true});
+}
+var ICON_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4a7 7 0 1 0 .01 0z M20 20l-4-4"/></svg>';
+/* ---- shelf (spec F07) ---- */
+var MON_EN = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+function shelfHTML(list){
+  var mode = S.shelfMode || 'month', groups = [], idx = {};
+  var items = list.slice().sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; });
+  if (mode==='genre') items.sort(function(a,b){ return GENRES.findIndex(function(g){return g.id===a.genre;}) - GENRES.findIndex(function(g){return g.id===b.genre;}) || (sortKey(a)<sortKey(b)?1:-1); });
+  var multiY = yearsWithData().length > 1;
+  items.forEach(function(t){
+    var k = mode==='genre' ? t.genre : mode==='all' ? t.date.slice(0,4) : t.date.slice(0,7);
+    if (!(k in idx)) { idx[k] = groups.length; groups.push({k:k, items:[]}); }
+    groups[idx[k]].items.push(t);
+  });
+  var maxW = Math.min(window.innerWidth, 480) - 84, rows = [];
+  groups.forEach(function(gr){
+    var lab = mode==='genre' ? (GMAP[gr.k]||GMAP.doc).en : mode==='all' ? gr.k : MON_EN[+gr.k.slice(5,7)-1]+(multiY?' '+gr.k.slice(2,4):'');
+    var cur = [], w = 0, first = true;
+    gr.items.forEach(function(t){ var sw = 25 + hashStr(t.id) % 12; if (w + sw > maxW && cur.length) { rows.push({lab: first ? lab+' · '+gr.items.length : '', items: cur}); first = false; cur = []; w = 0; } cur.push(t); w += sw; });
+    if (cur.length) rows.push({lab: first ? lab+' · '+gr.items.length : '', items: cur});
+  });
+  var sb = function(v, l){ return '<button class="spill" data-x="shelfSort" data-v="'+v+'" aria-pressed="'+(mode===v)+'">'+l+'</button>'; };
+  return '<div class="spills" role="group" aria-label="จัดเรียงชั้นวาง">'+sb('month','ตามเดือน')+sb('genre','ตามแนว')+sb('all','ทุกปี')+'</div>'+
+    '<section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="kb" aria-hidden="true">'+bulbs(3)+'<span class="kHead">NOW SHOWING</span>'+bulbs(3)+'</div><div class="shelfWrap" aria-label="ชั้นวางสันปก">'+
+    rows.map(function(r){ return '<div class="shelfBlk"><div class="shelfRow">'+r.items.map(spineHTML).join('')+'</div><i class="sBoard" aria-hidden="true"></i>'+(r.lab?'<span class="sLab">'+r.lab+'</span>':'')+'</div>'; }).join('')+
+    '</div></section><p class="small muted" style="text-align:center">แตะสันปกเพื่อดึงตั๋วออกมา</p>';
+}
+/* ---- binder (spec F08) ---- */
+function binderCard(t){
+  var g = GMAP[t.genre] || GMAP.doc, u = blobURL(t.posterId), dd = parseISO(t.date);
+  return '<a class="mini bc2" href="#ticket/'+t.id+'" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+'" aria-label="'+esc(t.title)+' · '+g.en+' · '+fmtDate(t.date)+'">'+
+    (u?'<span class="bP"><img src="'+u+'" alt=""></span>':'<span class="bA" aria-hidden="true"></span>')+'<span class="bG">'+g.en+'</span><b class="bT">'+esc(t.title)+'</b><b class="bD">'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'</b></a>';
+}
+function binderHTML(list){
+  var pages = []; for (var i=0;i<list.length;i+=4) pages.push(list.slice(i,i+4));
+  var rings = '<div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>';
+  return '<div class="binder" id="binder">'+pages.map(function(pg, pi){
+    var sl = pg.map(function(t){ return '<div class="sleeve">'+binderCard(t)+'</div>'; }).join('');
+    for (var k=pg.length;k<4;k++) sl += '<div class="sleeve empty" aria-hidden="true"></div>';
+    return '<section class="bpage" aria-label="หน้า '+(pi+1)+' จาก '+pages.length+'">'+rings+'<div class="bgrid">'+sl+'</div><span class="pno">'+(pi+1)+' / '+pages.length+(pi<pages.length-1?' · SWIPE →':'')+'</span></section>';
+  }).join('')+'</div>';
+}
+/* ---- year (spec F09) ---- */
+function viewYear(){
+  setTabs('year');
+  var years = yearsWithData(), cy = String(new Date().getFullYear());
+  if (!S.yearView || (years.indexOf(S.yearView)<0 && S.yearMode!=='calendar')) S.yearView = years.indexOf(cy)>=0 ? cy : (years[0]||cy);
+  var y = S.yearView;
+  var yopts = (years.indexOf(y)<0 ? [y].concat(years) : years).sort().reverse().map(function(v){ return '<option value="'+v+'"'+(v===y?' selected':'')+'>'+v+'</option>'; }).join('');
+  var head = '<div class="top hdr">'+logoHTML(22)+'<span><label class="sr" for="yv">เลือกปี</label><select id="yv" class="ypill" data-act="yearView">'+yopts+'</select></span></div><h1 class="sr">สรุปปี '+y+'</h1>';
+  if (S.yearMode === 'calendar') { V.innerHTML = head + '<button class="btn out sm" data-act="yMode" data-v="overview" style="margin-bottom:12px">'+IC.back+' กลับสรุปปี</button>' + calendarHTML(); return; }
+  var list = S.tickets.filter(function(t){ return t.date.slice(0,4)===y; }), st = statsFor(list);
+  var gs = GENRES.filter(function(g){ return st.genres[g.id]; }).sort(function(a,b){ return st.genres[b.id]-st.genres[a.id]; });
+  var gmax = gs.length ? st.genres[gs[0].id] : 1, mmax = Math.max.apply(null, st.months.concat([1]));
+  var ps = Object.keys(st.people).sort(function(a,b){ return st.people[b]-st.people[a]; }).slice(0,3);
+  var got = earnedStampIds().length, cins = Object.keys(st.venues).length, curM = y===cy ? new Date().getMonth() : -1;
+  var board = '<section class="booth yboard" aria-label="ป้ายคะแนนปี '+y+'">'+bulbs(13)+
+    '<div class="screen"><span class="l1"><span>MY YEAR · '+y+'</span><span>SCOREBOARD</span></span><b class="ybig">'+pad(st.films,3)+'</b>'+
+    '<span class="tiles"><span class="tile"><b>'+st.films+'</b> FILMS</span> · <span class="tile"><b>'+st.visits+'</b> TICKETS</span> · <span class="tile"><b>'+st.rewatches+'</b> REWATCH</span></span></div>'+
+    '<div class="ychips"><span>'+cins+' CINEMAS</span><a href="#passport">'+got+' STAMPS</a><a class="cr" href="#wrapped/'+y+'">▶ Wrapped</a></div></section>';
+  if (!list.length) { V.innerHTML = head + board + challengeHTML(y) + '<div class="empty">ยังไม่มีตั๋วในปี '+y+'<a class="btn" href="#new" style="max-width:240px">พิมพ์ตั๋วใบแรก</a></div>'; return; }
+  var bars = gs.map(function(g){ return '<a class="gbar" href="#collection" data-act="goGenre" data-v="'+g.id+'"><span class="gl">'+g.en+'</span><span class="gt"><i style="width:'+Math.round(st.genres[g.id]/gmax*100)+'%;background:'+g.c+'"></i></span><b>'+st.genres[g.id]+'</b></a>'; }).join('');
+  var mb = st.months.map(function(n,i){ return '<a href="#collection" data-act="goMonth" data-v="'+pad(i+1)+'" aria-label="'+MONTHS_TH[i]+' '+n+' ครั้ง"><i style="height:'+(n?Math.max(6,Math.round(n/mmax*84)):2)+'px;background:'+(i===curM?'#FFB547':'#5E1E28')+'"></i><span>'+'JFMAMJJASOND'.charAt(i)+'</span></a>'; }).join('');
+  var heat = ''; for (var mi=0; mi<12; mi++){ var c = st.months[mi]; heat += '<a href="#collection" data-act="goMonth" data-v="'+pad(mi+1)+'" style="background:'+(c>=4?'#FFB547':c>=2?'#B3121B':c>=1?'#5E1E28':'#2A2A2C')+'" aria-label="'+MONTHS_TH[mi]+' '+c+' ครั้ง"></a>'; }
+  V.innerHTML = head + board + challengeHTML(y) +
+    '<section class="ycard"><span class="yh">TOP GENRES</span>'+bars+'</section>'+
+    '<section class="ycard"><span class="yh">BY MONTH</span><div class="mbars">'+mb+'</div></section>'+
+    moodYearSpec(list)+
+    (ps.length?'<section class="ycard"><span class="yh"><span>CINEMA BUDDY</span><a href="#people/'+y+'">ALL →</a></span>'+ps.map(function(p,i){ return '<a class="brow" href="#collection" data-act="goWho" data-v="'+esc(p)+'"><b>'+(i+1)+'</b><span>'+esc(p)+'</span><em>'+st.people[p]+' เรื่อง</em></a>'; }).join('')+'</section>':'')+
+    '<section class="ycard"><span class="yh"><span>CALENDAR</span><a href="#year" data-act="yMode" data-v="calendar">OPEN →</a></span><div class="heat">'+heat+'</div></section>';
+  countUp();
+}
+/* ---- profile (spec F10) ---- */
+function viewMe(){
+  setTabs('me');
+  var P = S.profile, n = S.tickets.length, ri = rankOf(n), fi = filmsIndex(), p = persona(), st = statsFor(S.tickets);
+  var topV = Object.keys(st.venues).sort(function(a,b){ return st.venues[b]-st.venues[a]; })[0] || '';
+  var first = S.tickets.slice().sort(function(a,b){ return a.date<b.date?-1:1; })[0], since = first ? parseISO(first.date) : new Date();
+  var nextNeed = ri >= 9 ? null : (ri+2)*10;
+  var t10 = ''; for (var i=0;i<10;i++) t10 += t10Slot(i, fi);
+  var rankName = ri>=0 ? RANKS[ri].en : 'ยังไม่มียศ';
+  var fav = (P.favGenres||[]).slice(0,3);
+  var more = [P.seat?['SIGNATURE SEAT',esc(P.seat)]:null, P.snack?['CINEMA SNACK',esc(P.snack)]:null, P.obsessed?['CURRENTLY OBSESSED',esc(P.obsessed)]:null].filter(Boolean);
+  V.innerHTML = '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="icon" data-x="shareStory" data-v="id" aria-label="แชร์บัตร Cinema ID ลง Story">'+IC.share+'</button><a class="icon" href="#meedit" aria-label="แก้ไขโปรไฟล์">'+IC.edit+'</a></span></div><h1 class="sr">My Cinema ID</h1>'+
+    '<article class="idcard mcard" aria-label="บัตรสมาชิกคนดูหนัง"><i class="foil" aria-hidden="true"></i>'+
+      '<div class="mTop"><span class="mLogo">tuva</span><span class="mId">CINEMA ID</span></div>'+
+      '<div class="mMid"><button class="pol" data-x="mePhoto" aria-label="'+(P.photoId?'เปลี่ยนรูปโปรไฟล์':'เพิ่มรูปโปรไฟล์')+'"><div class="ph2">'+(blobURL(P.photoId)?'<img src="'+blobURL(P.photoId)+'" alt="รูปโปรไฟล์">':'<span>แตะเพื่อเพิ่มรูป</span>')+'</div></button>'+
+        '<div class="mF"><span>NAME</span><b>'+(esc(P.name)||'<a href="#meedit">ใส่ชื่อ</a>')+'</b><span>MEMBER SINCE</span><b class="d">'+pad(since.getDate())+'.'+pad(since.getMonth()+1)+'.'+String(since.getFullYear()).slice(2)+'</b><span>HOME CINEMA</span><b>'+(esc(P.cinema||topV)||'—')+'</b><span>RANK</span><b class="r">'+rankName+'</b></div></div>'+
+      (p?'<span class="mPer">'+esc(p.name)+'</span>':'')+
+      '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
+      '<div class="mStats"><span><b>'+n+'</b>TICKETS</span><span><b>'+earnedStampIds().length+'</b>STAMPS</span><span><b>'+Object.keys(st.venues).length+'</b>CINEMAS</span></div>'+
+      '<div class="mFoot"><span class="bc" aria-hidden="true"></span><span>NO.'+pad(1,6)+'</span></div></article>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">TOP 10</span><span class="small muted">TAP TO PICK</span></div><div class="t10row">'+t10+'</div></section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">MY MOVIE TYPE</span><a href="#persona">DETAILS →</a></div>'+(p?'<a class="persona pspec" href="#persona" style="--gc:'+GMAP[p.genre].c+';--gc2:'+(GDARK[p.genre]||'#4A5568')+'"><span class="pe">'+esc(p.en)+'</span><b class="pn">'+esc(p.name)+'</b><span class="tr">'+p.traits.map(esc).join(' · ')+'</span></a>':'<p class="small muted">ต้องมีตั๋ว 5 ใบถึงจะได้ฉายา · ตอนนี้ '+n+' ใบ</p>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">RANK CARDS · '+(ri+1)+' / 10</span><a href="#ranks">ALL →</a></div>'+
+      '<div class="rrow">'+[0,1,2,3].map(function(k){ var ix = Math.max(0, Math.min(6, ri)) + k; return '<a class="rtile'+(ix<=ri?' got':'')+'" href="#ranks" aria-label="ยศ '+RANKS[ix].en+(ix<=ri?' ได้แล้ว':' ยังไม่ได้')+'"><b>'+pad((ix+1)*10)+'</b><span>'+RANKS[ix].en.replace(' ','<br>')+'</span></a>'; }).join('')+'</div>'+
+      (nextNeed?'<div class="bar"><i style="width:'+Math.round((n%10)/10*100)+'%"></i></div><span class="small muted">อีก '+(nextNeed-n)+' เรื่องได้การ์ด '+RANKS[ri+1].en+'</span>':'<span class="small muted">ครบทุกยศแล้ว · ตำนานโรงหนัง</span>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">SHARE TO STORIES</span></div><div class="row2"><button class="btn out sm" data-x="shareStory" data-v="id">บัตร Cinema ID</button><button class="btn out sm" data-x="shareStory" data-v="shelf">Year wall ปีนี้</button></div>'+
+      '<div class="row2" style="margin-top:8px"><button class="btn out sm" data-x="shareStory" data-v="rank"'+(ri>=0?'':' disabled')+'>Level up ยศ</button><button class="btn out sm" data-x="shareStory" data-v="persona"'+(p?'':' disabled')+'>ฉายา</button></div></section>'+
+    (fav.length||more.length ? '<section class="msec"><div class="h"><span class="eyebrow">ABOUT ME</span></div><div class="mabout">'+(fav.length?'<div><span>FAVOURITE GENRES</span><b>'+fav.map(function(g){ return '<i style="background:'+GMAP[g].c+'"></i>'+GMAP[g].en; }).join(' ')+'</b></div>':'')+more.map(function(x){ return '<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div></section>' : '')+
+        '<a class="btn out sm" href="#passport">'+ICON('clapper',18)+' สมุดแสตมป์ · '+earnedStampIds().length+' / '+STAMPS.length+'</a>';
+}
+
+
+function moodYearSpec(list){
+  var c = moodCounts(list), ks = MOODS.filter(function(m){ return c[m.id]; }).sort(function(a,b){ return c[b.id]-c[a.id]; });
+  if (!ks.length) return '<section class="ycard"><span class="yh">FELT THIS YEAR</span><p class="small muted" style="margin:10px 0 0">เลือก "ดูแล้วรู้สึก" ตอนพิมพ์ตั๋ว แล้วสรุปจะขึ้นตรงนี้</p></section>';
+  var top = ks[0];
+  return '<section class="ycard"><span class="yh">FELT THIS YEAR</span><a class="moodTop ymt" href="#collection" data-act="goMood" data-v="'+top.id+'"><i aria-hidden="true">'+top.e+'</i><span>ปีนี้คุณ'+top.verb+' <b>'+c[top.id]+'</b> เรื่อง</span></a>'+
+    (ks.length>1?'<div class="moodGrid ymg">'+ks.slice(1).map(function(m){ return '<a href="#collection" data-act="goMood" data-v="'+m.id+'" aria-label="'+m.th+' '+c[m.id]+' เรื่อง">'+m.e+' '+c[m.id]+'</a>'; }).join('')+'</div>':'')+'</section>';
 }
 </script>
 </body>
