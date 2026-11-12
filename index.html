@@ -1057,6 +1057,20 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .wnB .e{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;color:#6E6A64;text-align:center}
 .wnB .ig{height:50px;border-radius:25px;background:#0B0B0C;color:var(--cream);display:flex;align-items:center;justify-content:center;gap:8px;font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px;text-decoration:none}
 .wnB .ok{height:44px;border-radius:22px;border:1.5px solid rgba(11,11,12,.35);background:transparent;color:#0B0B0C;font-family:var(--body);font-size:14px}
+.dtrow{gap:8px}
+.dtf{display:flex;flex-direction:column;gap:6px;min-width:0}
+.dtl{display:flex;align-items:center;gap:5px;font-size:12px;color:#B9B4AD}
+.dtf .inp{width:100%}
+.dtrow{align-items:flex-start}
+.tbox{position:relative;width:100%}
+.tbox .inp{width:100%}
+.fcard .inp{color-scheme:dark}
+.dtf .inp.dt{font-size:16px;padding:0 10px;flex:none;height:48px;box-sizing:border-box}
+.tbox .tph{display:none;position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:14px;color:#6E6A64;pointer-events:none}
+.tbox.tnone .tph{display:block}
+.tbox.tnone input{color:transparent}
+.tbox.tnone input:focus{color:var(--cream)}
+.tbox.tnone input:focus+.tph{display:none}
 </style>
 </head>
 <body>
@@ -1460,8 +1474,9 @@ function viewForm(editId){
       (d.genre?'<details class="g2"'+(d.genres2.length?' open':'')+'><summary>+ แนวรอง (ไม่บังคับ)</summary><div class="fchips">'+g2+'</div></details>':'')+
     '</section>'+
     '<section class="fcard">'+lab(K==='cinema'?'WHEN &amp; WHERE':'WHEN · WATCHED ON')+
-      '<div class="frow"><label class="sr" for="date">วันที่ดู</label><input class="inp dt" type="date" id="date" name="date" value="'+esc(d.date)+'" max="'+todayISO()+'" style="flex:3">'+
-      '<label class="sr" for="time">รอบ</label><input class="inp dt" type="time" id="time" name="time" value="'+esc(d.time)+'"'+(d.unknownTime?' disabled':'')+' style="flex:2"></div>'+
+      '<div class="frow dtrow"><div class="dtf" style="flex:3"><label class="dtl" for="date">'+IC_CAL+(K==='cinema'?'วันที่ดู':'วันที่ดู')+'</label><input class="inp dt" type="date" id="date" name="date" value="'+esc(d.date)+'" max="'+todayISO()+'"></div>'+
+      '<div class="dtf" style="flex:2"><label class="dtl" for="time">'+IC_CLK+(K==='cinema'?'รอบกี่โมง':'เวลา')+'</label><div class="tbox'+(d.time||d.unknownTime?'':' tnone')+'"><input class="inp dt" type="time" id="time" name="time" value="'+esc(d.time)+'"'+(d.unknownTime?' disabled':'')+' aria-describedby="thint"><span class="tph" aria-hidden="true">แตะเลือก</span></div></div></div>'+
+      '<span class="fhint" id="thint">'+(K==='cinema'?'ดูรอบเวลาบนตั๋วหรือในแอปจองตั๋ว เช่น 19:30':'ใส่เวลาที่เริ่มดูโดยประมาณ')+'</span>'+
       '<label class="check"><input type="checkbox" name="unknownTime"'+(d.unknownTime?' checked':'')+'> ไม่ทราบเวลารอบ</label>'+
       (K==='cinema' ? '<label class="sr" for="venue">โรงภาพยนตร์</label><input class="inp" id="venue" name="venue" list="venueList" autocomplete="off" value="'+esc(d.venue)+'" placeholder="โรงภาพยนตร์ · พิมพ์ค้นหาหรือเพิ่มเอง">'+
       '<datalist id="venueList">'+VENUES.map(function(v){return '<option value="'+esc(v.name)+'" label="'+esc(v.chain)+'">'+(v.en?'<option value="'+esc(v.name)+'" label="'+esc(v.en)+'">':'');}).join('')+'</datalist>'+
@@ -3377,6 +3392,8 @@ function viewPrint(){
 var ICON_SND_ON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M17 9a4 4 0 0 1 0 6"/></svg>';
 var ICON_SND_OFF = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M16 9l5 6 M21 9l-5 6"/></svg>';
 var ICON_BACK = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M19 12H5 M11 6l-6 6 6 6"/></svg>';
+var IC_CAL = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18 M8 3v4 M16 3v4"/></svg>';
+var IC_CLK = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
 var ICON_X = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M6 6l12 12 M18 6L6 18"/></svg>';
 var ICON_REDO = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 12a8 8 0 0 1 14-5.3 M18 3v4h-4"/></svg>';
 var ICON_STAMP = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M9 3h6v6l3 3v3H6v-3l3-3z M5 19h14"/></svg>';
@@ -3777,7 +3794,7 @@ function readNote(id){
   el.addEventListener('click', function(e){ if (e.target.closest('[data-close]') || e.target === el) el.remove(); });
   var btn = el.querySelector('[data-close]'); if (btn) btn.focus();
 }
-document.addEventListener('input', function(e){ if (e.target && e.target.id === 'note') { var c = document.getElementById('ncount'); if (c) c.textContent = e.target.value.length+' / 3000'; } });
+document.addEventListener('input', function(e){ if (e.target && e.target.id === 'time') { var tb = e.target.parentNode; if (tb && tb.classList) tb.classList.toggle('tnone', !e.target.value); } if (e.target && e.target.id === 'note') { var c = document.getElementById('ncount'); if (c) c.textContent = e.target.value.length+' / 3000'; } });
 
 /* ---------- watch kinds: cinema / movie (home) / series ---------- */
 var KINDS = [{id:'cinema', en:'CINEMA', th:'โรงหนัง'},{id:'movie', en:'MOVIE', th:'ดูที่บ้าน'},{id:'series', en:'SERIES', th:'ซีรีส์'}];
