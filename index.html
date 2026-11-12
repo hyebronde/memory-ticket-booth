@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#141312">
+<meta name="theme-color" content="#0B0B0C">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -13,12 +13,12 @@
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Anuphan:wght@300;400;500&family=DM+Mono:wght@300;400;500&family=Mali:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500&family=Unbounded:wght@300;400;600;700&family=Doto:wght@700;900&family=Anuphan:wght@300;400;500&family=DM+Mono:wght@300;400;500&family=Mali:wght@400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#141312; --panel:#1D1B19; --field:#232220; --line:#2E2D2A; --line2:#3A3935;
-  --ink:#1B1713; --paper:#E6DCC9; --muted:#9E978D; --lime:#C5D46E; --booth:#5E1E28; --stamp:#A8323E;
-  --display:'Jost','Anuphan',system-ui,sans-serif; --body:'Anuphan',system-ui,sans-serif;
+  --bg:#0B0B0C; --panel:#1C1C1E; --field:#232325; --line:#2A2A2C; --line2:#3A3A3C; --cream:#F2EEE8; --amber:#FFB547; --red:#B3121B;
+  --ink:#1B1713; --paper:#E6DCC9; --muted:#9E978D; --lime:#C5D46E; --booth:#B3121B; --stamp:#A8323E;
+  --display:'Unbounded','Anuphan',system-ui,sans-serif; --dot:'Doto','DM Mono',ui-monospace,monospace; --body:'Anuphan',system-ui,sans-serif;
   --mono:'DM Mono',ui-monospace,monospace; --hand:'Mali','Anuphan',cursive;
   --safe-b:env(safe-area-inset-bottom,0px); --safe-t:env(safe-area-inset-top,0px);
 }
@@ -422,6 +422,195 @@ select.inp{appearance:none;-webkit-appearance:none}
 .pcard.solo{margin-top:8px;opacity:.85}
 .reduce .duo,.reduce .pcard,.reduce .chCard .bar i{animation:none}
 @media (prefers-reduced-motion:reduce){.duo,.pcard,.chCard .bar i{animation:none}}
+/* ===== v0.7 Tuva machine theme ===== */
+.top h1{font-weight:600;font-size:24px;letter-spacing:-.5px}
+.top h1.c{font-family:var(--body);font-size:17px;font-weight:500;letter-spacing:0}
+.eyebrow,.sec-h{font-family:var(--dot);font-weight:900;letter-spacing:2px}
+.btn{background:var(--cream);color:#0B0B0C;font-family:var(--body);font-weight:500;font-size:15px;letter-spacing:0}
+.btn.out{background:transparent;color:var(--cream);border:1px solid var(--line2)}
+.chip,.gchip{font-family:var(--body)}
+.chip[aria-pressed=true]{background:var(--cream);color:#0B0B0C}
+.seg button[aria-pressed=true]{background:var(--cream);color:#0B0B0C}
+.icon{background:var(--panel);border:0}
+.icon.ghost{background:transparent}
+.card{border-color:var(--line)}
+/* logo */
+.logo{position:relative;display:inline-flex;align-items:center;gap:.26em;padding:.3em .44em .3em .62em;border-radius:.34em;overflow:hidden;background:#C4161F;line-height:1;text-decoration:none;flex:none;isolation:isolate}
+.logo::before{content:"";position:absolute;width:3em;height:3em;left:-1em;top:-1.7em;border-radius:1.5em;background:#FF3B3B;filter:blur(.6em);z-index:-1}
+.logo::after{content:"";position:absolute;width:3.4em;height:3em;right:-1.4em;bottom:-1.9em;border-radius:1.5em;background:#5E0A12;filter:blur(.6em);z-index:-1}
+.logo .lgNotch{position:absolute;left:-.27em;top:50%;width:.54em;height:.54em;margin-top:-.27em;border-radius:.27em;background:var(--bg)}
+.logo .lgPop{width:.9em;height:1.08em;flex:none}
+.logo .lgTx{display:flex;flex-direction:column;gap:.12em}
+.logo b{font-family:'Unbounded',sans-serif;font-weight:700;font-size:1em;letter-spacing:-.045em;color:#0B0B0C}
+.logo small{font-family:var(--dot);font-weight:900;font-size:.19em;letter-spacing:.12em;color:#0B0B0C}
+/* floating tab bar */
+.tabs{left:12px;right:12px;bottom:calc(10px + var(--safe-b));background:transparent;border:0;padding:0}
+.tabs .in{height:66px;border-radius:33px;background:rgba(35,35,37,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);box-shadow:0 10px 30px rgba(0,0,0,.55);max-width:456px;padding:0 6px;justify-content:space-between}
+.tabs a{flex:1;width:auto;height:54px;border-radius:27px;gap:3px;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:1px;text-transform:uppercase;color:#B9B4AD}
+.tabs a[aria-current=page]{background:var(--cream);color:#0B0B0C}
+main{padding-bottom:calc(104px + var(--safe-b))}
+/* home machine */
+.booth{position:relative;overflow:hidden;isolation:isolate;background:var(--red);border:0;border-radius:32px 32px 22px 22px;padding:14px 16px 16px;gap:14px;box-shadow:inset 0 -10px 0 #7A0B12,inset 0 2px 0 #E0464C}
+.booth::before,.pmach::before,.vend::before,.kiosk::before{content:"";position:absolute;width:300px;height:300px;left:-100px;top:-140px;border-radius:150px;background:#F0333A;filter:blur(60px);opacity:.8;z-index:-1;pointer-events:none}
+.booth::after,.pmach::after{content:"";position:absolute;width:280px;height:280px;right:-120px;bottom:-90px;border-radius:140px;background:#4A060C;filter:blur(60px);z-index:-1;pointer-events:none}
+.bulbs{padding:0 4px}
+.bulbs i{width:9px;height:9px;border-radius:5px;background:#6B3A20}
+@keyframes chase{0%,55%{background:#6B3A20;box-shadow:none}65%,90%{background:#FFD98A;box-shadow:0 0 8px #FFB547}}
+.screen{display:flex;flex-direction:column;align-items:stretch;gap:4px;background:#0B0B0C;border:0;border-radius:18px;box-shadow:inset 0 0 0 4px #2A0407,inset 0 6px 18px rgba(0,0,0,.8);padding:14px 18px;color:var(--amber);font-family:var(--dot);font-weight:900}
+.screen .l1{display:flex;justify-content:space-between;font-size:12px;letter-spacing:2px}
+.screen b{font-size:42px;line-height:1;font-weight:900;text-shadow:0 0 10px rgba(255,181,71,.6)}
+.screen .l3{font-size:11px;letter-spacing:1px}
+.cur{animation:blinkC 1s steps(1) infinite}
+@keyframes blinkC{50%{opacity:0}}
+.press{position:relative;width:150px;height:150px;background:transparent}
+.press::before{content:"";position:absolute;inset:4px;border-radius:50%;border:3px solid var(--cream);opacity:0}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .press::before{animation:ring 1.8s ease-out infinite}}
+@keyframes ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.3);opacity:0}}
+.press span{width:142px;height:142px;border:0;background:var(--cream);color:#0B0B0C;box-shadow:0 8px 0 #8C8478,inset 0 -6px 0 #D6CFC3,0 0 0 10px rgba(11,11,12,.25)}
+.press:active span,.press.down span{box-shadow:0 2px 0 #8C8478,inset 0 -4px 0 #D6CFC3,0 0 0 10px rgba(11,11,12,.25)}
+.press b{font-family:'Unbounded',sans-serif;font-weight:700;font-size:22px;letter-spacing:0}
+.press small{font-size:12px;margin-top:4px}
+.slot{gap:8px}
+.slot .lip{height:20px;border-radius:10px;background:#050505;box-shadow:inset 0 6px 8px #000,0 2px 0 #E0464C;width:86%}
+.slot .lip::after{display:none}
+.slot .dl{font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px}
+.slot .dl i{display:inline-block;font-style:normal}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .slot .dl i{animation:bob 1.2s ease-in-out infinite}}
+@keyframes bob{50%{transform:translateY(3px)}}
+.stub{position:relative;display:flex;align-items:center;gap:12px;width:auto;min-height:86px;margin-top:14px;padding:12px 70px 12px 20px;border-radius:20px;overflow:hidden;isolation:isolate;background:var(--gc,#97A3AF);color:#0B0B0C;text-decoration:none}
+.stub::before{content:"";position:absolute;width:180px;height:180px;right:-40px;top:-70px;border-radius:90px;background:var(--gc2,#4A5568);filter:blur(30px);z-index:-1}
+.stub::after{content:"";position:absolute;right:74px;top:12px;bottom:12px;border-left:2px dashed rgba(11,11,12,.4)}
+.stub .sp{width:40px;height:60px;border-radius:6px;overflow:hidden;flex:none;background:var(--gc2,#4A5568);box-shadow:0 0 0 2px rgba(242,238,232,.5)}
+.stub .sp img{width:100%;height:100%;object-fit:cover}
+.stub .sx{display:flex;flex-direction:column;gap:2px;min-width:0}
+.stub .sx small{font-size:11px}
+.stub .sx b{font-family:'Unbounded',sans-serif;font-weight:600;font-size:17px;letter-spacing:-.5px;color:#F2EEE8;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stub .sd{position:absolute;right:16px;top:50%;transform:translateY(-50%);width:44px;text-align:center;font-family:var(--dot);font-weight:900;font-size:15px;line-height:1.1;color:#F2EEE8}
+.stub.empty{justify-content:center;padding:12px;background:var(--panel);color:var(--muted);font-size:13px}
+.stub.empty::before,.stub.empty::after{display:none}
+.tagline{margin-top:20px}
+/* print machine */
+.printWrap{background:transparent;padding:0;gap:0}
+.pmach{position:relative;overflow:hidden;isolation:isolate;width:100%;background:var(--red);border-radius:32px 32px 22px 22px;box-shadow:inset 0 -10px 0 #7A0B12,inset 0 2px 0 #E0464C;padding:14px 18px 18px;display:flex;flex-direction:column;gap:16px}
+.lcd{background:#0B0B0C;border-radius:18px;box-shadow:inset 0 0 0 4px #2A0407,inset 0 6px 18px rgba(0,0,0,.8);padding:14px 18px;color:var(--amber);font-family:var(--dot);font-weight:900;display:flex;flex-direction:column;gap:6px;font-size:13px;letter-spacing:2px}
+.lcd b{font-size:44px;line-height:1;letter-spacing:0;text-shadow:0 0 10px rgba(255,181,71,.6)}
+.lcd .prog{position:relative;height:8px;background:repeating-linear-gradient(90deg,#4A3210 0 14px,transparent 14px 18px)}
+.lcd .prog i{position:absolute;left:0;top:0;bottom:0;width:100%;background:repeating-linear-gradient(90deg,#FFB547 0 14px,transparent 14px 18px)}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .lcd .prog i{animation:fillP 2.4s steps(14) both}}
+@keyframes fillP{from{width:0}}
+.pbtns{display:flex;justify-content:space-around}
+.pbtns span{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:1px}
+.pbtns .k{width:60px;height:60px;border-radius:30px;background:#0B0B0C;color:var(--cream);display:flex;align-items:center;justify-content:center;box-shadow:0 5px 0 #3A0508,inset 0 -4px 0 #222}
+.pbtns .k.cr{background:var(--cream);color:#0B0B0C;box-shadow:0 5px 0 #8C8478,inset 0 -4px 0 #D6CFC3}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .printWrap:not(.done) .pbtns .k.cr{animation:pressK 1.2s ease-in-out infinite}}
+@keyframes pressK{0%,60%,100%{transform:translateY(0)}70%,85%{transform:translateY(4px)}}
+.prow{display:flex;justify-content:space-between;align-items:center;padding:0 10px}
+.prow .grill{width:66px;height:26px;background:radial-gradient(circle,#4A060C 3px,transparent 3.5px) 0 0/11px 9px}
+.prow .coin{display:flex;flex-direction:column;align-items:center;gap:6px;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:1px}
+.prow .coin i{width:8px;height:36px;border-radius:4px;background:#0B0B0C;box-shadow:inset 0 2px 4px #000,0 1px 0 #E0464C}
+.prow .led{width:14px;height:14px;border-radius:7px;background:#7BFF6A;box-shadow:0 0 10px #7BFF6A}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .prow .led{animation:glowL 1.4s ease-in-out infinite}}
+@keyframes glowL{50%{opacity:.45}}
+.plip{height:22px;margin:0 16px;border-radius:11px;background:#050505;box-shadow:inset 0 6px 8px #000,0 2px 0 #E0464C}
+.printWrap .slotWin{max-width:none;width:calc(100% - 64px);margin:-12px auto 0;background:transparent;border:0;border-radius:0;padding:0}
+.printWrap .slotWin .in{background:transparent;padding:0 0 10px;border-radius:0;--hole:var(--bg)}
+#printBtns{margin-top:16px}
+/* new ticket */
+.ticket.tk2{padding:0;gap:0;border-radius:26px;background:var(--gc);color:#0B0B0C;isolation:isolate}
+.tk2 .tkTop{position:relative;min-height:340px;aspect-ratio:360/400;overflow:hidden}
+.tk2 .tkImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;display:block}
+.tk2 .tkAura{position:absolute;inset:0;background:var(--gc)}
+.tk2 .tkAura i{position:absolute;border-radius:50%;filter:blur(50px)}
+.tk2 .tkAura i:first-child{width:320px;height:320px;right:-110px;top:-120px;background:var(--gc2)}
+.tk2 .tkAura i:nth-child(2){width:220px;height:220px;left:-70px;top:120px;background:#F2EEE8;opacity:.55}
+.tk2 .tkAura b{position:absolute;left:0;right:0;top:30%;text-align:center;font-family:var(--dot);font-weight:900;font-size:64px;line-height:1;color:rgba(11,11,12,.85)}
+.tk2 .fade{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(rgba(var(--rgb),0),rgba(var(--rgb),.6) 45%,var(--gc))}
+.tk2 .foil{position:absolute;top:-20%;bottom:-20%;left:0;width:38%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.28) 45%,rgba(255,240,200,.12) 55%,transparent);mix-blend-mode:screen;transform:translateX(-120%);pointer-events:none}
+.tk2 .spk svg{position:absolute;width:var(--s);height:var(--s);opacity:.2}
+@media (prefers-reduced-motion:no-preference){
+  html:not(.reduce) .tk2 .foil{animation:foil 4.5s ease-in-out infinite}
+  html:not(.reduce) .tk2 .tkImg{animation:pzoom 9s ease-in-out infinite alternate}
+  html:not(.reduce) .tk2 .spk svg{animation:twk 2.4s ease-in-out infinite;animation-delay:var(--d)}
+  html:not(.reduce) .tk2 .dd{animation:flick 5s steps(1) infinite}
+  html:not(.reduce) .tk2 .tst.on{animation:spop .5s cubic-bezier(.3,1.6,.5,1) both,shine 2.6s ease-in-out infinite;animation-delay:calc(.5s + var(--i)*.12s),calc(1.4s + var(--i)*.18s)}
+}
+@keyframes foil{0%,55%{transform:translateX(-120%)}100%{transform:translateX(320%)}}
+@keyframes pzoom{to{transform:scale(1.06)}}
+@keyframes twk{0%,100%{transform:scale(.4);opacity:.2}50%{transform:scale(1) rotate(45deg);opacity:1}}
+@keyframes flick{0%,92%,96%,100%{opacity:1}94%{opacity:.35}}
+@keyframes spop{from{transform:scale(0)}}
+@keyframes shine{0%,80%,100%{transform:scale(1);filter:none}88%{transform:scale(1.25);filter:drop-shadow(0 0 4px #FFF6E0)}}
+.tk2 .tkChips{position:absolute;left:14px;right:14px;top:14px;display:flex;justify-content:space-between;gap:8px}
+.tk2 .tkChip{height:26px;padding:0 10px;border-radius:13px;background:rgba(11,11,12,.6);color:#F2EEE8;display:inline-flex;align-items:center;gap:6px;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:1px}
+.tk2 .tkChip i{width:7px;height:7px;border-radius:4px;background:#F2EEE8}
+.tk2 .edBadge{top:48px;right:14px}
+.tk2 .tkTitle{position:absolute;left:20px;right:20px;bottom:12px;display:flex;flex-direction:column;gap:5px}
+.tk2 .tkEye{font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:3px}
+.tk2 .tkTitle b{font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:23px;line-height:1.1;letter-spacing:-.5px;word-break:break-word}
+.tk2 .tkVen{font-size:12px;font-weight:400}
+.tk2 .perf{height:24px;margin:0 22px}
+.tk2 .perf::before{border-top:2px dashed rgba(11,11,12,.3)}
+.tk2 .perf i{top:-2px;width:28px;height:28px;border-radius:14px}
+.tk2 .perf i.l{left:-36px}.tk2 .perf i.r{right:-36px}
+.tk2 .tkStub{display:flex;justify-content:space-between;align-items:flex-end;padding:4px 20px 0}
+.tk2 .tkDate{display:flex;align-items:flex-end;gap:9px}
+.tk2 .dd{font-family:var(--dot);font-weight:900;font-size:62px;line-height:.82}
+.tk2 .tkDate span{display:flex;flex-direction:column;gap:4px;padding-bottom:2px}
+.tk2 .tkDate span b{font-family:var(--dot);font-weight:900;font-size:20px;line-height:1}
+.tk2 .tkDate small,.tk2 .tkSeat small{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.tk2 .tkSeat{display:flex;flex-direction:column;align-items:flex-end;gap:3px}
+.tk2 .tkSeat small{font-size:9px;opacity:.6}
+.tk2 .tkSeat b{font-family:var(--dot);font-weight:900;font-size:24px;line-height:1}
+.tk2 .tkRate{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:14px 20px 0}
+.tk2 .tkSt{display:flex;gap:3px}
+.tk2 .tst{width:18px;height:18px}
+.tk2 .tkRate>b{font-family:'Unbounded',sans-serif;font-weight:600;font-size:14px}
+.tk2 .tkMoods{margin-left:auto;display:flex;gap:5px}
+.tk2 .tkMoods span{height:24px;padding:0 9px;border-radius:12px;border:1.5px solid rgba(11,11,12,.55);display:inline-flex;align-items:center;font-size:11px}
+.tk2 .stubPart{padding:14px 20px 14px;gap:6px}
+.tk2 .tkFoot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.tk2 .tkFoot .bc{width:110px;height:13px;flex:none;background:repeating-linear-gradient(90deg,#0B0B0C 0 2px,transparent 2px 4px,#0B0B0C 4px 5px,transparent 5px 8px)}
+.tk2 .tkFoot span:last-child{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;text-align:right}
+.tk2 .tdisc{color:rgba(11,11,12,.6);text-align:left;margin-top:0}
+.tk2 .glare{border-radius:26px}
+.flip .face>.ticket{height:100%}
+/* vending collection */
+.vend{position:relative;overflow:hidden;isolation:isolate;background:var(--red);border-radius:30px 30px 20px 20px;box-shadow:inset 0 -10px 0 #7A0B12,inset 0 2px 0 #E0464C;padding:12px 12px 14px}
+.vendHead{display:flex;justify-content:space-between;padding:0 8px 10px;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px}
+.vendHead .on{color:var(--amber)}
+.vendGlass{position:relative;overflow:hidden;border-radius:18px;background:#120708;box-shadow:inset 0 0 0 4px #2A0407,inset 0 10px 24px rgba(0,0,0,.8);padding:14px 12px 6px}
+.vendGlass .sheen{position:absolute;top:-40px;bottom:-40px;left:0;width:70px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);transform:translateX(-120%) rotate(18deg);pointer-events:none;z-index:2}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .vendGlass .sheen{animation:sheen 6s ease-in-out infinite}}
+@keyframes sheen{0%{transform:translateX(-120%) rotate(18deg)}60%,100%{transform:translateX(700%) rotate(18deg)}}
+.vend .grid{gap:0 12px}
+.vslot{display:flex;flex-direction:column;align-items:center;padding-bottom:12px}
+.vslot .rail{display:block;width:100%;height:10px;margin-top:4px;border-radius:3px;background:linear-gradient(#C9C2B8,#6E6862);box-shadow:0 4px 6px rgba(0,0,0,.6)}
+.vslot .vlab{margin-top:5px;height:16px;padding:0 8px;border-radius:4px;background:#0B0B0C;color:var(--amber);font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:1px;display:flex;align-items:center}
+.vendFoot{display:flex;gap:10px;margin-top:12px}
+.vendFoot span{flex:1;height:48px;border-radius:14px;background:#050505;box-shadow:inset 0 8px 10px #000,0 2px 0 #E0464C;display:flex;align-items:center;justify-content:center;font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2px;color:#6E6A64}
+.vendFoot i{width:86px;height:48px;border-radius:14px;background:#0B0B0C radial-gradient(circle,#2A2A2C 5px,transparent 5.5px) 3px 3px/14px 14px}
+.mini.mv{width:100%;min-height:132px;padding:10px;gap:2px;border-radius:14px;overflow:hidden;isolation:isolate;background:var(--gc);color:#0B0B0C}
+.mini.mv::before{content:"";position:absolute;width:120px;height:120px;right:-50px;top:-50px;border-radius:60px;background:var(--gc2);filter:blur(24px);z-index:-1}
+.mini.mv .mvP{position:absolute;left:10px;top:10px;width:38px;height:57px;border-radius:5px;overflow:hidden;background:var(--gc2);box-shadow:0 0 0 2px rgba(242,238,232,.55)}
+.mini.mv .mvP img{width:100%;height:100%;object-fit:cover}
+.mini.mv .mvG{margin-left:46px;font-family:var(--dot);font-weight:900;font-size:10px}
+.mini.mv .mvD{margin-left:46px;font-family:var(--dot);font-weight:900;font-size:22px;line-height:1}
+.mini.mv .mvT{margin-top:auto;padding-top:10px;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:11px;line-height:1.2;word-break:break-word}
+.mini.mv .badge{top:auto;bottom:8px;right:8px}
+.mini.mv .nl,.mini.mv .nr{display:none;position:absolute;top:70px;width:16px;height:16px;border-radius:8px;background:#120708}
+.vend .mini.mv .nl{display:block;left:-8px}.vend .mini.mv .nr{display:block;right:-8px}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .vend .mini.mv{animation:rise .4s both,swayT 4s ease-in-out infinite;animation-delay:calc(var(--i,0)*40ms),calc(var(--i,0)*.3s);transform-origin:50% 0}}
+@keyframes swayT{0%,100%{transform:rotate(0)}50%{transform:rotate(-1.2deg)}}
+/* shelf kiosk */
+.kiosk{position:relative;overflow:hidden;isolation:isolate;background:var(--red);border-radius:26px;box-shadow:inset 0 -8px 0 #7A0B12,inset 0 2px 0 #E0464C;padding:36px 12px 12px;margin-bottom:10px}
+.kiosk .bulbs{position:absolute;left:16px;right:16px;top:12px}
+.kiosk .bulbs i:nth-child(n+4):nth-child(-n+7){visibility:hidden}
+.kiosk .kHead{position:absolute;left:0;right:0;top:9px;text-align:center;font-family:var(--dot);font-weight:900;font-size:12px;letter-spacing:3px;color:#FFD98A;pointer-events:none}
+.kiosk .shelfWrap{border:0;border-radius:16px;box-shadow:inset 0 0 0 3px #2A0407}
+.spine .st{font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:8px;letter-spacing:1.5px}
+.spine .sn{font-family:var(--dot);font-weight:900;font-size:8px}
+@media (prefers-reduced-motion:reduce){.press::before,.tk2 *,.vend *,.slot .dl i{animation:none !important}}
+.reduce .press::before,.reduce .tk2 *,.reduce .vend *{animation:none !important}
 </style>
 </head>
 <body>
@@ -444,11 +633,13 @@ var GENRES = [
   {id:'romance', en:'ROMANCE', th:'โรแมนซ์', c:'#DDA0BA'},
   {id:'horror', en:'HORROR', th:'สยองขวัญ/ระทึก', c:'#C9636D'},
   {id:'comedy', en:'COMEDY', th:'ตลก', c:'#DEC46A'},
-  {id:'action', en:'ACTION', th:'แอ็กชัน/ผจญภัย', c:'#D9925C'},
+  {id:'action', en:'ACTION', th:'แอ็กชัน/ผจญภัย', c:'#F28A2E'},
   {id:'animation', en:'ANIMATION', th:'แอนิเมชัน/แฟนตาซี', c:'#7FC3A3'},
   {id:'doc', en:'OTHER', th:'สารคดี/อื่นๆ', c:'#97A3AF'}
 ];
 var GMAP = {}; GENRES.forEach(function(g){ GMAP[g.id]=g; });
+var GDARK = {scifi:'#2B5C8A', drama:'#5A3A8C', romance:'#B8436E', horror:'#5E1E28', comedy:'#B79A2E', action:'#B4500F', animation:'#3D7F8A', doc:'#4A5568'};
+function hexRgb(h){ h=h.replace('#',''); return parseInt(h.slice(0,2),16)+','+parseInt(h.slice(2,4),16)+','+parseInt(h.slice(4,6),16); }
 var FORMATS = ['2D','3D','IMAX','4DX','ScreenX','Dolby','Kids'];
 /* Venue directory.
    Major Cineplex group: branch names as listed on majorcineplex.com/cinema (checked 11 Nov 2026, Thai names only).
@@ -646,13 +837,40 @@ function seatLine(t){
   if (t.seat) p.push('ที่นั่ง '+esc(t.seat));
   return p.join(' · ');
 }
+var POP_SVG = '<svg class="lgPop" viewBox="0 0 40 48" aria-hidden="true"><g fill="#F2EEE8"><circle cx="12" cy="12" r="7"/><circle cx="20" cy="8" r="8"/><circle cx="28" cy="12" r="7"/><circle cx="16" cy="16" r="6"/><circle cx="25" cy="16" r="6"/></g><path d="M5 18h30l-4 29H9z" fill="#0B0B0C"/><path d="M12 18h5l-.6 29h-4.4z M23 18h5l-2 29h-4.4z" fill="#F2EEE8"/></svg>';
+function logoHTML(px, sub){
+  return '<a class="logo'+(sub?' sub':'')+'" href="#home" style="font-size:'+px+'px" aria-label="Tuva · Ticket to Anywhere หน้าแรก"><i class="lgNotch" aria-hidden="true"></i>'+POP_SVG+'<span class="lgTx"><b>tuva</b>'+(sub?'<small>TICKET TO ANYWHERE</small>':'')+'</span></a>';
+}
+var TK_STAR = 'M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.5L12 17.3l-5.9 3.2 1.3-6.5L2.5 9.4l6.6-.8z';
+function tkStars(r){
+  var h = '';
+  for (var i=0;i<5;i++){
+    var f = r>=i+1 ? 1 : r>=i+.5 ? .5 : 0, id = 'ts'+Math.random().toString(36).slice(2,8);
+    var fill = f===1 ? '#0B0B0C' : f===.5 ? 'url(#'+id+')' : 'rgba(11,11,12,.18)';
+    h += '<svg class="tst'+(f?' on':'')+'" style="--i:'+i+'" viewBox="0 0 24 24" aria-hidden="true">'+(f===.5?'<defs><linearGradient id="'+id+'"><stop offset=".5" stop-color="#0B0B0C"/><stop offset=".5" stop-color="rgba(11,11,12,.18)"/></linearGradient></defs>':'')+'<path d="'+TK_STAR+'" fill="'+fill+'"/></svg>';
+  }
+  return h;
+}
+function tkSparkles(){
+  var sp = '<path d="M12 0c.8 6 5.2 11.2 12 12-6.8.8-11.2 6-12 12-.8-6-5.2-11.2-12-12C6.8 11.2 11.2 6 12 0z" fill="#FFF6E0"/>';
+  return '<span class="spk" aria-hidden="true"><svg style="--s:18px;right:44px;top:50px;--d:0s" viewBox="0 0 24 24">'+sp+'</svg><svg style="--s:10px;right:26px;top:84px;--d:.8s" viewBox="0 0 24 24">'+sp+'</svg><svg style="--s:8px;right:60px;top:92px;--d:1.5s" viewBox="0 0 24 24">'+sp+'</svg></span>';
+}
 function ticketFront(t, glare){
-  var sl = seatLine(t), ed = editionOf(t.no);
-  return '<article class="ticket'+(ed?' '+ed.cls:'')+'" aria-label="ตั๋ว '+esc(t.title)+' ด้านหน้า'+(ed?' · '+ed.label:'')+'">'+band(t)+(ed?'<span class="edBadge" style="background:'+ed.bg+'">✦ NO.'+t.no+' '+ed.short+'</span>':'')+posterHTML(t)+
-    '<div class="tinfo"><span class="big">'+fmtDate(t.date)+'</span><span class="big r">'+(t.time?esc(t.time):'—')+'</span>'+
-    '<span class="s">'+esc(t.venue||'ไม่ระบุโรง')+'</span><span class="mono r" style="font-size:13px">'+esc(t.format||'')+'</span>'+
-    (sl?'<span class="mono" style="font-size:12px;grid-column:1/3">'+sl+'</span>':'')+'</div>'+
-    '<div class="stubPart"><div class="perf"><i class="l"></i><i class="r"></i></div><div class="tfoot">'+(ed?'✦ '+t.no+' MEMORIES ✦':'✦ TICKET TO ANYWHERE ✦')+'</div><div class="tdisc">ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม</div></div>'+
+  var g = GMAP[t.genre] || GMAP.doc, ed = editionOf(t.no), u = blobURL(t.posterId), dd = parseISO(t.date);
+  var ven = [t.venue||'ไม่ระบุโรง', t.format, t.hall?'โรง '+t.hall:''].filter(Boolean).map(esc).join(' · ');
+  var moods = (t.moods||[]).filter(function(m){ return MMAP[m]; }).slice(0,2);
+  var top = u ? '<img class="tkImg" src="'+u+'" alt="โปสเตอร์ '+esc(t.title)+'">' : '<span class="tkAura" aria-hidden="true"><i></i><i></i><b>'+esc(t.releaseYear||g.en)+'</b></span>';
+  return '<article class="ticket tk2'+(ed?' '+ed.cls:'')+'" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+';--rgb:'+hexRgb(g.c)+'" aria-label="ตั๋ว '+esc(t.title)+' ด้านหน้า'+(ed?' · '+ed.label:'')+'">'+
+    '<div class="tkTop">'+top+'<i class="foil" aria-hidden="true"></i><i class="fade" aria-hidden="true"></i>'+tkSparkles()+
+      '<div class="tkChips"><span class="tkChip"><i style="background:'+g.c+'"></i>'+g.en+'</span><span class="tkChip"><i></i>'+ticketNo(t.no||S.meta.nextNo).replace(' ','')+'</span></div>'+
+      (ed?'<span class="edBadge" style="background:'+ed.bg+'">✦ NO.'+t.no+' '+ed.short+'</span>':'')+
+      '<div class="tkTitle"><span class="tkEye">'+(t._n>1?'REWATCH ×'+t._n+' · ':'NOW SHOWING · ')+(dd.getFullYear()+543)+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
+    '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
+    '<div class="tkStub"><span class="tkDate"><b class="dd">'+pad(dd.getDate())+'</b><span><b>'+pad(dd.getMonth()+1)+'</b><small>'+(t.time?esc(t.time):'--:--')+'</small></span></span>'+
+      '<span class="tkSeat"><small>SEAT</small><b>'+(t.seat?esc(t.seat):'—')+'</b></span></div>'+
+    '<div class="tkRate"><span class="tkSt">'+tkStars(t.rating||0)+'</span>'+(t.rating!=null?'<b>'+t.rating+'</b>':'<span class="small">ยังไม่ให้คะแนน</span>')+
+      (moods.length?'<span class="tkMoods">'+moods.map(function(m){ return '<span>'+MMAP[m].th+'</span>'; }).join('')+'</span>':'')+'</div>'+
+    '<div class="stubPart"><div class="tkFoot"><span class="bc" aria-hidden="true"></span><span>'+(ed?'✦ '+t.no+' MEMORIES ✦':'✦ TICKET TO ANYWHERE ✦')+'</span></div><div class="tdisc">ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม</div></div>'+
     (glare?'<div class="glare"></div>':'')+'</article>';
 }
 function ticketBack(t, glare){
@@ -670,8 +888,16 @@ function ticketBack(t, glare){
     (glare?'<div class="glare"></div>':'')+'</article>';
 }
 function miniCard(t, i){
-  return '<a class="mini" style="--i:'+Math.min(i,12)+'" href="#ticket/'+t.id+'" aria-label="'+esc(t.title)+' · '+(GMAP[t.genre]||GMAP.doc).en+' · '+fmtDate(t.date)+'">'+band(t)+posterHTML(t)+
-    (t._n>1 ? '<span class="badge">ดูครั้งที่ '+t._n+'</span>' : '')+'<span class="d">'+fmtDate(t.date)+'</span></a>';
+  var g = GMAP[t.genre] || GMAP.doc, u = blobURL(t.posterId), dd = parseISO(t.date);
+  return '<a class="mini mv" style="--i:'+Math.min(i,12)+';--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+'" href="#ticket/'+t.id+'" aria-label="'+esc(t.title)+' · '+g.en+' · '+fmtDate(t.date)+'">'+
+    '<span class="mvP">'+(u?'<img src="'+u+'" alt="">':'')+'</span><span class="mvG">'+g.en+'</span><b class="mvD">'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'</b>'+
+    '<b class="mvT">'+esc(t.title)+'</b>'+(t._n>1 ? '<span class="badge">ดูครั้งที่ '+t._n+'</span>' : '')+'<i class="nl" aria-hidden="true"></i><i class="nr" aria-hidden="true"></i></a>';
+}
+function slotCode(i){ return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(i/2)%26)+(i%2+1); }
+function vendHTML(list){
+  return '<section class="vend" aria-label="ตู้ตั๋ว"><div class="vendHead" aria-hidden="true"><span>MEMORY VENDING</span><span class="on">● OPEN</span></div><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
+    list.map(function(t, i){ return '<div class="vslot">'+miniCard(t, i)+'<i class="rail" aria-hidden="true"></i><span class="vlab" aria-hidden="true">'+slotCode(i)+' · '+pad(t.no||0,4)+'</span></div>'; }).join('')+
+    '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH · หยิบตั๋ว</span><i></i></div></section>';
 }
 function setTabs(active){
   var tabs = document.getElementById('tabs');
@@ -721,24 +947,22 @@ function onThisDay(){
 function viewHome(){
   setTabs('home');
   var last = S.tickets.slice().sort(function(a,b){ return (b.createdAt||0)-(a.createdAt||0); })[0];
-  var otd = onThisDay()[0];
+  var otd = onThisDay()[0], n = S.tickets.length, ri = rankOf(n);
+  var lastHTML = '';
+  if (last) { var lg = GMAP[last.genre]||GMAP.doc, ld = parseISO(last.date), lu = blobURL(last.posterId);
+    lastHTML = '<a class="stub" href="#ticket/'+last.id+'" style="--gc:'+lg.c+';--gc2:'+(GDARK[lg.id]||'#4A5568')+'" aria-label="ตั๋วล่าสุด '+esc(last.title)+'"><span class="sp">'+(lu?'<img src="'+lu+'" alt="">':'')+'</span><span class="sx"><small>ความทรงจำล่าสุด · '+lg.en+'</small><b>'+esc(last.title)+'</b></span><span class="sd">'+pad(ld.getDate())+'<br>'+pad(ld.getMonth()+1)+'</span></a>'; }
   V.innerHTML =
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
-    '<div class="top" style="margin-bottom:10px"><span class="eyebrow">'+fmtDate(todayISO(), true)+'</span><span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon" href="#me" aria-label="โปรไฟล์ของฉัน" style="overflow:hidden;padding:0;border:2px solid var(--lime)">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="" style="width:100%;height:100%;object-fit:cover">':ICON('user',20))+'</a></span></div>'+
-    '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+
-      '<div class="marquee">'+bulbs(16)+'<h1><small>NOW PRINTING</small><span>TUVA</span><span class="thin">TICKET TO ANYWHERE</span></h1>'+bulbs(16)+'</div>'+
-      '<div class="screen"><div><small>NEXT TICKET</small><span style="font-size:20px;color:var(--lime)">'+ticketNo(S.meta.nextNo)+'</span></div>'+
-        '<div style="text-align:right"><small>RANK · '+S.tickets.length+'</small><span style="font-size:14px">'+(rankOf(S.tickets.length)>=0?RANKS[rankOf(S.tickets.length)].en:'—')+'</span></div></div>'+
-      '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small style="font-size:11px;margin-top:4px">พิมพ์ตั๋วใหม่</small></span></a>'+
-      '<a class="btn out sm" href="#collection" style="border-color:rgba(243,235,221,.35);background:rgba(0,0,0,.22)">ตั๋วของฉัน · '+S.tickets.length+' ใบ</a>'+
-      '<div class="slot"><span style="font-family:var(--display);font-size:11px;letter-spacing:3px;margin-bottom:6px">TICKETS DELIVERED HERE ↓</span><div class="lip"></div>'+
-      (last ? '<a class="stub" href="#ticket/'+last.id+'" aria-label="ตั๋วล่าสุด '+esc(last.title)+'">'+band(last)+'<span class="mono" style="font-size:10px">ล่าสุด · '+esc(last.title)+' · '+fmtDate(last.date)+'</span></a>'
-            : '<div class="stub" style="align-items:center;justify-content:center;color:#6E665D;font-size:12px">ยังไม่มีตั๋ว · กด START เลย</div>')+
-      '</div></section>'+
-    '<p class="tagline">“ภาพยนตร์คือตั๋วที่พาเราไปได้ทุกที่<br>ที่อยากไป เป็นคนที่อยากเป็น ทำสิ่งที่อยากทำ”<span>EVERY FILM IS A TICKET TO ANYWHERE</span></p>'+
+    '<div class="top" style="margin-bottom:14px">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon" href="#me" aria-label="โปรไฟล์ของฉัน" style="overflow:hidden;padding:0;border:0;background:var(--cream);color:#0B0B0C">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="" style="width:100%;height:100%;object-fit:cover">':ICON('user',20))+'</a></span></div>'+
+    '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13)+
+      '<div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
+      '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></a>'+
+      '<div class="slot"><div class="lip"></div><span class="dl">TICKETS DELIVERED HERE <i>↓</i></span></div></section>'+
+    (last ? lastHTML : '<div class="stub empty">ยังไม่มีตั๋ว · กด START เลย</div>')+
     challengeHTML(todayISO().slice(0,4), true)+comingSoonHTML()+
     (otd ? '<a class="otd" href="#ticket/'+otd.id+'"><span class="th">'+(blobURL(otd.posterId)?'<img src="'+blobURL(otd.posterId)+'" alt="">':'<span style="display:block;height:100%;border-top:4px solid '+GMAP[otd.genre].c+'"></span>')+'</span>'+
-      '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '');
+      '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+todayISO().slice(0,4) - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '')+
+    '<p class="tagline">“ภาพยนตร์คือตั๋วที่พาเราไปได้ทุกที่<br>ที่อยากไป เป็นคนที่อยากเป็น ทำสิ่งที่อยากทำ”<span>EVERY FILM IS A TICKET TO ANYWHERE</span></p>';
 }
 
 function newDraft(){
@@ -835,15 +1059,19 @@ function viewPrint(){
   var t = draftToTicket(d); t.no = S.meta.nextNo; t._n = viewingNumberFor(t);
   var dd = parseISO(t.date);
   V.innerHTML =
-    '<div class="top"><a class="icon ghost" href="#new" aria-label="กลับไปแก้ไข">'+IC.back+'</a><h1 class="c mono" style="font-size:12px;letter-spacing:2px">PRINTING · '+ticketNo(t.no)+'</h1><span style="width:44px"></span></div>'+
-    '<section class="printWrap" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="plate">'+bulbs(12,'fast')+'<b>TICKET</b><span>DELIVERED HERE ↓</span></div>'+
+    '<div class="top">'+logoHTML(22)+'<a class="icon" href="#new" aria-label="กลับไปแก้ไข">'+IC.back+'</a></div>'+
+    '<section class="printWrap" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="pmach">'+bulbs(13,'fast')+
+      '<div class="lcd" role="status"><span>PRINTING TICKET<span class="cur">_</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="prog" aria-hidden="true"><i></i></span></div>'+
+      '<div class="pbtns" aria-hidden="true"><span><i class="k cr">'+ICON('ticket',20)+'</i>PRINT</span><span><i class="k">'+IC.cam+'</i>PHOTO</span><span><i class="k">'+ICON('clapper',20)+'</i>STAMP</span></div>'+
+      '<div class="prow" aria-hidden="true"><i class="grill"></i><span class="coin"><i></i>INSERT MEMORY</span><i class="led"></i></div>'+
+      '<div class="plip" aria-hidden="true"></div></div>'+
     '<div class="slotWin"><div class="in"><div class="emerge" id="out">'+ticketFront(t)+'</div></div>'+
       printStampSVG(pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()+543).slice(2))+'</div>'+
     '<div id="printBtns" style="width:100%;display:flex;flex-direction:column;gap:10px;visibility:hidden">'+
-      '<button class="btn" data-act="save" style="background:var(--paper)">ประทับตรา &amp; เก็บเข้าคอลเลกชัน</button>'+
+      '<button class="btn" data-act="save">ฉีกตั๋ว &amp; เก็บเข้าคอลเลกชัน</button>'+
       '<a class="btn out sm" href="#new">แก้ไขก่อนเก็บ</a></div></section>';
   var out = document.getElementById('out'), btns = document.getElementById('printBtns'), pw = document.getElementById('pw');
-  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; var pl = pw.querySelector('.bulbs'); if (pl) pl.classList.remove('fast'); };
+  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done'); var pl = pw.querySelector('.bulbs'); if (pl) pl.classList.remove('fast'); };
   if (isReduced()) { show(); return; }
   requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
   out.addEventListener('animationend', show); setTimeout(show, 2800);
@@ -911,15 +1139,15 @@ function viewCollection(noAnim){
   if (f.companion) extra.push('<button class="chip" data-act="clearF" data-v="companion">ดูกับ '+esc(f.companion)+' ✕</button>');
   if (f.mood && MMAP[f.mood]) extra.push('<button class="chip" data-act="clearF" data-v="mood">'+MMAP[f.mood].e+' '+MMAP[f.mood].th+' ✕</button>');
   V.innerHTML =
-    '<div class="top"><h1>Collection</h1><label class="sr" for="ysel">เลือกปีที่ดู</label><select id="ysel" class="inp" data-act="fYear" style="width:auto;height:40px;background:var(--lime);color:var(--ink);font-family:var(--display);font-weight:500;padding:0 14px;border-radius:12px">'+yearOpts+'</select></div>'+
+    '<div class="top">'+logoHTML(22)+'<h1 class="sr">Collection</h1><label class="sr" for="ysel">เลือกปีที่ดู</label><select id="ysel" class="inp" data-act="fYear" style="width:auto;height:40px;background:var(--cream);color:#0B0B0C;font-family:var(--body);font-weight:500;padding:0 14px;border-radius:20px">'+yearOpts+'</select></div>'+
     (S.tickets.length ? '<div class="stats3"><div><b>'+st.films+'</b><span>เรื่อง</span></div><div><b>'+st.visits+'</b><span>ครั้งที่ดู</span></div><div><b>'+st.rewatches+'</b><span>ดูซ้ำ</span></div></div>' : '')+
     '<div style="display:flex;gap:8px;margin-bottom:10px"><label class="sr" for="q">ค้นหา</label><input class="inp" id="q" type="search" data-act="q" value="'+esc(f.q)+'" placeholder="ค้นชื่อหนัง โรง คน หรือโน้ต" style="height:44px">'+
     '<label class="sr" for="ssel">เรียงลำดับ</label><select id="ssel" class="inp" data-act="fSort" style="width:auto;height:44px;font-size:13px">'+Object.keys(SORTS).map(function(k){ return '<option value="'+k+'"'+(f.sort===k?' selected':'')+'>'+SORTS[k]+'</option>'; }).join('')+'</select></div>'+
     '<div class="chips scroll" style="margin-bottom:'+(extra.length?'8':'14')+'px">'+gch+'</div>'+
     (extra.length?'<div class="chips" style="margin-bottom:14px">'+extra.join('')+'</div>':'')+
     (list.length ? '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><span class="mono small muted" role="status">'+list.length+' ใบ</span>'+
-      '<div class="seg" role="group" aria-label="มุมมอง"><button data-act="colMode" data-v="grid" aria-pressed="'+(!S.colMode||S.colMode==='grid')+'">ตาราง</button><button data-act="colMode" data-v="binder" aria-pressed="'+(S.colMode==='binder')+'">แฟ้ม</button><button data-act="colMode" data-v="shelf" aria-pressed="'+(S.colMode==='shelf')+'">ชั้นวาง</button></div></div>'+
-      (S.colMode==='binder' ? binderHTML(list) : S.colMode==='shelf' ? shelfHTML(list) : '<div class="grid">'+list.map(miniCard).join('')+'</div>')
+      '<div class="seg" role="group" aria-label="มุมมอง"><button data-act="colMode" data-v="grid" aria-pressed="'+(!S.colMode||S.colMode==='grid')+'">ตู้ตั๋ว</button><button data-act="colMode" data-v="binder" aria-pressed="'+(S.colMode==='binder')+'">แฟ้ม</button><button data-act="colMode" data-v="shelf" aria-pressed="'+(S.colMode==='shelf')+'">ชั้นวาง</button></div></div>'+
+      (S.colMode==='binder' ? binderHTML(list) : S.colMode==='shelf' ? shelfHTML(list) : vendHTML(list))
       : S.tickets.length ? '<div class="empty">ไม่พบตั๋วที่ตรงกับตัวกรอง<button class="btn out sm" data-act="clearAll" style="max-width:220px">ล้างตัวกรอง</button></div>'
       : '<div class="empty"><span>ยังไม่มีตั๋วในคอลเลกชัน</span><a class="btn" href="#new" style="max-width:240px">พิมพ์ตั๋วใบแรก</a></div>');
   if (noAnim) Array.prototype.forEach.call(V.querySelectorAll('.mini'), function(m){ m.style.animation = 'none'; });
@@ -1802,11 +2030,11 @@ function spineHTML(t){
 }
 function shelfHTML(list){
   var items = S.shelfByGenre ? list.slice().sort(function(a,b){ return GENRES.findIndex(function(g){return g.id===a.genre;}) - GENRES.findIndex(function(g){return g.id===b.genre;}) || (sortKey(a)<sortKey(b)?-1:1); }) : list;
-  var rows = [], cur = [], wsum = 0, maxW = Math.min(window.innerWidth, 480) - 56;
+  var rows = [], cur = [], wsum = 0, maxW = Math.min(window.innerWidth, 480) - 84;
   items.forEach(function(t){ var w = 25 + hashStr(t.id) % 12; if (wsum + w > maxW && cur.length) { rows.push(cur); cur = []; wsum = 0; } cur.push(t); wsum += w; });
   if (cur.length) rows.push(cur);
   return '<div class="chips" style="margin-bottom:10px"><button class="chip" data-x="shelfSort" data-v="" aria-pressed="'+!S.shelfByGenre+'">ตามลำดับที่เลือก</button><button class="chip" data-x="shelfSort" data-v="1" aria-pressed="'+!!S.shelfByGenre+'">ไล่สีตามแนว</button></div>'+
-    '<div class="shelfWrap" aria-label="ชั้นวางสันปก">'+rows.map(function(r){ return '<div class="shelfRow">'+r.map(spineHTML).join('')+'</div>'; }).join('')+'</div><p class="small muted" style="text-align:center">แตะสันปกเพื่อดึงตั๋วออกมา</p>';
+    '<section class="kiosk" aria-label="ตู้ชั้นวาง">'+bulbs(10)+'<span class="kHead" aria-hidden="true">NOW SHOWING</span><div class="shelfWrap" aria-label="ชั้นวางสันปก">'+rows.map(function(r){ return '<div class="shelfRow">'+r.map(spineHTML).join('')+'</div>'; }).join('')+'</div></section><p class="small muted" style="text-align:center">แตะสันปกเพื่อดึงตั๋วออกมา</p>';
 }
 
 /* ---------- celebrations ---------- */
@@ -2304,7 +2532,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.6<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.7<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
