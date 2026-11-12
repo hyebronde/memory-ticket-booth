@@ -1015,6 +1015,14 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 @keyframes stmPng{to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.stm .stmBooth,.stm .stmWrap{display:none}.stmPng{animation:none;opacity:1}}
 .reduce .stm .stmBooth,.reduce .stm .stmWrap{display:none}.reduce .stmPng{animation:none;opacity:1}
+.tkB .readMore{align-self:flex-start;margin-top:-2px;min-height:32px;padding:0 12px;border-radius:16px;border:1.5px solid rgba(11,11,12,.5);background:transparent;color:#0B0B0C;font-family:var(--body);font-size:12px}
+.tkB .note{max-height:96px}
+.fcard textarea.note{min-height:150px}
+.ncount{align-self:flex-end;margin-top:-6px}
+.noteSheet{gap:12px}
+.noteSheet .nsT{font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:18px;border-left:6px solid var(--gc);padding-left:10px}
+.noteSheet .nsBody{background:var(--cream);color:#0B0B0C;border-radius:16px;padding:12px 16px;font-family:'Mali','Anuphan',cursive;font-size:16px;line-height:32px;white-space:pre-wrap;word-break:break-word;background-image:repeating-linear-gradient(transparent 0 31px,rgba(11,11,12,.15) 31px 32px);background-position:0 12px}
+.noteSheet .nsQ{font-family:'Unbounded','Anuphan',sans-serif;font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
@@ -1439,8 +1447,8 @@ function viewForm(editId){
       (d.rating!=null?'<button type="button" class="tlink" data-act="rate" data-v="">ล้างคะแนน</button>':'')+
       moodChipsForm({moods:d.moods, _popMood:popMood}).replace('<span class="lbl">ดูแล้วรู้สึก · เลือกได้สูงสุด 3 (ไม่บังคับ)</span><div class="chips">','<span class="flab">FELT · MAX 3</span><div class="fchips">')+
     '</section>'+
-    '<section class="fcard">'+lab('MY NOTE','note')+'<textarea class="inp note" id="note" name="note" maxlength="400" placeholder="ดูแล้วรู้สึกยังไง…">'+esc(d.note)+'</textarea>'+
-      lab('QUOTE','quote')+'<textarea class="inp" id="quote" name="quote" maxlength="160" placeholder="Whatever it takes." style="min-height:52px">'+esc(d.quote||'')+'</textarea>'+
+    '<section class="fcard">'+lab('MY NOTE','note')+'<textarea class="inp note" id="note" name="note" maxlength="3000" placeholder="ดูแล้วรู้สึกยังไง…">'+esc(d.note)+'</textarea>'+
+      '<span class="fhint ncount" id="ncount" aria-live="polite">'+(d.note||'').length+' / 3000</span>'+lab('QUOTE','quote')+'<textarea class="inp" id="quote" name="quote" maxlength="300" placeholder="Whatever it takes." style="min-height:52px">'+esc(d.quote||'')+'</textarea>'+
     '</section>'+
     '<section class="fcard">'+lab('PHOTOBOOTH')+'<div class="photoRow fph">'+photos+
       (d.photoIds.length<3?'<button type="button" class="camBtn" data-act="openCam">'+IC.cam+' เปิดตู้ถ่ายรูป</button>':'')+'</div>'+
@@ -1584,7 +1592,7 @@ function viewTicket(id){
   if (!t) { V.innerHTML = '<div class="empty">ไม่พบตั๋วใบนี้<a class="btn out sm" href="#collection" style="max-width:220px">กลับคอลเลกชัน</a></div>'; return; }
   var needPerm = window.DeviceOrientationEvent && typeof DeviceOrientationEvent.requestPermission === 'function' && !S.tiltOn;
   V.innerHTML =
-    '<div class="top hdr"><a class="icon" href="#collection" aria-label="กลับคอลเลกชัน">'+ICON_BACK+'</a><h1 class="c tno"><span class="sr">'+esc(t.title)+' </span>'+ticketNo(t.no).replace(' ','')+(S.flipped?' · ด้านหลัง':'')+'</h1><a class="icon" href="#edit/'+t.id+'" aria-label="แก้ไขตั๋ว">'+IC.edit+'</a></div>'+
+    '<div class="top hdr"><a class="icon" href="#collection" aria-label="กลับคอลเลกชัน">'+ICON_BACK+'</a><h1 class="c tno"><span class="sr">'+esc(t.title)+' </span>'+ticketNo(t.no).replace(' ','')+(S.flipped?' · BACK':'')+'</h1><a class="icon" href="#edit/'+t.id+'" aria-label="แก้ไขตั๋ว">'+IC.edit+'</a></div>'+
     '<div class="tilt" id="tilt"><div class="flip'+(S.flipped?' on':'')+'" id="flip"><div class="inner"><div class="face front" aria-hidden="'+S.flipped+'">'+ticketFront(t,true)+'</div><div class="face back" aria-hidden="'+(!S.flipped)+'">'+ticketBack(t,true)+'</div></div></div></div>'+
     '<div style="display:flex;gap:10px;margin-top:16px"><button class="btn out" data-act="flip">'+IC.flip+(S.flipped?' พลิกดูด้านหน้า':' พลิกดูโน้ต')+'</button><button class="btn" data-act="share" data-v="'+t.id+'" style="width:auto;padding:0 20px">'+IC.share+' แชร์</button></div>'+
     '<div style="display:flex;gap:10px;margin-top:10px"><a class="btn out sm" href="#new" data-act="rewatch" data-v="'+t.id+'" style="border-color:var(--line2)">ดูซ้ำ · พิมพ์ตั๋วใหม่</a><button class="btn danger sm" data-act="deleteT" data-v="'+t.id+'" style="width:64px;padding:0" aria-label="ลบตั๋ว">ลบ</button></div>'+
@@ -2689,6 +2697,7 @@ document.addEventListener('click', function(e){
     case 't10manage': manageTop10(+v); break;
     case 'goShelf': S.colMode = 'shelf'; S.filter = blankFilter(todayISO().slice(0,4)); break;
     case 'shelfSort': S.shelfMode = v||'month'; viewCollection(true); break;
+    case 'readNote': readNote(v); break;
     case 'mePhoto':
       pickFile('filePhoto').then(function(file){ if (!file) return; return cropToBlob(file, 600, 600).then(saveBlob).then(function(id){ S.profile.photoId = id; return saveProfile(); }).then(viewMe); }).catch(function(){ toast('เปิดรูปนี้ไม่ได้'); });
       break;
@@ -3137,7 +3146,7 @@ document.addEventListener('click', function(e){
       S.flipped = !S.flipped; SFX.flip();
       var fl = document.getElementById('flip'); fl.classList.toggle('on', S.flipped);
       fl.querySelector('.front').setAttribute('aria-hidden', S.flipped); fl.querySelector('.back').setAttribute('aria-hidden', !S.flipped);
-      b.innerHTML = IC.flip + (S.flipped ? ' พลิกดูด้านหน้า' : ' พลิกดูโน้ต'); var tno = document.querySelector('.tno'); if (tno) tno.lastChild.textContent = tno.lastChild.textContent.replace(/ · ด้านหลัง$/,'') + (S.flipped ? ' · ด้านหลัง' : '');
+      b.innerHTML = IC.flip + (S.flipped ? ' พลิกดูด้านหน้า' : ' พลิกดูโน้ต'); var tno = document.querySelector('.tno'); if (tno) tno.lastChild.textContent = tno.lastChild.textContent.replace(/ · BACK$/,'') + (S.flipped ? ' · BACK' : '');
       break;
     case 'share': shareSheet(byId(v)); break;
     case 'tiltPerm':
@@ -3337,14 +3346,14 @@ function ticketBack(t, glare){
     '<div class="bH"><span class="e">'+g.en+' · MY NOTE</span><b>'+esc(t.title)+'</b><span class="no">'+ticketNo(t.no).replace(' ','')+'</span></div>'+
     '<div class="bBody">'+
       '<div class="bRate">'+(t.rating!=null?'<span class="bSt">'+st+'</span><b>'+t.rating+'<small> / 5</small></b>':'<span class="small" style="opacity:.6">ยังไม่ให้คะแนน</span>')+'</div>'+
-      '<span class="sec-h">MY NOTE</span><p class="note">'+(t.note?esc(t.note):'<span style="opacity:.45">ยังไม่มีโน้ต</span>')+'</p>'+
+      '<span class="sec-h">MY NOTE</span><p class="note">'+(t.note?esc(t.note):'<span style="opacity:.45">ยังไม่มีโน้ต</span>')+'</p>'+(t.note && (t.note.length>110 || (t.note.match(/\n/g)||[]).length>2) ? '<button class="readMore" data-x="readNote" data-v="'+t.id+'">อ่านโน้ตเต็ม →</button>' : '')+
       (moods.length?'<span class="sec-h">FELT</span><div class="bMoods">'+moods.map(function(m,i){ return '<span class="'+(i===0?'on':'')+'">'+MMAP[m].e+' '+MMAP[m].th+'</span>'; }).join('')+'</div>':'')+
       (t.quote?'<span class="sec-h">QUOTE</span><p class="bQ">“'+esc(t.quote)+'”</p>':'')+
       '<div class="bWho">'+((t.companions||[]).length?'<div><span class="sec-h">WITH</span><span class="w">'+t.companions.map(esc).join(', ')+'</span></div>':'<div></div>')+
         (photos.length?'<div class="strip" style="grid-template-columns:repeat('+photos.length+',minmax(0,1fr))">'+photos.map(function(id){ return '<img src="'+blobURL(id)+'" alt="รูปความทรงจำ">'; }).join('')+'</div>':'')+'</div>'+
     '</div>'+
     '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
-    '<div class="bF"><span>'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()).slice(2)+(t.time?' · '+esc(t.time):'')+'</span><span>ดูครั้งที่ '+(t._n||1)+'</span></div>'+
+    '<div class="bF"><span>'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()).slice(2)+(t.time?' · '+esc(t.time):'')+'</span><span>WATCH #'+(t._n||1)+'</span></div>'+
     '<div class="tkFoot"><span class="bc" aria-hidden="true"></span><span>✦ TICKET TO ANYWHERE ✦</span></div>'+
     (glare?'<div class="glare"></div>':'')+'</article>';
 }
@@ -3714,6 +3723,16 @@ function storyMotionHTML(t, pngURL){
     '<div class="stmBooth"><div class="stmBoothIn">'+booth+'</div></div></div>'+
     (pngURL?'<img class="stmPng" src="'+pngURL+'" alt="">':'')+'</div>';
 }
+
+function readNote(id){
+  var t = S.tickets.filter(function(x){ return x.id===id; })[0]; if (!t) return;
+  var g = GMAP[t.genre] || GMAP.doc, el = document.createElement('div'); el.className = 'sheet';
+  el.innerHTML = '<div class="in noteSheet" role="dialog" aria-modal="true" aria-label="โน้ตของ '+esc(t.title)+'" style="--gc:'+g.c+'"><span class="eyebrow">MY NOTE · '+ticketNo(t.no).replace(' ','')+'</span><b class="nsT">'+esc(t.title)+'</b><div class="nsBody">'+esc(t.note)+'</div>'+(t.quote?'<p class="nsQ">“'+esc(t.quote)+'”</p>':'')+'<button class="btn out" data-close>ปิด</button></div>';
+  document.body.appendChild(el);
+  el.addEventListener('click', function(e){ if (e.target.closest('[data-close]') || e.target === el) el.remove(); });
+  var btn = el.querySelector('[data-close]'); if (btn) btn.focus();
+}
+document.addEventListener('input', function(e){ if (e.target && e.target.id === 'note') { var c = document.getElementById('ncount'); if (c) c.textContent = e.target.value.length+' / 3000'; } });
 </script>
 </body>
 </html>
