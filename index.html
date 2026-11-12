@@ -3009,7 +3009,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9.1<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
@@ -3253,7 +3253,7 @@ function deleteTicket(id){
       S.tickets = S.tickets.filter(function(x){ return x.id!==id; });
       var used = {}; S.tickets.forEach(function(x){ used[x.posterId]=1; (x.photoIds||[]).forEach(function(p){ used[p]=1; }); }); S.watch.forEach(function(w){ used[w.posterId]=1; });
       [t.posterId].concat(t.photoIds||[]).forEach(function(b){ if (b && !used[b]) DB.del('blobs', b); });
-      reindex(); S.draft = null; toast('ลบแล้ว'); location.hash = '#collection';
+      renumberTickets().then(function(){ reindex(); S.draft = null; toast('ลบแล้ว'); location.hash = '#collection'; render(); });
     });
   });
 }
@@ -3317,7 +3317,7 @@ DB.open().then(function(){
   S.meta.challenges = r[9] || {};
   S.meta.seenRank = (r[8]===undefined || r[8]===null) ? rankOf(S.tickets.length) : r[8]; if (r[8]===undefined || r[8]===null) DB.put('meta', S.meta.seenRank, 'seenRank');
   if (!S.meta.seenStamps) { S.meta.seenStamps = earnedStampIds(); DB.put('meta', S.meta.seenStamps, 'seenStamps'); }
-  reindex(); render(); setTimeout(maybeWhatsNew, 900);
+  renumberTickets().then(function(){ reindex(); render(); setTimeout(maybeWhatsNew, 900); });
   try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(x){}
 });
 if ('serviceWorker' in navigator && location.protocol==='https:' && window.self===window.top) {
@@ -3849,8 +3849,8 @@ function kindSeat(t){
 }
 
 /* ---------- what's new (once per version) ---------- */
-var APP_VER = '0.9';
-var WHATS_NEW = [['MOVIE + SERIES','บันทึกหนังที่ดูที่บ้านและซีรีส์ได้แล้ว','#C5D46E'],['NEW BOOTH','ตู้หน้าแรกใหม่ ตั๋วพิมพ์ออกมาเต็มใบ','#E0262F'],['NEW STORIES','แชร์สตอรี่พร้อมโมชั่นตู้พิมพ์ตั๋ว','#FFB547'],['LONGER NOTES','เขียนโน้ตได้ 3,000 ตัวอักษร','#6EC1CF']];
+var APP_VER = '0.9.1';
+var WHATS_NEW = [['TICKET NO. FIX','ลบตั๋วแล้ว เลขตั๋วเรียงใหม่ให้ต่อเนื่อง','#E0262F'],['CLEARER FORM','ช่องวันที่และรอบกี่โมง มีป้ายบอกชัดขึ้น','#FFB547'],['MOVIE + SERIES','บันทึกหนังที่ดูที่บ้านและซีรีส์ได้แล้ว','#C5D46E'],['LONGER NOTES','เขียนโน้ตได้ 3,000 ตัวอักษร','#6EC1CF']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
@@ -3873,6 +3873,16 @@ function showWhatsNew(){
   el.addEventListener('click', function(e){ if (e.target.closest('[data-close]') || e.target === el) close(); });
   el.addEventListener('keydown', function(e){ if (e.key === 'Escape') close(); });
   var b = el.querySelector('.ok'); if (b) b.focus();
+}
+
+/* keep ticket numbers continuous: NO.0001 … NO.n, next = n+1 */
+function renumberTickets(){
+  var list = S.tickets.slice().sort(function(a,b){ return ((a.no||0)-(b.no||0)) || ((a.createdAt||0)-(b.createdAt||0)); });
+  var jobs = [];
+  list.forEach(function(t, i){ if (t.no !== i+1) { t.no = i+1; jobs.push(DB.put('tickets', stripPriv(t))); } });
+  var nx = list.length + 1;
+  if (S.meta.nextNo !== nx) { S.meta.nextNo = nx; jobs.push(DB.put('meta', nx, 'nextNo')); }
+  return Promise.all(jobs).catch(function(){});
 }
 </script>
 </body>
