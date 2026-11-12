@@ -1109,6 +1109,29 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .obDots i.on{width:22px;background:var(--cream)}
 .obBtns{display:flex;flex-direction:column;gap:6px}
 .obLater{background:none;border:0;color:#B9B4AD;font-family:var(--body);font-size:13px;min-height:44px}
+
+/* v0.9.3: muted cabinet red, share button, marquee shelf */
+.vend,.kiosk{background:radial-gradient(150px 150px at 60px 10px,rgba(160,52,56,.55),rgba(160,52,56,0) 100%),radial-gradient(160px 160px at 100% 100%,rgba(40,8,10,.9),rgba(40,8,10,0) 100%),#7A1B21;box-shadow:inset 0 -10px 0 #4D1014,inset 0 2px 0 #A04A4F}
+.vpills .shbtn{margin-left:auto;height:44px;padding:0 14px;border-radius:22px;border:0 !important;background:#E0262F !important;color:#fff !important;font-family:var(--body);font-size:13px;white-space:nowrap}
+.vpills .shbtn+.srch{margin-left:0}
+.kiosk .shelfWrap.mq{padding:8px 0 4px;gap:0;overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.sRow{position:relative;height:170px;overflow:hidden;touch-action:pan-y;-webkit-user-select:none;user-select:none;cursor:grab}
+.sRow>.sBoard{position:absolute;left:0;right:0;bottom:0}
+.sTrack{position:absolute;left:0;bottom:12px;display:flex;align-items:flex-end;width:max-content;will-change:transform}
+.sRow.still .sTrack{left:50%;transform:translateX(-50%)}
+.sTrack .spine{position:relative;margin-right:3px;transform:rotate(var(--ln,0deg));box-shadow:inset -2px 0 0 rgba(0,0,0,.15),inset 2px 0 0 rgba(255,255,255,.12);transition:width .28s,height .28s,margin .28s,transform .28s;-webkit-user-drag:none;-webkit-touch-callout:none}
+.sTrack .spine:hover,.sTrack .spine:focus-visible{transform:rotate(var(--ln,0deg))}
+.sTrack.nt .spine{transition:none}
+.sTrack .spine>.cap,.sTrack .spine>.st,.sTrack .spine>.sn{transition:opacity .15s}
+.sTrack .spine.face{width:100px !important;height:148px !important;margin:0 7px 0 4px;transform:none;border-radius:4px;background:var(--gc) !important;box-shadow:0 8px 14px rgba(0,0,0,.45)}
+.sTrack .spine.face>.cap,.sTrack .spine.face>.st,.sTrack .spine.face>.sn{opacity:0}
+.spine .cv{position:absolute;inset:0;display:none;overflow:hidden;border-radius:4px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
+.spine.face .cv{display:block}
+.spine .cv img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;pointer-events:none}
+.spine .cv.np{background:radial-gradient(70px 70px at 85% 10%,var(--gc2),transparent),var(--gc)}
+.spine .cv.np b{position:absolute;left:8px;right:8px;bottom:10px;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:11px;line-height:1.15;color:#0B0B0C;white-space:normal;overflow-wrap:anywhere}
+@keyframes cvIn{from{transform:perspective(320px) rotateY(-75deg);opacity:.2}}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .spine.face .cv{animation:cvIn .28s ease-out;transform-origin:0 50%}}
 </style>
 </head>
 <body>
@@ -2701,7 +2724,7 @@ function storyPersona(){
   });
 }
 function shareStory(kind, arg){
-  var job = kind==='id' ? storyID() : kind==='rank' ? storyRank(arg!=null ? arg : Math.max(0, rankOf(S.tickets.length))) : kind==='shelf' ? storyShelf(String(arg || S.yearView || todayISO().slice(0,4))) : storyPersona();
+  var job = kind==='id' ? storyID() : kind==='rank' ? storyRank(arg!=null ? arg : Math.max(0, rankOf(S.tickets.length))) : kind==='shelf' ? storyShelf(String(arg || S.yearView || todayISO().slice(0,4))) : kind==='vend' ? storyVend(colShareYear()) : kind==='spines' ? storySpines(colShareYear()) : storyPersona();
   toast('กำลังสร้างรูป…');
   return job.then(function(c){ return canvasBlob(c, 'image/png'); }).then(function(b){ return shareBlob(b, 'story-'+kind+'.png', 'Tuva'); }).catch(function(){ toast('สร้างรูปไม่สำเร็จ'); });
 }
@@ -3047,7 +3070,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9.2<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9.3<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
@@ -3459,14 +3482,15 @@ function ticketBack(t, glare){
 /* ---- collection ---- */
 function colHeader(right){ return '<div class="top hdr">'+logoHTML(22)+right+'</div>'; }
 function viewPills(extra){
-  var m = S.colMode || 'grid';
-  return '<div class="vpills" role="group" aria-label="มุมมอง"><button data-act="colMode" data-v="grid" aria-pressed="'+(m==='grid')+'">ตู้ตั๋ว</button><button data-act="colMode" data-v="binder" aria-pressed="'+(m==='binder')+'">แฟ้ม</button><button data-act="colMode" data-v="shelf" aria-pressed="'+(m==='shelf')+'">ชั้นวาง</button>'+(extra||'')+'</div>';
+  var m = S.colMode==='shelf' ? 'shelf' : 'grid';
+  return '<div class="vpills" role="group" aria-label="มุมมอง"><button data-act="colMode" data-v="grid" aria-pressed="'+(m==='grid')+'">ตู้ตั๋ว</button><button data-act="colMode" data-v="shelf" aria-pressed="'+(m==='shelf')+'">ชั้นวาง</button>'+
+    (S.tickets.length?'<button class="shbtn" data-x="shareStory" data-v="'+(m==='shelf'?'spines':'vend')+'" aria-label="แชร์คอลเลกชันของคุณในปีนี้">↗ '+(m==='shelf'?'แชร์ชั้นวาง':'แชร์ตู้ตั๋ว')+'</button>':'')+(extra||'')+'</div>';
 }
 function viewCollection(noAnim){
   setTabs('collection');
   var f = S.filter, years = yearsWithData();
   if (f.year!=='all' && years.indexOf(f.year)<0) f.year = 'all';
-  var list = filtered(), base = S.tickets.filter(function(t){ return f.year==='all' || t.date.slice(0,4)===f.year; }), st = statsFor(base), m = S.colMode || 'grid';
+  var list = filtered(), base = S.tickets.filter(function(t){ return f.year==='all' || t.date.slice(0,4)===f.year; }), st = statsFor(base), m = S.colMode==='shelf' ? 'shelf' : 'grid';
   var yearOpts = '<option value="all"'+(f.year==='all'?' selected':'')+'>ทุกปี</option>'+years.map(function(y){ return '<option value="'+y+'"'+(f.year===y?' selected':'')+'>'+y+'</option>'; }).join('');
   var ysel = '<label class="sr" for="ysel">เลือกปีที่ดู</label><select id="ysel" class="ypill" data-act="fYear">'+yearOpts+'</select>';
   var showQ = S.showSearch || !!f.q;
@@ -3476,7 +3500,7 @@ function viewCollection(noAnim){
   if (f.venue) extra.push('<button class="chip" data-act="clearF" data-v="venue">'+esc(f.venue)+' ✕</button>');
   if (f.companion) extra.push('<button class="chip" data-act="clearF" data-v="companion">ดูกับ '+esc(f.companion)+' ✕</button>');
   if (f.mood && MMAP[f.mood]) extra.push('<button class="chip" data-act="clearF" data-v="mood">'+MMAP[f.mood].e+' '+MMAP[f.mood].th+' ✕</button>');
-  var right = m==='shelf' ? '<span class="dchip">'+list.length+' FILMS</span>' : m==='binder' ? '<span class="dchip" id="bpg">PAGE 1 / '+Math.max(1,Math.ceil(list.length/4))+'</span>' : ysel;
+  var right = m==='shelf' ? '<span class="dchip">'+list.length+' FILMS</span>' : ysel;
   V.innerHTML = colHeader(right)+'<h1 class="sr">Collection</h1>'+
     viewPills(m==='grid'?'<button class="icon srch" data-act="srch" aria-label="ค้นหา" aria-expanded="'+showQ+'">'+ICON_SEARCH+'</button>':'')+
     (showQ&&m==='grid'?'<div class="qrow"><label class="sr" for="q">ค้นหา</label><input class="inp" id="q" type="search" data-act="q" value="'+esc(f.q)+'" placeholder="ค้นชื่อหนัง โรง คน หรือโน้ต"></div>':'')+
@@ -3484,53 +3508,194 @@ function viewCollection(noAnim){
     (m==='grid' ? '<div class="gscroll">'+gch+'</div>' : '')+
     (extra.length?'<div class="chips" style="margin-bottom:10px">'+extra.join('')+'</div>':'')+
     (m==='grid' && S.tickets.length ? '<div class="csum"><span class="stats3"><b>'+st.films+'</b> FILMS · <b>'+st.visits+'</b> TICKETS · <b>'+st.rewatches+'</b> REWATCH</span><label class="sr" for="ssel">เรียงลำดับ</label><select id="ssel" class="ssel" data-act="fSort">'+Object.keys(SORTS).map(function(k){ return '<option value="'+k+'"'+(f.sort===k?' selected':'')+'>'+SORTS[k]+'</option>'; }).join('')+'</select></div>' : '')+
-    (list.length ? (m==='binder' ? binderHTML(list) : m==='shelf' ? shelfHTML(list) : vendHTML(list))
+    (list.length ? (m==='shelf' ? shelfHTML(list) : vendHTML(list))
       : S.tickets.length ? '<div class="empty">ไม่พบตั๋วที่ตรงกับตัวกรอง<button class="btn out sm" data-act="clearAll" style="max-width:220px">ล้างตัวกรอง</button></div>'
       : '<div class="empty"><span>ยังไม่มีตั๋วในคอลเลกชัน</span><a class="btn" href="#new" style="max-width:240px">พิมพ์ตั๋วใบแรก</a></div>');
   if (noAnim) Array.prototype.forEach.call(V.querySelectorAll('.mini'), function(mm){ mm.style.animation = 'none'; });
-  var bd = document.getElementById('binder'), bp = document.getElementById('bpg');
-  if (bd && bp) bd.addEventListener('scroll', function(){ var i = Math.round(bd.scrollLeft / Math.max(1, bd.clientWidth)); bp.textContent = 'PAGE '+(i+1)+' / '+bd.children.length; }, {passive:true});
+  if (m==='shelf') shelfRun();
 }
 var ICON_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M11 4a7 7 0 1 0 .01 0z M20 20l-4-4"/></svg>';
 /* ---- shelf (spec F07) ---- */
 var MON_EN = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+function spineHTML(t, dup){
+  var g = GMAP[t.genre] || GMAP.doc, h = hashStr(t.id), style = ['c','k','w'][h % 3], bg = style==='c' ? g.c : style==='k' ? '#1D1B19' : '#E6DCC9';
+  var fg = style==='k' ? '#E6DCC9' : '#1B1713', w = 24 + h % 12, ht = 128 + (h >> 3) % 36, ln = [0,0,0,-6,0,0,5,0][(h >> 5) % 8];
+  return '<a class="spine'+(dup?' dup':'')+'" href="#ticket/'+t.id+'" data-id="'+t.id+'" draggable="false"'+(dup?' aria-hidden="true" tabindex="-1"':' aria-label="'+esc(t.title)+' · '+fmtDate(t.date)+'"')+' style="width:'+w+'px;height:'+ht+'px;background:'+bg+';color:'+fg+';--ln:'+ln+'deg;--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+';transform-origin:'+(ln<0?'0':'100%')+' 100%">'+
+    '<span class="cap" style="height:'+(style==='c'?6:10)+'px;background:'+(style==='c'?'rgba(0,0,0,.2)':g.c)+'"></span><span class="st" style="max-height:'+(ht-34)+'px">'+esc(t.title.toUpperCase())+'</span><span class="sn">'+pad(t.no||0,2)+'</span></a>';
+}
 function shelfHTML(list){
-  var mode = S.shelfMode || 'month', groups = [], idx = {};
-  var items = list.slice().sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; });
-  if (mode==='genre') items.sort(function(a,b){ return GENRES.findIndex(function(g){return g.id===a.genre;}) - GENRES.findIndex(function(g){return g.id===b.genre;}) || (sortKey(a)<sortKey(b)?1:-1); });
-  var multiY = yearsWithData().length > 1;
-  items.forEach(function(t){
-    var k = mode==='genre' ? t.genre : mode==='all' ? t.date.slice(0,4) : t.date.slice(0,7);
-    if (!(k in idx)) { idx[k] = groups.length; groups.push({k:k, items:[]}); }
-    groups[idx[k]].items.push(t);
-  });
-  var maxW = Math.min(window.innerWidth, 480) - 84, rows = [];
-  groups.forEach(function(gr){
-    var lab = mode==='genre' ? (GMAP[gr.k]||GMAP.doc).en : mode==='all' ? gr.k : MON_EN[+gr.k.slice(5,7)-1]+(multiY?' '+gr.k.slice(2,4):'');
-    var cur = [], w = 0, first = true;
-    gr.items.forEach(function(t){ var sw = 25 + hashStr(t.id) % 12; if (w + sw > maxW && cur.length) { rows.push({lab: first ? lab+' · '+gr.items.length : '', items: cur}); first = false; cur = []; w = 0; } cur.push(t); w += sw; });
-    if (cur.length) rows.push({lab: first ? lab+' · '+gr.items.length : '', items: cur});
-  });
-  var sb = function(v, l){ return '<button class="spill" data-x="shelfSort" data-v="'+v+'" aria-pressed="'+(mode===v)+'">'+l+'</button>'; };
-  return '<div class="spills" role="group" aria-label="จัดเรียงชั้นวาง">'+sb('month','ตามเดือน')+sb('genre','ตามแนว')+sb('all','ทุกปี')+'</div>'+
-    '<section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="kb" aria-hidden="true">'+bulbs(3)+'<span class="kHead">NOW SHOWING</span>'+bulbs(3)+'</div><div class="shelfWrap" aria-label="ชั้นวางสันปก">'+
-    rows.map(function(r){ return '<div class="shelfBlk"><div class="shelfRow">'+r.items.map(spineHTML).join('')+'</div><i class="sBoard" aria-hidden="true"></i>'+(r.lab?'<span class="sLab">'+r.lab+'</span>':'')+'</div>'; }).join('')+
-    '</div></section><p class="small muted" style="text-align:center">แตะสันปกเพื่อดึงตั๋วออกมา</p>';
+  var items = list.slice().sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; }), n = items.length;
+  var viewW = Math.min(window.innerWidth, 480) - 56, totW = items.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0);
+  var R = Math.max(1, Math.min(3, Math.floor(totW/(viewW*1.15)))), per = Math.ceil(n/R), rows = [];
+  for (var r=0;r<R;r++){ var it = items.slice(r*per, (r+1)*per); if (it.length) rows.push(it); }
+  return '<section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="kb" aria-hidden="true">'+bulbs(3)+'<span class="kHead">NOW SHOWING</span>'+bulbs(3)+'</div><div class="shelfWrap mq" aria-label="ชั้นวางสันปก">'+
+    rows.map(function(it){
+      var w = it.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0), loop = w > viewW;
+      return '<div class="sRow'+(loop?' loop':' still')+'" data-n="'+it.length+'"><div class="sTrack">'+it.map(function(t){ return spineHTML(t); }).join('')+(loop?it.map(function(t){ return spineHTML(t, true); }).join(''):'')+'</div><i class="sBoard" aria-hidden="true"></i></div>';
+    }).join('')+
+    '</div></section><p class="small muted" style="text-align:center">ปัดชั้นวางเพื่อดูปกหนัง · แตะเพื่อเปิดตั๋ว</p>';
 }
-/* ---- binder (spec F08) ---- */
-function binderCard(t){
-  var g = GMAP[t.genre] || GMAP.doc, u = blobURL(t.posterId), dd = parseISO(t.date);
-  return '<a class="mini bc2" href="#ticket/'+t.id+'" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+'" aria-label="'+esc(t.title)+' · '+g.en+' · '+fmtDate(t.date)+'">'+
-    (u?'<span class="bP"><img src="'+u+'" alt=""></span>':'<span class="bA" aria-hidden="true"></span>')+'<span class="bG">'+g.en+'</span><b class="bT">'+esc(t.title)+'</b><b class="bD">'+pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'</b></a>';
+function shelfCover(el){
+  if (el.querySelector('.cv')) return;
+  var t = S.tickets.filter(function(x){ return x.id===el.getAttribute('data-id'); })[0]; if (!t) return;
+  var u = blobURL(t.posterId), c = document.createElement('span'); c.className = 'cv'+(u?'':' np'); c.setAttribute('aria-hidden','true');
+  c.innerHTML = u ? '<img src="'+u+'" alt="" draggable="false">' : '<b>'+esc(t.title)+'</b>';
+  el.appendChild(c);
 }
-function binderHTML(list){
-  var pages = []; for (var i=0;i<list.length;i+=4) pages.push(list.slice(i,i+4));
-  var rings = '<div class="rings" aria-hidden="true"><i></i><i></i><i></i></div>';
-  return '<div class="binder" id="binder">'+pages.map(function(pg, pi){
-    var sl = pg.map(function(t){ return '<div class="sleeve">'+binderCard(t)+'</div>'; }).join('');
-    for (var k=pg.length;k<4;k++) sl += '<div class="sleeve empty" aria-hidden="true"></div>';
-    return '<section class="bpage" aria-label="หน้า '+(pi+1)+' จาก '+pages.length+'">'+rings+'<div class="bgrid">'+sl+'</div><span class="pno">'+(pi+1)+' / '+pages.length+(pi<pages.length-1?' · SWIPE →':'')+'</span></section>';
-  }).join('')+'</div>';
+function shelfRun(){
+  var rows = V.querySelectorAll('.sRow'); if (!rows.length) return;
+  var red = isReduced();
+  var st = Array.prototype.map.call(rows, function(row, ri){
+    var o = {row:row, tr:row.firstChild, n:+row.getAttribute('data-n'), loop:row.classList.contains('loop'), pos:0, vel:0, drag:false, down:false, moved:false, face:-1, hold:0, auto:red?0:[16,11,14][ri%3], px:null};
+    row.addEventListener('pointerdown', function(e){ o.down = true; o.moved = false; o.sx = o.lx = e.clientX; o.lt = performance.now(); o.vel = 0; });
+    row.addEventListener('pointermove', function(e){
+      if (!o.down) return;
+      if (!o.moved) { if (Math.abs(e.clientX - o.sx) < 8) return; o.moved = true; o.drag = true; o.lx = e.clientX; try { row.setPointerCapture(e.pointerId); } catch(_){} }
+      var now = performance.now(), d = e.clientX - o.lx;
+      if (o.loop) { o.pos -= d; o.vel = Math.max(-1500, Math.min(1500, (-d/Math.max(1, now-o.lt))*600 + o.vel*.4)); }
+      o.lx = e.clientX; o.lt = now; o.px = e.clientX; o.hold = now + 900;
+    });
+    var end = function(){ if (!o.down) return; o.down = false; o.drag = false; if (performance.now() - o.lt > 120) o.vel = 0; };
+    row.addEventListener('pointerup', end); row.addEventListener('pointercancel', end);
+    row.addEventListener('click', function(e){ if (o.moved) { e.preventDefault(); e.stopPropagation(); o.moved = false; } }, true);
+    row.addEventListener('dragstart', function(e){ e.preventDefault(); });
+    return o;
+  });
+  function near(o, i, cx){ var k = o.tr.children, a = k[i], b = o.loop ? k[i+o.n] : null; if (!b) return a; return Math.abs(a.offsetLeft + a.offsetWidth/2 - cx) <= Math.abs(b.offsetLeft + b.offsetWidth/2 - cx) ? a : b; }
+  function mark(o, i, on){ var k = o.tr.children; [k[i], o.loop ? k[i+o.n] : null].forEach(function(el){ if (!el) return; if (on) shelfCover(el); el.classList.toggle('face', on); }); }
+  function half(o){ return o.tr.scrollWidth/2; }
+  function step(o, dir){
+    var ni = (o.face + dir + o.n) % o.n, cx = o.pos + o.row.clientWidth/2;
+    o.tr.classList.add('nt');
+    mark(o, o.face, false); mark(o, ni, true); o.face = ni;
+    void o.tr.offsetWidth; o.tr.classList.remove('nt');
+  }
+  var last = performance.now();
+  (function tick(now){
+    if (!rows[0].isConnected) return;
+    var dt = Math.min(.05, Math.max(0, (now - last)/1000)); last = now;
+    st.forEach(function(o){
+      if (o.loop && !o.drag) {
+        if (Math.abs(o.vel) > 12) { o.pos += o.vel*dt; o.vel *= Math.pow(.06, dt); if (Math.abs(o.vel) > 40) o.hold = now + 900; }
+        else { o.vel = 0; o.pos += o.auto*dt; }
+      }
+      var user = o.drag || now < o.hold;
+      if (o.loop) {
+        var cx = o.pos + o.row.clientWidth/2;
+        if (user && o.face < 0) { var k = o.tr.children; for (var i=0;i<k.length;i++) if (cx < k[i].offsetLeft + k[i].offsetWidth + 3) { o.face = i % o.n; mark(o, o.face, true); break; } }
+        else if (user) { var c = near(o, o.face, cx); if (cx > c.offsetLeft + c.offsetWidth + 3) step(o, 1); else if (cx < c.offsetLeft - 3) step(o, -1); }
+        else if (o.face >= 0) { mark(o, o.face, false); o.face = -1; }
+        var h = half(o); if (h > 0) { while (o.pos >= h) o.pos -= h; while (o.pos < 0) o.pos += h; }
+        o.tr.style.transform = 'translate3d('+(-o.pos).toFixed(2)+'px,0,0)';
+      } else {
+        var want = -1;
+        if (user && o.px != null) { var kk = o.tr.children; for (var j=0;j<kk.length;j++){ var rc = kk[j].getBoundingClientRect(); if (o.px >= rc.left && o.px <= rc.right) { want = j; break; } } if (want < 0) want = o.face; }
+        if (want !== o.face) { if (o.face >= 0) mark(o, o.face, false); if (want >= 0) mark(o, want, true); o.face = want; }
+      }
+    });
+    requestAnimationFrame(tick);
+  })(last);
+}
+/* ---- share collection (ST4 vending / ST5 shelf) ---- */
+function colShareYear(){
+  var ys = yearsWithData(), y = S.filter.year;
+  if (y && y!=='all' && ys.indexOf(y)>=0) return y;
+  y = todayISO().slice(0,4); return ys.indexOf(y)>=0 ? y : (ys.slice().sort().pop() || y);
+}
+function stCab(x, bx, by, bw, bh, K){
+  x.save(); x.beginPath(); x.moveTo(bx+24*K, by); x.arcTo(bx+bw, by, bx+bw, by+bh, 24*K); x.arcTo(bx+bw, by+bh, bx, by+bh, 14*K); x.arcTo(bx, by+bh, bx, by, 14*K); x.arcTo(bx, by, bx+bw, by, 24*K); x.closePath(); x.clip();
+  x.fillStyle = '#7A1B21'; x.fillRect(bx, by, bw, bh); var rg = x.createRadialGradient(bx+60*K, by+10*K, 0, bx+60*K, by+10*K, 150*K); rg.addColorStop(0, 'rgba(160,52,56,.55)'); rg.addColorStop(1, 'rgba(160,52,56,0)'); x.fillStyle = rg; x.fillRect(bx, by, bw, bh);
+  x.fillStyle = '#4D1014'; x.fillRect(bx, by+bh-8*K, bw, 8*K); x.restore();
+}
+function stHead(x, eb, hl, K){
+  x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillStyle = '#FFB547'; x.font = '900 '+(11*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText(eb, 540+1.5*K, 40*K);
+  var fs = 28*K; x.fillStyle = '#F2EEE8'; do { x.font = '700 '+fs+'px '+FN.un; setLS(x, -fs*.03); fs -= 2; } while (x.measureText(hl).width > 1000 && fs > 30);
+  x.fillText(hl, 540, 77*K); setLS(x, 0);
+}
+function stCoverNP(x, t, cx0, cy0, cw, ch, K, fs){
+  var gg = GMAP[t.genre]||GMAP.doc; x.fillStyle = gg.c; x.fillRect(cx0, cy0, cw, ch);
+  var rg = x.createRadialGradient(cx0+cw*.85, cy0+ch*.1, 0, cx0+cw*.85, cy0+ch*.1, cw*.7); rg.addColorStop(0, GDARK[gg.id]||'#4A5568'); rg.addColorStop(1, 'rgba(0,0,0,0)'); x.globalAlpha = .85; x.fillStyle = rg; x.fillRect(cx0, cy0, cw, ch); x.globalAlpha = 1;
+}
+function storyVend(y){
+  var all = S.tickets.filter(function(t){ return t.date.slice(0,4)===y; }).sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; }), list = all.slice(0,12);
+  return fontsReady().then(function(){ return Promise.all(list.map(function(t){ return loadImg(blobURL(t.posterId)); })); }).then(function(imgs){
+    var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'), K = 3, st = statsFor(all);
+    x.fillStyle = '#0B0B0C'; x.fillRect(0,0,1080,1920);
+    stHead(x, 'MY COLLECTION', y+' IN TICKETS', K);
+    var bx = 20*K, by = 104*K, bw = 320*K, cw = 63*K, ch = 92*K, cellH = ch + 3*K + 4*K + 3*K + 8*K, gh = 10*K + 3*cellH + 2*8*K + 8*K, bh = 12*K + 20*K + gh + 10*K + 22*K + 18*K;
+    stCab(x, bx, by, bw, bh, K);
+    x.fillStyle = '#FFD98A'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 2*K); x.textAlign = 'left'; x.fillText('MEMORY VENDING', bx+16*K, by+22*K); x.textAlign = 'right'; x.fillText('● '+y, bx+bw-16*K, by+22*K);
+    var gx = bx+12*K, gy = by+32*K, gw = bw-24*K;
+    x.fillStyle = '#141312'; rr(x, gx, gy, gw, gh, 14*K); x.fill(); x.strokeStyle = '#2A0407'; x.lineWidth = 3*K; rr(x, gx+1.5*K, gy+1.5*K, gw-3*K, gh-3*K, 13*K); x.stroke();
+    for (var k=0;k<12;k++){
+      var cx0 = gx + 10*K + (k%4)*(cw+8*K), cy0 = gy + 10*K + Math.floor(k/4)*(cellH+8*K), t = list[k];
+      x.save(); rr(x, cx0, cy0, cw, ch, 8*K); x.clip();
+      if (!t) { x.fillStyle = '#1F1D1B'; x.fillRect(cx0, cy0, cw, ch); }
+      else { var gg = GMAP[t.genre]||GMAP.doc;
+        if (imgs[k]) { x.fillStyle = gg.c; x.fillRect(cx0, cy0, cw, ch); drawCover(x, imgs[k], cx0, cy0, cw, ch*.62, 'top'); var lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, 'rgba(0,0,0,0)'); lg.addColorStop(1, gg.c); var hx = gg.c; lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, hx+'00'); lg.addColorStop(1, hx); x.fillStyle = lg; x.fillRect(cx0, cy0+ch*.3, cw, ch*.33); }
+        else stCoverNP(x, t, cx0, cy0, cw, ch, K);
+        x.fillStyle = '#0B0B0C'; x.textAlign = 'left'; x.font = '600 '+(8*K)+'px '+FN.un; setLS(x, 0); var tl = wrapText(x, t.title, cw-12*K).slice(0,2); tl.forEach(function(l, j){ x.fillText(l, cx0+6*K, cy0+ch*.64+8*K+j*9*K); });
+        var dd = parseISO(t.date); x.font = '900 '+(12*K)+'px '+FN.dot; x.fillText(pad(dd.getDate())+'.'+pad(dd.getMonth()+1), cx0+6*K, cy0+ch-6*K); }
+      x.restore();
+      var bg2 = x.createLinearGradient(0, cy0+ch+3*K, 0, cy0+ch+7*K); bg2.addColorStop(0, '#C9C2B8'); bg2.addColorStop(1, '#6E6862'); x.fillStyle = bg2; rr(x, cx0, cy0+ch+3*K, cw, 4*K, 2*K); x.fill();
+      x.fillStyle = '#FFD98A'; x.textAlign = 'center'; x.font = '900 '+(7*K)+'px '+FN.dot; setLS(x, 0); x.fillText('ABC'[Math.floor(k/4)]+(k%4+1), cx0+cw/2, cy0+ch+16*K);
+    }
+    var fy = gy + gh + 10*K;
+    x.fillStyle = '#FFD98A'; x.textAlign = 'left'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 1*K); x.fillText(st.films+' FILMS · '+st.visits+' TICKETS', bx+16*K, fy+15*K);
+    x.fillStyle = '#0B0B0C'; rr(x, bx+bw-16*K-58*K, fy, 58*K, 22*K, 11*K); x.fill(); x.fillStyle = '#FFB547'; x.textAlign = 'center'; x.font = '900 '+(9*K)+'px '+FN.dot; x.fillText('PUSH ▸', bx+bw-16*K-29*K, fy+14.5*K);
+    storyFoot(x); return c;
+  });
+}
+function storySpines(y){
+  var all = S.tickets.filter(function(t){ return t.date.slice(0,4)===y; }).sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; });
+  var seen = {}, films = all.filter(function(t){ var k = (t.title||'').trim().toLowerCase()+'|'+(t.releaseYear||''); if (seen[k]) return false; seen[k] = 1; return true; });
+  var pool = films.slice(), pats = ['FSSFS','SFSSF'], rowsD = pats.map(function(p){ return p.split('').map(function(ch){
+    if (!pool.length) return null; var i = 0;
+    if (ch==='F') { for (var q=0;q<pool.length;q++) if (pool[q].posterId && blobURL(pool[q].posterId)) { i = q; break; } }
+    else { for (var q2=0;q2<pool.length;q2++) if (!(pool[q2].posterId && blobURL(pool[q2].posterId))) { i = q2; break; } }
+    return {f: ch==='F', t: pool.splice(i,1)[0]}; }).filter(Boolean); });
+  var flat = rowsD[0].concat(rowsD[1]);
+  return fontsReady().then(function(){ return Promise.all(flat.map(function(d){ return d.f ? loadImg(blobURL(d.t.posterId)) : Promise.resolve(null); })); }).then(function(imgs){
+    var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'), K = 3, st = statsFor(all);
+    x.fillStyle = '#0B0B0C'; x.fillRect(0,0,1080,1920);
+    stHead(x, 'MY SHELF', y+' ON MY SHELF', K);
+    var bx = 20*K, by = 104*K, bw = 320*K, ph = 8*K + 2*178*K, bh = 30*K + ph + 34*K + 12*K;
+    stCab(x, bx, by, bw, bh, K);
+    for (var i=0;i<6;i++){ x.fillStyle = '#FFD98A'; x.shadowColor = '#FFB547'; x.shadowBlur = 14; x.beginPath(); x.arc(i<3 ? bx+19.5*K+i*15*K : bx+bw-19.5*K-(i-3)*15*K, by+15*K, 3.5*K, 0, Math.PI*2); x.fill(); } x.shadowColor = 'transparent';
+    x.fillStyle = '#FFD98A'; x.textAlign = 'center'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText('NOW SHOWING', 540+1.5*K, by+18.5*K);
+    var px0 = bx+10*K, py0 = by+30*K, pw = bw-20*K;
+    x.fillStyle = '#1E1A16'; rr(x, px0, py0, pw, ph, 8*K); x.fill();
+    var gi = 0;
+    rowsD.forEach(function(row, ri){
+      var base = py0 + 8*K + 158*K + ri*178*K;
+      var ws = row.map(function(d){ var h = hashStr(d.t.id); return d.f ? 108*K : (24 + h%12 + 3)*K; }), tot = ws.reduce(function(a,b){ return a+b; }, 0), xx = px0 + pw/2 - tot/2;
+      x.save(); x.beginPath(); x.rect(px0+6*K, base-158*K, pw-12*K, 158*K); x.clip();
+      row.forEach(function(d, di){
+        var t = d.t, h = hashStr(t.id), gg = GMAP[t.genre]||GMAP.doc, im = imgs[gi++];
+        if (d.f) { var fx = xx+4*K, fw = 100*K, fh = 148*K, fy = base-fh;
+          x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 14*K; x.shadowOffsetY = 8*K; x.fillStyle = gg.c; rr(x, fx, fy, fw, fh, 4*K); x.fill(); x.restore();
+          x.save(); rr(x, fx, fy, fw, fh, 4*K); x.clip();
+          if (im) drawCover(x, im, fx, fy, fw, fh, 'top');
+          else { stCoverNP(x, t, fx, fy, fw, fh, K); x.fillStyle = '#0B0B0C'; x.textAlign = 'left'; x.font = '600 '+(11*K)+'px '+FN.un; setLS(x, 0); var tl = wrapText(x, t.title, fw-16*K).slice(0,3); tl.forEach(function(l, j){ x.fillText(l, fx+8*K, fy+fh-12*K-(tl.length-1-j)*12*K); }); }
+          x.restore(); x.strokeStyle = 'rgba(255,255,255,.08)'; x.lineWidth = 2*K; rr(x, fx+K, fy+K, fw-2*K, fh-2*K, 3*K); x.stroke();
+        } else { var style = ['c','k','w'][h%3], bg = style==='c' ? gg.c : style==='k' ? '#1D1B19' : '#E6DCC9', fg = style==='k' ? '#E6DCC9' : '#1B1713', w = (24+h%12)*K, ht = (128+(h>>3)%36)*K, ln = [0,0,0,-6,0,0,5,0][(h>>5)%8], capH = (style==='c'?6:10)*K;
+          x.save(); x.translate(ln<0 ? xx : xx+w, base); x.rotate(ln*Math.PI/180); var sx = ln<0 ? 0 : -w;
+          x.fillStyle = bg; x.fillRect(sx, -ht, w, ht); x.fillStyle = style==='c' ? 'rgba(0,0,0,.2)' : gg.c; x.fillRect(sx, -ht, w, capH);
+          x.fillStyle = 'rgba(0,0,0,.15)'; x.fillRect(sx+w-2*K, -ht, 2*K, ht); x.fillStyle = 'rgba(255,255,255,.12)'; x.fillRect(sx, -ht, 2*K, ht);
+          x.fillStyle = fg; x.textAlign = 'center'; x.font = '900 '+(8*K)+'px '+FN.dot; setLS(x, 0); x.fillText(pad(t.no||0,2), sx+w/2, -5*K);
+          x.save(); x.beginPath(); x.rect(sx, -ht+capH+4*K, w, ht-capH-22*K); x.clip(); x.translate(sx+w/2, -ht+capH+6*K); x.rotate(Math.PI/2); x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '600 '+(8*K)+'px '+FN.un; setLS(x, 1.5*K); x.fillText(t.title.toUpperCase(), 0, 0); x.restore(); x.textBaseline = 'alphabetic';
+          x.restore(); }
+        xx += ws[di];
+      });
+      x.restore();
+      x.fillStyle = '#3A2F25'; x.fillRect(px0, base, pw, 10*K); x.fillStyle = '#241C16'; x.fillRect(px0, base+10*K, pw, 3*K);
+    });
+    var gs = GENRES.filter(function(g){ return st.genres[g.id]; }).sort(function(a,b){ return st.genres[b.id]-st.genres[a.id]; });
+    var parts = [st.films+' FILMS'].concat(gs.slice(0,3).map(function(g){ return g.en.toUpperCase()+' '+st.genres[g.id]; })); if (gs.length > 3) parts.push('+'+(gs.length-3));
+    x.fillStyle = '#FFD98A'; x.textAlign = 'center'; var fs = 10*K, line = parts.join(' · '); do { x.font = '900 '+fs+'px '+FN.dot; setLS(x, 0); fs -= 1; } while (x.measureText(line).width > pw && fs > 14);
+    x.fillText(line, 540, py0+ph+20*K);
+    storyFoot(x); return c;
+  });
 }
 /* ---- year (spec F09) ---- */
 function viewYear(){
@@ -3889,8 +4054,8 @@ function kindSeat(t){
 }
 
 /* ---------- what's new (once per version) ---------- */
-var APP_VER = '0.9.2';
-var WHATS_NEW = [['SPECIAL EDITIONS','ตั๋วลายพิเศษ 10 เทศกาล ปีใหม่ ตรุษจีน สงกรานต์ ลอยกระทง วันแม่ วันพ่อ ฯลฯ','#FFB547'],['WELCOME TOUR','คนใหม่มีหน้าแนะนำ 3 หน้า พาพิมพ์ตั๋วใบแรก','#C5D46E'],['TICKET NO. FIX','ลบตั๋วแล้ว เลขตั๋วเรียงใหม่ให้ต่อเนื่อง','#E0262F'],['CLEARER FORM','ช่องวันที่และรอบกี่โมง มีป้ายบอกชัดขึ้น','#6EC1CF']];
+var APP_VER = '0.9.3';
+var WHATS_NEW = [['MOVING SHELF','ชั้นวางเลื่อนเองได้ ปัดแล้วสันปกจะหันหน้าปกหนังออกมา','#FFB547'],['SHARE COLLECTION','แชร์ตู้ตั๋วและชั้นวางของปีนี้ลง Story ได้แล้ว','#E0262F'],['SIMPLER VIEWS','คอลเลกชันเหลือ 2 มุมมอง ตู้ตั๋วกับชั้นวาง','#C5D46E'],['SOFTER RED','ตู้สีแดงหม่นลง สบายตาขึ้น','#6EC1CF']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
