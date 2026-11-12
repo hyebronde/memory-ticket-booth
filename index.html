@@ -931,6 +931,72 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .printWrap .tk2 .tkFoot span:last-child{white-space:nowrap;font-size:8px;letter-spacing:1.5px}
 /* iOS Safari: clip blurred glows to rounded corners */
 .logo,.booth,.pmach,.vend,.vendGlass,.kiosk,.mcard,.tkS,.tkB .bH,.pspec,.mini.mv,.mini.bc2{-webkit-mask-image:-webkit-radial-gradient(white,black);mask-image:radial-gradient(white,black)}
+/* v0.8d: glows as gradients (no blurred layers) so rounded corners render the same on iPhone Safari */
+.booth,.pmach,.vend,.kiosk{background:radial-gradient(150px 150px at 60px 10px,rgba(240,51,58,.85),rgba(240,51,58,0) 100%),radial-gradient(160px 160px at 100% 100%,rgba(74,6,12,.95),rgba(74,6,12,0) 100%),#B3121B}
+.booth::before,.booth::after,.pmach::before,.pmach::after,.vend::before,.kiosk::before{display:none}
+.mcard{background:radial-gradient(170px 170px at 50px 30px,#FF3B3B,rgba(255,59,59,0) 100%),radial-gradient(180px 180px at 100% 100%,#4A060C,rgba(74,6,12,0) 100%),#C4161F}
+.mcard::before,.mcard::after{display:none}
+.logo{background:radial-gradient(1.6em 1.6em at .5em 0,#FF3B3B,rgba(255,59,59,0) 100%),radial-gradient(1.8em 1.6em at 100% 100%,#5E0A12,rgba(94,10,18,0) 100%),#C4161F}
+.logo::before,.logo::after{display:none}
+/* home booth = spec F01 geometry */
+.booth.home{height:400px;display:block;padding:0;border-radius:34px 34px 22px 22px}
+.booth.home .bulbs{position:absolute;left:22px;right:22px;top:14px;display:flex;justify-content:space-between;padding:0}
+.bulbs.lit i{width:10px;height:10px;background:#FFD98A;box-shadow:0 0 8px #FFB547;animation:none}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .bulbs.lit i{animation:bulbP 1.3s ease-in-out infinite;animation-delay:calc(var(--b)*.1s)}}
+.booth.home .screen{position:absolute;left:20px;right:20px;top:40px;height:106px;box-sizing:border-box;padding:14px 18px;gap:5px;justify-content:center}
+.booth.home .screen b{font-size:44px}
+.booth.home .press{position:absolute;left:50%;top:162px;width:160px;height:160px;margin-left:-80px;display:flex;align-items:center;justify-content:center}
+.booth.home .press span{width:140px;height:140px}
+.booth.home .slot{position:absolute;left:34px;right:34px;top:340px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.booth.home .slot .lip{width:100%;height:20px}
+/* ===== home booth H1a ===== */
+.tbooth{position:relative;margin-bottom:6px}
+.tbSign{position:relative;width:310px;max-width:calc(100% - 40px);height:86px;margin:0 auto 8px;border-radius:40px 40px 8px 8px;background:linear-gradient(#1C1C1E,#0B0B0C);box-shadow:inset 0 0 0 3px #F2EEE8,inset 0 0 0 6px #0B0B0C,inset 0 0 0 7px #B79A2E,0 6px 0 #7A0B12;overflow:hidden;-webkit-mask-image:-webkit-radial-gradient(white,black)}
+.tbSign .rays{position:absolute;left:50%;bottom:-30px;width:240px;height:240px;margin-left:-120px;border-radius:50%;background:repeating-conic-gradient(from -90deg at 50% 50%,rgba(255,181,71,.18) 0 2deg,transparent 2deg 16deg);-webkit-mask:linear-gradient(transparent 35%,#000);mask:linear-gradient(transparent 35%,#000)}
+.tbSign .sb{position:absolute;display:flex;justify-content:space-between}
+.tbSign .sb.top{left:10px;right:10px;top:10px}
+.tbSign .sb.l,.tbSign .sb.r{top:23px;bottom:9px;flex-direction:column;width:6px}
+.tbSign .sb.l{left:7px}.tbSign .sb.r{right:7px}
+.tbSign .sb i,.h1a .pil i{display:block;width:7px;height:7px;border-radius:50%;background:#FFD98A;box-shadow:0 0 7px #FFB547}
+.tbSign .sb.l i,.tbSign .sb.r i,.h1a .pil i{width:6px;height:6px}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .tbSign .sb i,html:not(.reduce) .h1a .pil i{animation:tbChase 1.4s steps(1) infinite;animation-delay:calc(var(--k)*-.466s)}}
+@keyframes tbChase{0%{opacity:1}33%,100%{opacity:.25}}
+.tbSign .no{position:absolute;left:0;right:0;top:26px;text-align:center;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:4px;color:var(--amber)}
+.tbSign b{position:absolute;left:0;right:0;top:40px;text-align:center;font-family:'Unbounded',sans-serif;font-weight:700;font-size:24px;letter-spacing:1px;color:var(--cream);text-shadow:0 0 10px rgba(255,59,59,.9),0 0 2px #FF3B3B;white-space:nowrap}
+.booth.home.h1a{height:420px;border-radius:30px 30px 18px 18px}
+.booth.home.h1a>.bulbs{top:12px}
+.h1a .pil{position:absolute;top:30px;width:12px;height:330px;border-radius:6px;background:#7A0B12;box-shadow:inset 0 0 0 2px #E0464C;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:9px 0;box-sizing:border-box}
+.h1a .pil.l{left:6px}.h1a .pil.r{right:6px}
+.h1a .scr{position:absolute;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fff,#8C8478 70%);box-shadow:0 1px 0 #4A060C}
+.h1a .scr::after{content:"";position:absolute;left:1px;right:1px;top:4px;height:1px;background:#4A3F38;transform:rotate(35deg)}
+.h1a .s1{left:26px;top:30px}.h1a .s2{right:26px;top:30px}.h1a .s3{left:26px;bottom:22px}.h1a .s4{right:26px;bottom:22px}
+.h1a .bez{position:absolute;left:16px;right:16px;top:34px;height:112px;border-radius:22px;background:linear-gradient(180deg,#F4F1EC 0%,#B9B4AD 45%,#6E6862 55%,#E6DCC9 100%);padding:4px;box-sizing:border-box;box-shadow:0 4px 0 #7A0B12}
+.booth.home.h1a .bez .screen{position:relative;left:auto;right:auto;top:auto;height:100%;border-radius:18px;padding:12px 16px;gap:5px;overflow:hidden}
+.booth.home.h1a .bez .screen b{font-size:42px}
+.h1a .bez .screen .l1{font-size:11px}.h1a .bez .screen .l3{font-size:10px}
+.h1a .led{position:absolute;left:42px;top:220px;width:12px;height:12px;border-radius:6px;background:#7BFF6A;box-shadow:0 0 10px #7BFF6A}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .h1a .led{animation:glowL 1.4s ease-in-out infinite}}
+.h1a .coin{position:absolute;right:18px;top:186px;width:48px;height:78px;border-radius:10px;background:linear-gradient(180deg,#F4F1EC 0%,#B9B4AD 45%,#6E6862 55%,#E6DCC9 100%);box-shadow:0 3px 0 #4A060C;display:flex;flex-direction:column;align-items:center;padding-top:9px;box-sizing:border-box;gap:6px}
+.h1a .coin i{width:6px;height:28px;border-radius:3px;background:#0B0B0C;box-shadow:inset 0 2px 3px #000}
+.h1a .coin span{font-family:var(--dot);font-weight:900;font-size:6px;letter-spacing:.5px;color:#3A3A3C;text-align:center;line-height:1.2}
+.booth.home.h1a .press{top:160px;height:156px;width:156px;margin-left:-78px}
+.booth.home.h1a .press span{width:136px;height:136px}
+.booth.home.h1a .press b{font-size:21px}
+.h1a .brass{position:absolute;left:50%;top:318px;transform:translateX(-50%);padding:4px 14px;border-radius:4px;background:linear-gradient(180deg,#FFE7A8,#B79A2E 60%,#FFE7A8);box-shadow:0 2px 0 #5E3E10,inset 0 0 0 1px rgba(94,62,16,.5);font-family:var(--dot);font-weight:900;font-size:8px;letter-spacing:2px;color:#3A2410;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.h1a .brass i{width:4px;height:4px;border-radius:2px;background:#5E3E10}
+.booth.home.h1a .slot{left:30px;right:30px;top:342px;display:block;width:auto;margin:0}
+.booth.home.h1a .slot .lip{height:30px;border-radius:15px;background:linear-gradient(180deg,#F4F1EC 0%,#B9B4AD 45%,#6E6862 55%,#E6DCC9 100%);padding:5px;box-sizing:border-box;box-shadow:none;position:relative}
+.booth.home.h1a .slot .lip::after{content:"";display:block;position:static;height:100%;border-radius:10px;background:#050505;box-shadow:inset 0 6px 8px #000}
+.h1a .peek{position:absolute;left:50%;top:16px;width:130px;margin-left:-65px;height:34px;overflow:hidden}
+.h1a .peek div{position:relative;height:34px;border-radius:0 0 6px 6px;background:var(--cream);color:var(--red);text-align:center;padding-top:15px;box-sizing:border-box;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;transform:translateY(-14px)}
+.h1a .peek div::before{content:"";position:absolute;left:8px;right:8px;top:9px;border-top:1.5px dashed rgba(179,18,27,.45)}
+@media (prefers-reduced-motion:no-preference){html:not(.reduce) .h1a .peek div{animation:tbPeek 3s ease-in-out infinite}}
+@keyframes tbPeek{0%,100%{transform:translateY(-14px)}50%{transform:translateY(0)}}
+.tbFeet{position:relative;margin:0 8px;height:30px;border-radius:0 0 12px 12px;background:#1C1C1E repeating-linear-gradient(90deg,transparent 0 26px);box-shadow:inset 0 3px 0 #0B0B0C;overflow:visible}
+.tbFeet::before{content:"";position:absolute;inset:6px 10px;background:linear-gradient(135deg,transparent 35%,rgba(183,154,46,.55) 35% 45%,transparent 45%) 0 0/26px 18px repeat-x,linear-gradient(45deg,transparent 55%,rgba(183,154,46,.55) 55% 65%,transparent 65%) 0 0/26px 18px repeat-x}
+.tbFeet .f{position:absolute;bottom:-10px;width:34px;height:10px;border-radius:0 0 5px 5px;background:linear-gradient(180deg,#F4F1EC 0%,#B9B4AD 45%,#6E6862 55%,#E6DCC9 100%)}
+.tbFeet .f.l{left:32px}.tbFeet .f.r{right:32px}
+.tbooth+.hrow{margin-top:22px}
 </style>
 </head>
 <body>
@@ -1274,7 +1340,7 @@ function viewHome(){
   V.innerHTML =
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
     '<div class="top" style="margin-bottom:14px">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon" href="#me" aria-label="โปรไฟล์ของฉัน" style="overflow:hidden;padding:0;border:0;background:var(--cream);color:#0B0B0C">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="" style="width:100%;height:100%;object-fit:cover">':ICON('user',20))+'</a></span></div>'+
-    '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13)+
+    '<section class="booth home" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13,'lit')+
       '<div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
       '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></a>'+
       '<div class="slot"><div class="lip"></div><span class="dl">TICKETS DELIVERED HERE <i>↓</i></span></div></section>'+
@@ -3174,6 +3240,7 @@ if ('serviceWorker' in navigator && location.protocol==='https:' && window.self=
 /* ===== v0.8 spec-exact views ===== */
 function tabFab(){ return ''; }
 function circleBtn(href, big, small, label){ return '<a class="hcirc" href="'+href+'" aria-label="'+label+'"><b>'+big+'</b><span>'+small+'</span></a>'; }
+function chaseB(n){ var h=''; for (var i=0;i<n;i++) h += '<i style="--k:'+(i%3)+'"></i>'; return h; }
 function nextRelease(){
   var list = watchSorted().filter(function(w){ return w.releaseDate && daysUntil(w.releaseDate) >= 0; });
   return list[0] ? daysUntil(list[0].releaseDate) : null;
@@ -3188,10 +3255,17 @@ function viewHome(){
   V.innerHTML =
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
     '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
-    '<section class="booth" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13)+
-      '<div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
+    '<div class="tbooth">'+
+      '<div class="tbSign" aria-hidden="true"><i class="rays"></i><div class="sb top">'+chaseB(17)+'</div><div class="sb l">'+chaseB(4)+'</div><div class="sb r">'+chaseB(4)+'</div><span class="no">★ NOW OPEN ★</span><b>TICKET BOOTH</b></div>'+
+      '<section class="booth home h1a" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13,'lit')+
+      '<div class="pil l" aria-hidden="true">'+chaseB(7)+'</div><div class="pil r" aria-hidden="true">'+chaseB(7)+'</div>'+
+      '<i class="scr s1" aria-hidden="true"></i><i class="scr s2" aria-hidden="true"></i><i class="scr s3" aria-hidden="true"></i><i class="scr s4" aria-hidden="true"></i>'+
+      '<div class="bez"><div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div></div>'+
+      '<i class="led" aria-hidden="true"></i><div class="coin" aria-hidden="true"><i></i><span>INSERT<br>MEMORY</span></div>'+
       '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></a>'+
-      '<div class="slot"><div class="lip"></div><span class="dl">TICKETS DELIVERED HERE <i>↓</i></span></div></section>'+
+      '<div class="brass" aria-hidden="true"><i></i>TUVA CO. · EST 2026<i></i></div>'+
+      '<div class="slot" aria-hidden="true"><div class="lip"></div><div class="peek"><div>★ ADMIT ONE ★</div></div></div></section>'+
+      '<div class="tbFeet" aria-hidden="true"><i class="f l"></i><i class="f r"></i></div></div>'+
     '<div class="hrow">'+
       (ch ? circleBtn('#year', ch.n+'/'+ch.goal, 'เป้าปีนี้', 'เป้าหมายปีนี้ '+ch.n+' จาก '+ch.goal) : circleBtn('#year', '+', 'ตั้งเป้าปี', 'ตั้งเป้าดูหนังปีนี้'))+
       circleBtn('#watch', nr==null?'—':(nr===0?'TODAY':nr+'d'), 'หนังเข้าโรง', nr==null?'ยังไม่มีหนังรอเข้าโรง':'อีก '+nr+' วันหนังเข้าโรง')+
