@@ -919,6 +919,16 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .ymt b{font-family:var(--dot);font-weight:900;font-size:22px;color:var(--amber)}
 .ymg{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;grid-template-columns:none}
 .ymg a{height:26px;padding:0 10px;border-radius:13px;background:#2A2A2C;display:inline-flex;align-items:center;font-size:12px;color:var(--cream);text-decoration:none;flex-direction:row}
+.printWrap .slotWin.full{height:auto;margin:-38px 40px 0}
+.printWrap .slotWin.full .in{height:auto;padding:0 0 8px}
+.printWrap .slotWin.full .tk2{border-radius:0 0 24px 24px;box-shadow:0 14px 30px rgba(0,0,0,.5)}
+.printWrap .slotWin.full .tk2 .tkTitle b{font-size:20px}
+.printWrap .slotWin.full .tk2 .dd{font-size:54px}
+.printWrap #out.go{animation:emerge8 3.2s cubic-bezier(.3,.1,.2,1) forwards}
+.printWrap .lcd .prog i{animation-duration:3.2s}
+.printWrap{min-height:0}
+.printWrap .tk2 .tkFoot .bc{width:84px}
+.printWrap .tk2 .tkFoot span:last-child{white-space:nowrap;font-size:8px;letter-spacing:1.5px}
 </style>
 </head>
 <body>
@@ -1390,10 +1400,10 @@ function viewPrint(){
       '<button class="btn" data-act="save">ฉีกตั๋ว &amp; เก็บเข้าคอลเลกชัน</button>'+
       '<a class="btn out sm" href="#new">แก้ไขก่อนเก็บ</a></div></section>';
   var out = document.getElementById('out'), btns = document.getElementById('printBtns'), pw = document.getElementById('pw');
-  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done');  };
+  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done'); setTimeout(function(){ try { btns.scrollIntoView({behavior: isReduced()?'auto':'smooth', block:'end'}); } catch(x){} }, 80);  };
   if (isReduced()) { show(); return; }
   requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
-  out.addEventListener('animationend', show); setTimeout(show, 2800);
+  out.addEventListener('animationend', show); setTimeout(show, 3600);
 }
 function viewingNumberFor(t){
   var k = movieKey(t), n = 1;
@@ -1536,7 +1546,7 @@ function wrapText(ctx, text, maxW){
 }
 function fontsReady(){
   if (!document.fonts || !document.fonts.load) return Promise.resolve();
-  return Promise.all(['300 40px Jost','500 40px Jost','300 40px Anuphan','400 40px Anuphan','400 40px "DM Mono"','400 40px Mali'].map(function(f){ return document.fonts.load(f).catch(function(){}); }));
+  return Promise.all(['300 40px Jost','500 40px Jost','300 40px Anuphan','400 40px Anuphan','400 40px "DM Mono"','400 40px Mali','700 40px Unbounded'].map(function(f){ return document.fonts.load(f).catch(function(){}); }));
 }
 var F = { d:'Jost, Anuphan, sans-serif', b:'Anuphan, sans-serif', m:'"DM Mono", monospace', h:'Mali, Anuphan, cursive' };
 function drawBand(ctx, t, x, y, w){
@@ -1646,8 +1656,8 @@ function exportImage(t, mode, hidePrivate){
       c.width = 1080; c.height = 1920; ctx.fillStyle = '#141312'; ctx.fillRect(0, 0, 1080, 1920);
       ctx.fillStyle = '#E6DCC9'; ctx.textAlign = 'center'; ctx.textBaseline = 'alphabetic';
       ctx.font = '400 26px '+F.m; setLS(ctx, 8); ctx.fillText('NOW PRINTING', 540, 150);
-      ctx.font = '300 74px '+F.d; setLS(ctx, 12); ctx.fillText('TUVA', 540, 240);
-      ctx.font = '500 30px '+F.d; setLS(ctx, 12); ctx.fillText('TICKET TO ANYWHERE', 540, 296);
+      drawLogo(ctx, 540, 222, 56, 'center', '#141312');
+      ctx.fillStyle = '#E6DCC9'; ctx.textAlign = 'center'; ctx.font = '500 26px '+F.m; setLS(ctx, 10); ctx.fillText('TICKET TO ANYWHERE', 540, 306);
       var maxH = 1380, sc = Math.min(860/f.width, maxH/f.height), w = f.width*sc, h = f.height*sc;
       ctx.save(); ctx.translate(540, 340 + h/2); ctx.rotate(-0.025); ctx.drawImage(f, -w/2, -h/2, w, h); ctx.restore();
       ctx.fillStyle = '#9E978D'; ctx.font = '300 30px '+F.b; setLS(ctx, 0);
@@ -2117,7 +2127,7 @@ function shareWrapped(y){
     x.fillStyle = '#141312'; x.fillRect(0,0,1080,1920);
     x.fillStyle = '#C5D46E'; rr(x, 60, 60, 960, 420, 36); x.fill();
     x.fillStyle = '#1B1713'; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
-    x.font = '400 28px '+F.m; setLS(x, 6); x.fillText('TUVA · WRAPPED', 110, 140);
+    var lw = drawLogo(x, 110, 130, 40, 'left', '#C5D46E'); x.fillStyle = '#1B1713'; x.textAlign = 'left'; x.font = '400 28px '+F.m; setLS(x, 6); x.fillText('WRAPPED', 110 + lw + 20, 140);
     x.font = '300 260px '+F.d; setLS(x, -4); x.fillText(y, 96, 400);
     var row = function(yy, label, val, color){ x.fillStyle = '#9E978D'; x.font = '300 34px '+F.b; setLS(x, 0); x.fillText(label, 110, yy);
       x.fillStyle = color || '#E6DCC9'; x.font = '300 76px '+F.d; setLS(x, 1); var lines = wrapText(x, String(val), 860).slice(0,2); lines.forEach(function(l,i){ x.fillText(l, 110, yy+86+i*84); }); return yy + 86 + (lines.length-1)*84; };
@@ -2403,7 +2413,7 @@ function celebrate(t){
 function storyCanvas(bg){ var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'); x.fillStyle = bg; x.fillRect(0,0,1080,1920); return {c:c, x:x}; }
 function storyFooter(x, color, line){
   x.fillStyle = color; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-  x.font = '500 30px '+F.d; setLS(x, 14); x.fillText('TUVA · TICKET TO ANYWHERE', 540, 1800);
+  var hc = '#0B0B0C'; try { var bgc = x.getImageData(4, 1764, 1, 1).data; hc = 'rgb('+bgc[0]+','+bgc[1]+','+bgc[2]+')'; } catch(e){} drawLogo(x, 540, 1764, 46, 'center', hc); x.fillStyle = color; x.textAlign = 'center';
   x.font = '300 30px '+F.b; setLS(x, 0); x.globalAlpha = .8; x.fillText(line + ' · ' + location.host, 540, 1852); x.globalAlpha = 1;
 }
 function drawRankCard(x, i, cx, cy, w, rot){
@@ -2430,7 +2440,7 @@ function storyID(){
     x.save(); x.translate(540, 900); x.rotate(-0.035);
     x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 60; x.shadowOffsetY = 30; x.fillStyle = '#E6DCC9'; rr(x, -450, -660, 900, 1320, 12); x.fill(); x.shadowColor = 'transparent';
     x.fillStyle = '#1B1713'; x.textAlign = 'left';
-    x.font = '300 76px '+F.d; setLS(x, 2); x.fillText('tuva', -400, -540);
+    drawLogo(x, -400, -566, 52, 'left', '#E6DCC9'); x.fillStyle = '#1B1713'; x.textAlign = 'left';
     x.font = '500 24px '+F.d; setLS(x, 12); x.fillText('TICKET TO ANYWHERE', -400, -496);
     x.font = '400 26px '+F.m; setLS(x, 6); x.fillText('NAME', -400, -400);
     x.font = '400 68px '+F.h; setLS(x, 0); x.fillText(P.name || 'คนดูหนัง', -400, -320);
@@ -2810,7 +2820,7 @@ function storyChallenge(y){
   var p = chProgress(y); if (!p) return Promise.reject();
   return fontsReady().then(function(){
     var s = storyCanvas('#5E1E28'), x = s.x; x.textAlign = 'center'; x.textBaseline = 'alphabetic';
-    x.fillStyle = '#E6DCC9'; x.font = '400 30px '+F.m; setLS(x, 8); x.fillText('TUVA · CHALLENGE', 540, 260);
+    drawLogo(x, 540, 180, 46, 'center', '#5E1E28'); x.fillStyle = '#E6DCC9'; x.textAlign = 'center'; x.font = '400 30px '+F.m; setLS(x, 8); x.fillText('CHALLENGE', 540, 270);
     x.font = '300 120px '+F.d; setLS(x, 2); x.fillText(y, 540, 420);
     x.font = '300 360px '+F.d; setLS(x, -6); x.fillStyle = '#C5D46E'; x.fillText(String(p.n), 540, 860);
     x.fillStyle = '#E6DCC9'; x.font = '300 64px '+F.d; setLS(x, 2); x.fillText('/ '+p.goal+' เรื่อง', 540, 970);
@@ -3208,14 +3218,14 @@ function viewPrint(){
       '<div class="pbtns" aria-hidden="true"><span><i class="k cr">'+ICON('ticket',20)+'</i>PRINT</span><span><i class="k">'+IC.cam+'</i>PHOTO</span><span><i class="k">'+ICON_STAMP+'</i>STAMP</span></div>'+
       '<div class="prow" aria-hidden="true"><i class="grill"></i><span class="coin"><i></i>INSERT MEMORY</span><i class="led"></i></div>'+
       '<div class="plip" aria-hidden="true"></div></div>'+
-    '<div class="slotWin"><div class="in"><div class="emerge" id="out">'+ticketMini(t)+'</div></div>'+
+    '<div class="slotWin full"><div class="in"><div class="emerge" id="out">'+ticketFront(t,false)+'</div></div>'+
       printStampSVG(pad(dd.getDate())+'.'+pad(dd.getMonth()+1)+'.'+String(dd.getFullYear()+543).slice(2))+'</div>'+
     '<div id="printBtns" class="pbar" style="visibility:hidden"><button class="btn" data-act="save">ฉีกตั๋วเก็บเข้าคอลเลกชัน</button><a class="icon big" href="#new" aria-label="กลับไปแก้ไขข้อมูลตั๋ว">'+ICON_REDO+'</a></div></section>';
   var out = document.getElementById('out'), btns = document.getElementById('printBtns'), pw = document.getElementById('pw');
-  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done');  };
+  var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done'); setTimeout(function(){ try { btns.scrollIntoView({behavior: isReduced()?'auto':'smooth', block:'end'}); } catch(x){} }, 80);  };
   if (isReduced()) { show(); return; }
   requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
-  out.addEventListener('animationend', show); setTimeout(show, 2800);
+  out.addEventListener('animationend', show); setTimeout(show, 3600);
 }
 var ICON_SND_ON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M17 9a4 4 0 0 1 0 6"/></svg>';
 var ICON_SND_OFF = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M16 9l5 6 M21 9l-5 6"/></svg>';
@@ -3387,6 +3397,36 @@ function moodYearSpec(list){
   var top = ks[0];
   return '<section class="ycard"><span class="yh">FELT THIS YEAR</span><a class="moodTop ymt" href="#collection" data-act="goMood" data-v="'+top.id+'"><i aria-hidden="true">'+top.e+'</i><span>ปีนี้คุณ'+top.verb+' <b>'+c[top.id]+'</b> เรื่อง</span></a>'+
     (ks.length>1?'<div class="moodGrid ymg">'+ks.slice(1).map(function(m){ return '<a href="#collection" data-act="goMood" data-v="'+m.id+'" aria-label="'+m.th+' '+c[m.id]+' เรื่อง">'+m.e+' '+c[m.id]+'</a>'; }).join('')+'</div>':'')+'</section>';
+}
+
+/* brand logo for canvas: same geometry, colours and font as logoHTML (CI) */
+function drawLogo(x, ax, cy, em, align, hole){
+  x.save();
+  x.font = '700 '+em+'px Unbounded, Anuphan, sans-serif'; setLS(x, -0.045*em); x.textBaseline = 'alphabetic'; x.textAlign = 'left';
+  var tw = x.measureText('tuva').width, w = em*(.62+.9+.26+.44) + tw, h = em*1.68, r = em*.34;
+  var lx = align==='center' ? ax - w/2 : align==='right' ? ax - w : ax, ty = cy - h/2;
+  x.beginPath(); rr(x, lx, ty, w, h, r); x.save(); x.clip();
+  x.fillStyle = '#C4161F'; x.fillRect(lx, ty, w, h);
+  x.filter = 'blur('+(em*.6)+'px)';
+  x.fillStyle = '#FF3B3B'; x.beginPath(); x.arc(lx - em + em*1.5, ty - em*1.7 + em*1.5, em*1.5, 0, Math.PI*2); x.fill();
+  x.fillStyle = '#5E0A12'; x.beginPath(); x.ellipse(lx + w + em*1.4 - em*1.7, ty + h + em*1.9 - em*1.5, em*1.7, em*1.5, 0, 0, Math.PI*2); x.fill();
+  x.filter = 'none'; x.restore();
+  // notch
+  x.fillStyle = hole || '#0B0B0C'; x.beginPath(); x.arc(lx, cy, em*.27, 0, Math.PI*2); x.fill();
+  // popcorn (viewBox 40x48 -> .9em x 1.08em)
+  var px = lx + em*.62, py = cy - em*.54, k = em*.9/40;
+  x.save(); x.translate(px, py); x.scale(k, k);
+  x.fillStyle = '#F2EEE8'; [[12,12,7],[20,8,8],[28,12,7],[16,16,6],[25,16,6]].forEach(function(c){ x.beginPath(); x.arc(c[0], c[1], c[2], 0, Math.PI*2); x.fill(); });
+  x.fillStyle = '#0B0B0C'; x.beginPath(); x.moveTo(5,18); x.lineTo(35,18); x.lineTo(31,47); x.lineTo(9,47); x.closePath(); x.fill();
+  x.fillStyle = '#F2EEE8'; x.beginPath(); x.moveTo(12,18); x.lineTo(17,18); x.lineTo(16.4,47); x.lineTo(12,47); x.closePath(); x.fill();
+  x.beginPath(); x.moveTo(23,18); x.lineTo(28,18); x.lineTo(26,47); x.lineTo(21.6,47); x.closePath(); x.fill();
+  x.restore();
+  // wordmark: Unbounded 700, centred on the 1em line box
+  x.fillStyle = '#0B0B0C';
+  var m = x.measureText('tuva'), asc = m.fontBoundingBoxAscent || em*.96, desc = m.fontBoundingBoxDescent || em*.24;
+  x.fillText('tuva', lx + em*(.62+.9+.26), cy + (asc - desc)/2 - (asc+desc-em)/2*0 );
+  x.restore();
+  return w;
 }
 </script>
 </body>
