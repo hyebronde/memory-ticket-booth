@@ -1023,6 +1023,17 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .noteSheet .nsT{font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:18px;border-left:6px solid var(--gc);padding-left:10px}
 .noteSheet .nsBody{background:var(--cream);color:#0B0B0C;border-radius:16px;padding:12px 16px;font-family:'Mali','Anuphan',cursive;font-size:16px;line-height:32px;white-space:pre-wrap;word-break:break-word;background-image:repeating-linear-gradient(transparent 0 31px,rgba(11,11,12,.15) 31px 32px);background-position:0 12px}
 .noteSheet .nsQ{font-family:'Unbounded','Anuphan',sans-serif;font-size:14px;line-height:1.5}
+.kpick{display:flex;gap:8px}
+.kp{flex:1;min-height:74px;border-radius:18px;border:0;background:#2A2A2C;color:var(--cream);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-family:var(--body)}
+.kp b{font-family:'Unbounded',sans-serif;font-weight:700;font-size:10px;letter-spacing:.5px}
+.kp span{font-size:10px;opacity:.7}
+.kp[aria-pressed=true]{background:var(--cream);color:#0B0B0C}
+.tk2 .tkSeat b.lg{font-size:18px;white-space:nowrap}
+.kfil{display:flex;gap:6px;margin-bottom:10px;overflow-x:auto;scrollbar-width:none}
+.kf{height:36px;padding:0 12px;border-radius:18px;border:1px solid #3A3A3C;background:transparent;color:var(--cream);display:inline-flex;align-items:center;gap:5px;font-size:12px;white-space:nowrap;flex:none;font-family:var(--body)}
+.kf svg{width:16px;height:16px}
+.kf b{font-family:var(--dot);font-weight:900;font-size:11px}
+.kf[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
 </style>
 </head>
 <body>
@@ -1269,17 +1280,17 @@ function tkSparkles(){
 }
 function ticketFront(t, glare){
   var g = GMAP[t.genre] || GMAP.doc, ed = editionOf(t.no), u = blobURL(t.posterId), dd = parseISO(t.date);
-  var ven = [t.venue||'ไม่ระบุโรง', t.format, t.hall?'โรง '+t.hall:''].filter(Boolean).map(esc).join(' · ');
+  var ven = esc(kindVenue(t)), ks = kindSeat(t);
   var moods = (t.moods||[]).filter(function(m){ return MMAP[m]; }).slice(0,2);
   var top = u ? '<img class="tkImg" src="'+u+'" alt="โปสเตอร์ '+esc(t.title)+'">' : '<span class="tkAura" aria-hidden="true"><i></i><i></i><b>'+esc(t.releaseYear||g.en)+'</b></span>';
   return '<article class="ticket tk2'+(ed?' '+ed.cls:'')+'" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+';--rgb:'+hexRgb(g.c)+'" aria-label="ตั๋ว '+esc(t.title)+' ด้านหน้า'+(ed?' · '+ed.label:'')+'">'+
     '<div class="tkTop">'+top+'<i class="foil" aria-hidden="true"></i><i class="fade" aria-hidden="true"></i>'+tkSparkles()+
       '<div class="tkChips"><span class="tkChip"><i style="background:'+g.c+'"></i>'+g.en+'</span><span class="tkChip"><i></i>'+ticketNo(t.no||S.meta.nextNo).replace(' ','')+'</span></div>'+
       (ed?'<span class="edBadge" style="background:'+ed.bg+'">✦ NO.'+t.no+' '+ed.short+'</span>':'')+
-      '<div class="tkTitle"><span class="tkEye">'+(t._n>1?'REWATCH ×'+t._n+' · ':'NOW SHOWING · ')+g.en+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
+      '<div class="tkTitle"><span class="tkEye">'+kindEyebrow(t)+' · '+g.en+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
     '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
     '<div class="tkStub"><span class="tkDate"><b class="dd">'+pad(dd.getDate())+'</b><span><b>'+pad(dd.getMonth()+1)+'</b><small>'+(t.time?esc(t.time):'--:--')+'</small></span></span>'+
-      '<span class="tkSeat"><small>SEAT</small><b>'+(t.seat?esc(t.seat):'—')+'</b></span></div>'+
+      '<span class="tkSeat"><small>'+ks.l+'</small><b'+(ks.v.length>6?' class="lg"':'')+'>'+esc(ks.v)+'</b></span></div>'+
     '<div class="tkRate"><span class="tkSt">'+tkStars(t.rating||0)+'</span>'+(t.rating!=null?'<b>'+t.rating+'</b>':'<span class="small">ยังไม่ให้คะแนน</span>')+
       (moods.length?'<span class="tkMoods">'+moods.map(function(m){ return '<span>'+MMAP[m].th+'</span>'; }).join('')+'</span>':'')+'</div>'+
     '<div class="stubPart"><div class="tkFoot"><span class="bc" aria-hidden="true"></span><span>'+(ed?'✦ '+t.no+' MEMORIES ✦':'✦ TICKET TO ANYWHERE ✦')+'</span></div><div class="tdisc">ตั๋วที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม</div></div>'+
@@ -1391,7 +1402,7 @@ function viewForm(editId){
       S.draft.genres2 = t.genres2||[]; S.draft.photoIds = t.photoIds||[]; S.draft.companions = t.companions||[]; S.draft.hall = t.hall||''; S.draft.seat = t.seat||''; S.draft.moods = (t.moods||[]).slice();
     }
   } else if (!S.draft || S.draft.id) S.draft = newDraft();
-  var d = S.draft, popAt = d._pop; d._pop = null; if (!d.moods) d.moods = []; var popMood = d._popMood; d._popMood = null;
+  var d = S.draft, popAt = d._pop; d._pop = null; if (!d.moods) d.moods = []; var K = d.kind || 'cinema'; var popMood = d._popMood; d._popMood = null;
   var titles = {}; S.tickets.forEach(function(t){ titles[t.title + (t.releaseYear?' ('+t.releaseYear+')':'')] = true; });
   var gchips = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="genre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.en+'</button>'; }).join('');
   var g2 = GENRES.filter(function(g){ return g.id!==d.genre; }).map(function(g){ return '<button type="button" class="gchip sec" style="--gc:'+g.c+'" data-act="genre2" data-v="'+g.id+'" aria-pressed="'+(d.genres2.indexOf(g.id)>=0)+'">'+g.th+'</button>'; }).join('');
@@ -1414,7 +1425,8 @@ function viewForm(editId){
     '<h1 class="sr">'+(d.id?'แก้ไขตั๋ว':'พิมพ์ตั๋วใหม่')+'</h1>'+
     '<section class="booth fmach" aria-hidden="true">'+bulbs(13)+'<div class="screen"><span class="l1"><span>'+(d.id?'TICKET BOOTH · EDIT':'TICKET BOOTH · STEP 1/2')+'</span></span><b>'+ticketNo(d.id?d.no:S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b></div></section>'+
     '<form id="f" novalidate>'+
-    '<section class="fcard">'+lab('FILM','title')+
+    '<section class="fcard">'+lab('TYPE')+kindPicker(K)+'</section>'+
+    '<section class="fcard">'+lab(K==='series'?'SERIES':'FILM','title')+
       '<div class="posterPick"><button type="button" class="posterBox" data-act="poster" aria-label="'+(d.posterId?'เปลี่ยนโปสเตอร์':'เพิ่มโปสเตอร์ ถ่ายหรือเลือกจากคลังรูป')+'">'+(d.posterId?'<img src="'+blobURL(d.posterId)+'" alt="">':'<span>'+IC.cam+'<small>โปสเตอร์</small></span>')+'</button>'+
       '<div class="pcol"><input class="inp" id="title" name="title" list="titleList" autocomplete="off" value="'+esc(d.title)+'" placeholder="ชื่อหนัง *">'+
       '<label class="sr" for="ry">ปีที่ออกฉาย</label><input class="inp" id="ry" name="releaseYear" inputmode="numeric" maxlength="4" value="'+esc(d.releaseYear)+'" placeholder="ปีที่ฉาย (ไม่บังคับ)">'+
@@ -1424,20 +1436,21 @@ function viewForm(editId){
     '<section class="fcard">'+lab('GENRE *')+'<div class="fchips">'+gchips+'</div>'+
       (d.genre?'<details class="g2"'+(d.genres2.length?' open':'')+'><summary>+ แนวรอง (ไม่บังคับ)</summary><div class="fchips">'+g2+'</div></details>':'')+
     '</section>'+
-    '<section class="fcard">'+lab('WHEN &amp; WHERE')+
+    '<section class="fcard">'+lab(K==='cinema'?'WHEN &amp; WHERE':'WHEN · WATCHED ON')+
       '<div class="frow"><label class="sr" for="date">วันที่ดู</label><input class="inp dt" type="date" id="date" name="date" value="'+esc(d.date)+'" max="'+todayISO()+'" style="flex:3">'+
       '<label class="sr" for="time">รอบ</label><input class="inp dt" type="time" id="time" name="time" value="'+esc(d.time)+'"'+(d.unknownTime?' disabled':'')+' style="flex:2"></div>'+
       '<label class="check"><input type="checkbox" name="unknownTime"'+(d.unknownTime?' checked':'')+'> ไม่ทราบเวลารอบ</label>'+
-      '<label class="sr" for="venue">โรงภาพยนตร์</label><input class="inp" id="venue" name="venue" list="venueList" autocomplete="off" value="'+esc(d.venue)+'" placeholder="โรงภาพยนตร์ · พิมพ์ค้นหาหรือเพิ่มเอง">'+
+      (K==='cinema' ? '<label class="sr" for="venue">โรงภาพยนตร์</label><input class="inp" id="venue" name="venue" list="venueList" autocomplete="off" value="'+esc(d.venue)+'" placeholder="โรงภาพยนตร์ · พิมพ์ค้นหาหรือเพิ่มเอง">'+
       '<datalist id="venueList">'+VENUES.map(function(v){return '<option value="'+esc(v.name)+'" label="'+esc(v.chain)+'">'+(v.en?'<option value="'+esc(v.name)+'" label="'+esc(v.en)+'">':'');}).join('')+'</datalist>'+
       (recents?'<div class="fchips sm" aria-label="โรงโปรดและโรงล่าสุด">'+recents+'</div>':'')+
       (d.venue.trim()?'<button type="button" class="tlink" data-act="favVenue" aria-pressed="'+!!isFav+'">'+(isFav?'★ โรงโปรดแล้ว':'☆ ตั้งเป็นโรงโปรด')+'</button>':'')+
-      '<div class="fchips fmt" aria-label="ฟอร์แมต">'+fmts+'</div>'+
+      '<div class="fchips fmt" aria-label="ฟอร์แมต">'+fmts+'</div>' : nonCinemaHTML(d))+
     '</section>'+
-    '<section class="fcard">'+lab('SEAT')+
+    (K==='cinema' ? '<section class="fcard">'+lab('SEAT')+
       '<div class="frow"><label class="sr" for="hall">โรงที่</label><input class="inp" id="hall" name="hall" maxlength="12" value="'+esc(d.hall)+'" placeholder="โรง 2">'+
       '<label class="sr" for="seat">ที่นั่ง</label><input class="inp dt" id="seat" name="seat" maxlength="10" value="'+esc(d.seat)+'" placeholder="J8" style="text-transform:uppercase"></div>'+
-    '</section>'+
+    '</section>' : '<input type="hidden" name="hall" value=""><input type="hidden" name="seat" value="">')+
+
     '<section class="fcard">'+lab('WITH','who')+
       '<div class="frow"><input class="inp" id="who" maxlength="30" placeholder="+ เพิ่มชื่อ" enterkeyhint="done"><button type="button" class="chip" data-act="addWhoInput">เพิ่ม</button></div>'+
       (tags?'<div class="fchips">'+tags+'</div>':'')+(sugg?'<div class="fchips sm">'+sugg+'</div>':'')+
@@ -1469,9 +1482,10 @@ function validate(d){
 function draftToTicket(d){
   return { id: d.id || uid(), no: d.no, title: d.title.trim().replace(/\s+/g,' '), releaseYear: (d.releaseYear||'').trim(), posterId: d.posterId,
     genre: d.genre, genres2: d.genres2.filter(function(g){ return g!==d.genre; }), date: d.date, time: d.unknownTime ? '' : (d.time||''),
-    venue: (d.venue||'').trim(), format: d.format||'', hall: (d.hall||'').trim(), seat: (d.seat||'').trim().toUpperCase(),
+    venue: (d.kind&&d.kind!=='cinema') ? '' : (d.venue||'').trim(), format: (d.kind&&d.kind!=='cinema') ? '' : d.format||'', hall: (d.kind&&d.kind!=='cinema') ? '' : (d.hall||'').trim(), seat: (d.kind&&d.kind!=='cinema') ? '' : (d.seat||'').trim().toUpperCase(),
     companions: (d.companions||[]).slice(), rating: d.rating, note: (d.note||'').trim(), photoIds: d.photoIds.slice(0,3),
-    quote: (d.quote||'').trim(), moods: (d.moods||[]).filter(function(m){ return MMAP[m]; }).slice(0,3), hideOnShare: d.hideOnShare !== false, createdAt: d.createdAt || Date.now(), updatedAt: Date.now() };
+    quote: (d.quote||'').trim(), moods: (d.moods||[]).filter(function(m){ return MMAP[m]; }).slice(0,3), hideOnShare: d.hideOnShare !== false, createdAt: d.createdAt || Date.now(), updatedAt: Date.now(),
+    kind: d.kind || 'cinema', platform: d.kind && d.kind!=='cinema' ? (d.platform||'').trim() : '', season: d.kind==='series' ? String(d.season||'').trim() : '', epFrom: d.kind==='series' ? String(d.epFrom||'').trim() : '', epTo: d.kind==='series' ? String(d.epTo||'').trim() : '', status: d.kind==='series' ? (d.status||'done') : '' };
 }
 
 /* ---------- print ---------- */
@@ -1533,6 +1547,7 @@ function filtered(){
     if (f.year!=='all' && t.date.slice(0,4)!==f.year) return false;
     if (f.month && t.date.slice(5,7)!==f.month) return false;
     if (f.genre && t.genre!==f.genre && (t.genres2||[]).indexOf(f.genre)<0) return false;
+    if (f.kind && kindOf(t)!==f.kind) return false;
     if (f.venue && t.venue!==f.venue) return false;
     if (f.companion && (t.companions||[]).indexOf(f.companion)<0) return false;
     if (f.mood && (t.moods||[]).indexOf(f.mood)<0) return false;
@@ -1964,14 +1979,14 @@ function viewWatch(){
     (list.length ? list.map(function(w, i){ var c = countdown(w), g = GMAP[w.genre] || GMAP.doc;
       return '<article class="wcard" style="--i:'+Math.min(i,10)+'"><span class="th">'+watchThumb(w)+'</span>'+
         '<div style="min-width:0;display:flex;flex-direction:column;gap:6px"><h3>'+esc(w.title)+(w.releaseYear?' <span class="mono muted" style="font-size:12px">'+esc(w.releaseYear)+'</span>':'')+'</h3>'+
-        '<span class="small" style="display:flex;align-items:center;gap:6px"><i style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></i>'+g.th+'</span>'+
+        '<span class="small" style="display:flex;align-items:center;gap:6px"><i style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></i>'+g.th+' · '+(KINDS.filter(function(k){ return k.id===(w.kind||'cinema'); })[0].th)+'</span>'+
         (w.note?'<span class="small muted">'+esc(w.note)+'</span>':'')+((w.links||[]).length?'<div class="chips" style="gap:6px">'+linkChips(w)+'</div>':'')+'</div>'+
         '<div class="cd'+(c.soon?' soon':'')+'"><b>'+esc(c.big)+'</b><span>'+esc(c.sub)+'</span></div>'+
         '<div class="wact"><button class="btn sm" data-act="wToTicket" data-v="'+w.id+'" style="flex:1">ไปดูแล้ว · พิมพ์ตั๋ว</button><a class="icon" href="#invite/'+w.id+'" aria-label="ชวนเพื่อนไปดู '+esc(w.title)+'">'+ICON('send',18,1.6)+'</a><a class="icon" href="#watchedit/'+w.id+'" aria-label="แก้ไข '+esc(w.title)+'">'+IC.edit+'</a><button class="icon" data-act="wDelete" data-v="'+w.id+'" aria-label="ลบ '+esc(w.title)+'">'+IC.trash+'</button></div></article>'; }).join('') +
       '<a class="btn" href="#gacha" style="margin-top:6px">ตู้สุ่มหนัง · สุ่มจาก '+list.length+' เรื่อง</a>'
     : '<div class="empty"><span>ยังไม่มีหนังที่อยากดู</span><a class="btn" href="#watchnew" style="max-width:260px">+ เพิ่มเรื่องแรก</a></div>');
 }
-function newWDraft(){ return {id:null, title:'', releaseYear:'', releaseDate:'', genre:'', posterId:null, links:[], note:'', _err:''}; }
+function newWDraft(){ return {id:null, kind:'cinema', title:'', releaseYear:'', releaseDate:'', genre:'', posterId:null, links:[], note:'', _err:''}; }
 function viewWatchForm(id){
   setTabs(null);
   if (id) { var w0 = S.watch.filter(function(x){ return x.id===id; })[0]; if (!w0) { location.hash = '#watch'; return; }
@@ -1981,12 +1996,12 @@ function viewWatchForm(id){
   var gch = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="wGenre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.th+'</button>'; }).join('');
   var links = d.links.map(function(l,i){ return '<span class="tag">'+esc(LINK_KINDS[l.kind]||'ลิงก์')+' · '+esc(hostOf(l.url))+'<button type="button" data-act="wRmLink" data-v="'+i+'" aria-label="ลบลิงก์">✕</button></span>'; }).join('');
   V.innerHTML = '<div class="top"><a class="icon ghost" href="#watch" aria-label="ย้อนกลับ">'+IC.back+'</a><h1 class="c">'+(d.id?'แก้ไขเรื่องที่อยากดู':'เพิ่มเรื่องที่อยากดู')+'</h1><span style="width:44px"></span></div>'+
-    '<form id="wf" novalidate><section class="card">'+
+    '<form id="wf" novalidate><section class="card"><span class="lbl">ประเภท</span>'+kindPicker(d.kind||'cinema','wKind')+
     '<div class="posterPick"><button type="button" class="posterBox" data-act="wPoster" aria-label="เพิ่มโปสเตอร์">'+(d.posterId?'<img src="'+blobURL(d.posterId)+'" alt="">':IC.cam+'<span>โปสเตอร์</span>')+'</button>'+
-    '<div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0"><div class="field"><label for="wt">ชื่อหนัง *</label><input class="inp" id="wt" name="title" value="'+esc(d.title)+'" autocomplete="off" placeholder="ชื่อไทยหรืออังกฤษ"></div>'+
+    '<div style="flex:1;display:flex;flex-direction:column;gap:8px;min-width:0"><div class="field"><label for="wt">'+((d.kind||'cinema')==='series'?'ชื่อซีรีส์ *':'ชื่อหนัง *')+'</label><input class="inp" id="wt" name="title" value="'+esc(d.title)+'" autocomplete="off" placeholder="ชื่อไทยหรืออังกฤษ"></div>'+
     '<div class="field"><label for="wy">ปีที่ออกฉาย (ไม่บังคับ)</label><input class="inp" id="wy" name="releaseYear" inputmode="numeric" maxlength="4" value="'+esc(d.releaseYear)+'" style="height:42px"></div></div></div>'+
     (d.posterId?'<button type="button" class="chip" data-act="wRmPoster" style="align-self:flex-start;font-size:12px;min-height:32px">ลบโปสเตอร์</button>':'')+
-    '<div class="field"><label for="wd">วันเข้าโรงในไทย (ไม่บังคับ · ใช้นับถอยหลัง)</label><input class="inp" type="date" id="wd" name="releaseDate" value="'+esc(d.releaseDate)+'"></div>'+
+    '<div class="field"><label for="wd">'+((d.kind||'cinema')==='cinema'?'วันเข้าโรงในไทย':'วันเข้าแพลตฟอร์ม')+' (ไม่บังคับ · ใช้นับถอยหลัง)</label><input class="inp" type="date" id="wd" name="releaseDate" value="'+esc(d.releaseDate)+'"></div>'+
     '<div class="field"><span class="lbl">แนว (ไม่บังคับ)</span><div class="chips">'+gch+'</div></div>'+
     '<div class="field"><label for="wl">ลิงก์ trailer / เบื้องหลัง / รีวิว</label><div style="display:flex;gap:8px"><label class="sr" for="wk">ประเภทลิงก์</label><select id="wk" class="inp" style="width:auto;font-size:13px"><option value="trailer">Trailer</option><option value="bts">เบื้องหลัง</option><option value="review">รีวิว</option><option value="other">อื่นๆ</option></select>'+
     '<input class="inp" id="wl" type="url" inputmode="url" placeholder="https://youtu.be/…" autocomplete="off"></div><button type="button" class="chip" data-act="wAddLink" style="align-self:flex-start">+ เพิ่มลิงก์</button>'+(links?'<div class="chips">'+links+'</div>':'')+
@@ -2002,7 +2017,7 @@ function readWForm(){
 function rerenderWForm(){ var y = window.scrollY; viewWatchForm(S.wdraft.id); window.scrollTo(0,y); }
 function watchToTicket(id){
   var w = S.watch.filter(function(x){ return x.id===id; })[0]; if (!w) return;
-  S.draft = newDraft(); S.draft.title = w.title; S.draft.releaseYear = w.releaseYear || ''; S.draft.posterId = w.posterId; S.draft.genre = w.genre || ''; S.draft._fromWatch = w.id;
+  S.draft = newDraft(); S.draft.title = w.title; S.draft.releaseYear = w.releaseYear || ''; S.draft.posterId = w.posterId; S.draft.genre = w.genre || ''; S.draft._fromWatch = w.id; S.draft.kind = w.kind || 'cinema'; if (w.kind && w.kind!=='cinema') S.draft.venue = '';
   location.hash = '#new';
 }
 
@@ -2956,7 +2971,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.8<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
@@ -3005,6 +3020,7 @@ function readForm(){
   d.title = f.title.value; d.releaseYear = f.releaseYear.value.trim(); d.date = f.date.value;
   d.time = f.time.value; d.unknownTime = f.unknownTime.checked; d.venue = f.venue.value; d.note = f.note.value;
   d.hall = f.hall.value; d.seat = f.seat.value; d.quote = f.quote.value;
+  if (f.platform) d.platform = f.platform.value; if (f.season) d.season = f.season.value; if (f.epFrom) d.epFrom = f.epFrom.value; if (f.epTo) d.epTo = f.epTo.value;
 }
 function rerenderForm(){ var y = window.scrollY; viewForm(S.draft.id); window.scrollTo(0,y); }
 function pickFile(inputId){
@@ -3075,7 +3091,7 @@ document.addEventListener('click', function(e){
     case 'wSave':
       if (!wd.title.trim()) { wd._err = 'ใส่ชื่อหนังก่อนนะ'; rerenderWForm(); break; }
       if (wd.releaseYear && !/^\d{4}$/.test(wd.releaseYear)) { wd._err = 'ปีที่ออกฉายต้องเป็นตัวเลข 4 หลัก'; rerenderWForm(); break; }
-      var w = {id: wd.id || uid(), title: wd.title.trim().replace(/\s+/g,' '), releaseYear: wd.releaseYear, releaseDate: wd.releaseDate || '', genre: wd.genre || '', posterId: wd.posterId, links: wd.links.slice(0,4), note: (wd.note||'').trim(), createdAt: wd.createdAt || Date.now()};
+      var w = {id: wd.id || uid(), kind: wd.kind || 'cinema', title: wd.title.trim().replace(/\s+/g,' '), releaseYear: wd.releaseYear, releaseDate: wd.releaseDate || '', genre: wd.genre || '', posterId: wd.posterId, links: wd.links.slice(0,4), note: (wd.note||'').trim(), createdAt: wd.createdAt || Date.now()};
       DB.put('watch', w).then(function(){ var wi2 = S.watch.findIndex(function(x){ return x.id===w.id; }); if (wi2>=0) S.watch[wi2] = w; else S.watch.push(w); S.wdraft = null; toast('บันทึกแล้ว'); location.hash = '#watch'; });
       break;
     case 'wDelete':
@@ -3084,6 +3100,7 @@ document.addEventListener('click', function(e){
         DB.del('watch', v).then(function(){ S.watch = S.watch.filter(function(x){ return x.id!==v; }); S.wdraft = null; toast('ลบแล้ว'); if (location.hash==='#watch') viewWatch(); else location.hash = '#watch'; }); });
       break;
     case 'wToTicket': watchToTicket(v); break;
+    case 'wKind': readWForm(); S.wdraft.kind = v; rerenderWForm(); break;
     case 'gachaPull': gachaPull(b); break;
     case 'gachaReleased': S.gachaReleased = !S.gachaReleased; viewGacha(); break;
     case 'start':
@@ -3103,6 +3120,10 @@ document.addEventListener('click', function(e){
     case 'pSound': SFX.set(!SFX.on); b.setAttribute('aria-pressed', SFX.on); b.innerHTML = SFX.on?ICON_SND_ON:ICON_SND_OFF; break;
     case 'wrapped': location.hash = '#wrapped/'+S.yearView; break;
     case 'format': d.format = d.format===v ? '' : v; rerenderForm(); break;
+    case 'kind': d.kind = v; rerenderForm(); break;
+    case 'fKind': S.filter.kind = v; viewCollection(true); break;
+    case 'plat': d.platform = d.platform===v ? '' : v; rerenderForm(); break;
+    case 'sstat': d.status = v; rerenderForm(); break;
     case 'rate': d.rating = v==='' ? null : (d.rating===+v ? null : +v); d._pop = d.rating; rerenderForm(); break;
     case 'addWhoInput': var w = document.getElementById('who'); addCompanion(w && w.value); rerenderForm(); break;
     case 'addWho': addCompanion(v); rerenderForm(); break;
@@ -3381,6 +3402,7 @@ function viewCollection(noAnim){
   V.innerHTML = colHeader(right)+'<h1 class="sr">Collection</h1>'+
     viewPills(m==='grid'?'<button class="icon srch" data-act="srch" aria-label="ค้นหา" aria-expanded="'+showQ+'">'+ICON_SEARCH+'</button>':'')+
     (showQ&&m==='grid'?'<div class="qrow"><label class="sr" for="q">ค้นหา</label><input class="inp" id="q" type="search" data-act="q" value="'+esc(f.q)+'" placeholder="ค้นชื่อหนัง โรง คน หรือโน้ต"></div>':'')+
+    (S.tickets.some(function(t){ return kindOf(t)!=='cinema'; }) ? '<div class="kfil" role="group" aria-label="ประเภท">'+[['','ทั้งหมด']].concat(KINDS.map(function(k){ return [k.id,k.th]; })).map(function(k){ var c = k[0] ? base.filter(function(t){ return kindOf(t)===k[0]; }).length : base.length; return '<button class="kf" data-act="fKind" data-v="'+k[0]+'" aria-pressed="'+((f.kind||'')===k[0])+'">'+(k[0]?KIND_IC[k[0]]:'')+k[1]+' <b>'+c+'</b></button>'; }).join('')+'</div>' : '')+
     (m==='grid' ? '<div class="gscroll">'+gch+'</div>' : '')+
     (extra.length?'<div class="chips" style="margin-bottom:10px">'+extra.join('')+'</div>':'')+
     (m==='grid' && S.tickets.length ? '<div class="csum"><span class="stats3"><b>'+st.films+'</b> FILMS · <b>'+st.visits+'</b> TICKETS · <b>'+st.rewatches+'</b> REWATCH</span><label class="sr" for="ssel">เรียงลำดับ</label><select id="ssel" class="ssel" data-act="fSort">'+Object.keys(SORTS).map(function(k){ return '<option value="'+k+'"'+(f.sort===k?' selected':'')+'>'+SORTS[k]+'</option>'; }).join('')+'</select></div>' : '')+
@@ -3567,16 +3589,16 @@ function drawTicket(t, side, hidePrivate){
       var c1 = chipC(x, g.en, g.c, 0, 16*S3, S3), c2 = chipC(x, ticketNo(t.no).replace(' ',''), '#F2EEE8', 0, 16*S3, S3); c1.draw(16*S3); c2.draw(W-16*S3-c2.w);
       // title block (bottom at 422)
       x.textAlign = 'left'; x.textBaseline = 'alphabetic'; x.fillStyle = '#0B0B0C';
-      var ven = [t.venue, t.format, t.hall?'โรง '+t.hall:''].filter(Boolean).join(' · ') || 'ไม่ระบุโรง';
+      var ven = kindVenue(t), ks = kindSeat(t);
       x.font = (12*S3)+'px '+FN.th; setLS(x, 0); x.fillText(ven, 22*S3, 418*S3);
       x.font = '600 '+(23*S3)+'px '+FN.un; setLS(x, -.6*S3); var tl = wrapText(x, t.title, 316*S3).slice(0,3);
       for (var i=tl.length-1, yy=398*S3; i>=0; i--, yy-=25*S3) x.fillText(tl[i], 22*S3, yy);
-      x.font = '900 '+(10*S3)+'px '+FN.dot; setLS(x, 3*S3); x.fillText((t._n>1?'REWATCH ×'+t._n+' · ':'NOW SHOWING · ')+g.en, 22*S3, 398*S3 - tl.length*25*S3 + 2*S3);
+      x.font = '900 '+(10*S3)+'px '+FN.dot; setLS(x, 3*S3); x.fillText(kindEyebrow(t)+' · '+g.en, 22*S3, 398*S3 - tl.length*25*S3 + 2*S3);
       notchC(x, 446*S3, W, 14*S3); dashC(x, 22*S3, W-22*S3, 446*S3, 'rgba(11,11,12,.3)', S3);
       x.fillStyle = '#0B0B0C'; x.font = '900 '+(64*S3)+'px '+FN.dot; setLS(x, 0); x.fillText(pad(dd.getDate()), 22*S3, 516*S3); var dw = x.measureText(pad(dd.getDate())).width;
       x.font = '900 '+(20*S3)+'px '+FN.dot; x.fillText(pad(dd.getMonth()+1), 22*S3+dw+9*S3, 498*S3);
       x.font = '900 '+(11*S3)+'px '+FN.dot; setLS(x, 2*S3); x.fillText(t.time || '--:--', 22*S3+dw+9*S3, 514*S3);
-      x.textAlign = 'right'; x.globalAlpha = .6; x.font = '900 '+(9*S3)+'px '+FN.dot; x.fillText('SEAT', W-22*S3, 492*S3); x.globalAlpha = 1; x.font = '900 '+(24*S3)+'px '+FN.dot; setLS(x, 0); x.fillText(t.seat || '—', W-22*S3, 516*S3);
+      x.textAlign = 'right'; x.globalAlpha = .6; x.font = '900 '+(9*S3)+'px '+FN.dot; x.fillText(ks.l, W-22*S3, 492*S3); x.globalAlpha = 1; x.font = '900 '+((ks.v.length>6?18:24)*S3)+'px '+FN.dot; setLS(x, 0); x.fillText(ks.v, W-22*S3, 516*S3);
       if (t.rating != null) { tkStarsC(x, t.rating, 22*S3, 538*S3, 18*S3, 3*S3, '#0B0B0C', 'rgba(11,11,12,.18)'); x.textAlign = 'left'; x.font = '600 '+(14*S3)+'px '+FN.un; x.fillText(String(t.rating), 133*S3, 552*S3); }
       else { x.textAlign = 'left'; x.font = (12*S3)+'px '+FN.th; x.globalAlpha = .6; x.fillText('ยังไม่ให้คะแนน', 22*S3, 552*S3); x.globalAlpha = 1; }
       var mz = (t.moods||[]).filter(function(m){ return MMAP[m]; }).slice(0,2), mx = W-22*S3; x.font = (11*S3)+'px '+FN.th;
@@ -3733,6 +3755,58 @@ function readNote(id){
   var btn = el.querySelector('[data-close]'); if (btn) btn.focus();
 }
 document.addEventListener('input', function(e){ if (e.target && e.target.id === 'note') { var c = document.getElementById('ncount'); if (c) c.textContent = e.target.value.length+' / 3000'; } });
+
+/* ---------- watch kinds: cinema / movie (home) / series ---------- */
+var KINDS = [{id:'cinema', en:'CINEMA', th:'โรงหนัง'},{id:'movie', en:'MOVIE', th:'ดูที่บ้าน'},{id:'series', en:'SERIES', th:'ซีรีส์'}];
+var PLATFORMS = ['Netflix','Prime Video','Disney+','HBO Max','Apple TV+','Viu','iQIYI','WeTV','YouTube','TrueID','MONOMAX'];
+var SSTAT = {watching:{en:'NOW WATCHING', th:'กำลังดู'}, done:{en:'BINGE-WATCHED', th:'ดูจบซีซัน'}, paused:{en:'ON PAUSE', th:'ดองไว้'}};
+var KIND_IC = {
+  cinema:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z M14 7v10" stroke-dasharray="0"/></svg>',
+  movie:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 9h16v11H4z M4 9l2-5 3 1-2 4 M9 5l3 1-2 3 M13 6l3 1-2 2"/></svg>',
+  series:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7h18v11H3z M8 3l4 4 4-4 M10 10.5v4l3.5-2z"/></svg>'};
+function kindOf(t){ return (t && t.kind) || 'cinema'; }
+function kindPicker(K, act){
+  return '<div class="kpick" role="group" aria-label="ประเภท">'+KINDS.map(function(k){ return '<button type="button" class="kp" data-act="'+(act||'kind')+'" data-v="'+k.id+'" aria-pressed="'+(K===k.id)+'">'+KIND_IC[k.id]+'<b>'+k.en+'</b><span>'+k.th+'</span></button>'; }).join('')+'</div>';
+}
+function nonCinemaHTML(d){
+  var K = d.kind, pl = d.platform || '', known = PLATFORMS.indexOf(pl) >= 0;
+  var h = '<input type="hidden" name="venue" value="">';
+  if (K === 'series') {
+    h += '<span class="flab" style="margin-top:6px">SEASON · EPISODES</span><div class="frow"><label class="sr" for="season">ซีซัน</label><input class="inp dt" id="season" name="season" inputmode="numeric" maxlength="3" value="'+esc(d.season||'')+'" placeholder="S1" style="flex:1">'+
+      '<label class="sr" for="epFrom">ตอนแรกที่ดู</label><input class="inp dt" id="epFrom" name="epFrom" inputmode="numeric" maxlength="4" value="'+esc(d.epFrom||'')+'" placeholder="EP 1" style="flex:1.2">'+
+      '<label class="sr" for="epTo">ถึงตอน</label><input class="inp dt" id="epTo" name="epTo" inputmode="numeric" maxlength="4" value="'+esc(d.epTo||'')+'" placeholder="EP 10" style="flex:1.2"></div>';
+  }
+  h += '<span class="flab" style="margin-top:6px">WATCHED ON</span><div class="fchips">'+PLATFORMS.map(function(p){ return '<button type="button" class="chip" data-act="plat" data-v="'+esc(p)+'" aria-pressed="'+(pl===p)+'">'+esc(p)+'</button>'; }).join('')+'</div>'+
+    '<label class="sr" for="platform">แพลตฟอร์มอื่น</label><input class="inp" id="platform" name="platform" maxlength="30" value="'+esc(pl)+'" placeholder="แพลตฟอร์มอื่น / ดูที่ไหน">';
+  if (K === 'series') {
+    var st = d.status || 'done';
+    h += '<span class="flab" style="margin-top:6px">STATUS</span><div class="fchips">'+Object.keys(SSTAT).map(function(k){ return '<button type="button" class="chip" data-act="sstat" data-v="'+k+'" aria-pressed="'+(st===k)+'">'+SSTAT[k].th+'</button>'; }).join('')+'</div>';
+  }
+  return h;
+}
+function epLabel(t){
+  var s2 = t.season ? 'S'+String(t.season).replace(/^s/i,'') : '', a = t.epFrom, b = t.epTo;
+  var e = a && b && a!==b ? 'E'+a+'-'+b : (b||a) ? 'E'+(b||a) : '';
+  return [s2, e].filter(Boolean).join('·') || '—';
+}
+function kindEyebrow(t){
+  var K = kindOf(t);
+  if (K === 'movie') return t._n>1 ? 'REWATCH ×'+t._n : 'NOW STREAMING';
+  if (K === 'series') return (SSTAT[t.status]||SSTAT.done).en;
+  return t._n>1 ? 'REWATCH ×'+t._n : 'NOW SHOWING';
+}
+function kindVenue(t){
+  var K = kindOf(t);
+  if (K === 'movie') return [t.platform, 'ดูที่บ้าน'].filter(Boolean).join(' · ');
+  if (K === 'series') return [t.platform, t.season?'ซีซัน '+String(t.season).replace(/^s/i,''):'', (SSTAT[t.status]||SSTAT.done).th].filter(Boolean).join(' · ');
+  return [t.venue||'ไม่ระบุโรง', t.format, t.hall?'โรง '+t.hall:''].filter(Boolean).join(' · ');
+}
+function kindSeat(t){
+  var K = kindOf(t);
+  if (K === 'movie') return {l:'ON', v:(t.platform||'HOME').toUpperCase().slice(0,12)};
+  if (K === 'series') return {l:'EPISODES', v:epLabel(t)};
+  return {l:'SEAT', v:t.seat||'—'};
+}
 </script>
 </body>
 </html>
