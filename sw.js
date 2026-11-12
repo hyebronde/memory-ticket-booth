@@ -1,5 +1,5 @@
 /* Memory Ticket Booth – offline cache. Network first for the app page, cache fallback. */
-var CACHE = 'mtb-v8b';
+var CACHE = 'mtb-v8c';
 var SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));
@@ -16,7 +16,7 @@ self.addEventListener('fetch', function (e) {
   var isFont = url.hostname === 'fonts.googleapis.com' || url.hostname === 'fonts.gstatic.com';
   if (url.origin !== location.origin && !isFont) return;
   e.respondWith(
-    fetch(req).then(function (res) {
+    fetch(isFont ? req : new Request(req, {cache: 'no-cache'})).then(function (res) {
       if (res && (res.ok || res.type === 'opaque')) {
         var copy = res.clone();
         caches.open(CACHE).then(function (c) { c.put(req, copy); });
