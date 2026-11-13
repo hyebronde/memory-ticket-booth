@@ -1132,6 +1132,11 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .spine .cv.np b{position:absolute;left:8px;right:8px;bottom:10px;font-family:'Unbounded','Anuphan',sans-serif;font-weight:600;font-size:11px;line-height:1.15;color:#0B0B0C;white-space:normal;overflow-wrap:anywhere}
 @keyframes cvIn{from{transform:perspective(320px) rotateY(-75deg);opacity:.2}}
 @media (prefers-reduced-motion:no-preference){html:not(.reduce) .spine.face .cv{animation:cvIn .28s ease-out;transform-origin:0 50%}}
+
+/* v0.9.4: fantasy rainbow */
+[style*="--gc:#F9C4D2"]{--rb:linear-gradient(90deg,#FF9EC4,#FFC38A 22%,#FFE98A 42%,#A8E6A1 60%,#8FD3F4 80%,#C3A6F5)}
+[style*="--gc:#F9C4D2"].gchip:not(.sec)[aria-pressed=true],[style*="--gc:#F9C4D2"] .gchip:not(.sec)[aria-pressed=true],[style*="--gc:#F9C4D2"].gdots span.on,[style*="--gc:#F9C4D2"] .gdots span.on,[style*="--gc:#F9C4D2"].duo,[style*="--gc:#F9C4D2"] .duo,[style*="--gc:#F9C4D2"].tk2,[style*="--gc:#F9C4D2"] .tk2,[style*="--gc:#F9C4D2"].tkAura,[style*="--gc:#F9C4D2"] .tkAura,[style*="--gc:#F9C4D2"].mini.mv,[style*="--gc:#F9C4D2"] .mini.mv,[style*="--gc:#F9C4D2"].tkS,[style*="--gc:#F9C4D2"] .tkS,[style*="--gc:#F9C4D2"].bH,[style*="--gc:#F9C4D2"] .bH,[style*="--gc:#F9C4D2"].pspec,[style*="--gc:#F9C4D2"] .pspec,[style*="--gc:#F9C4D2"].obTk,[style*="--gc:#F9C4D2"] .obTk,[style*="--gc:#F9C4D2"].spine.face,[style*="--gc:#F9C4D2"] .spine.face,[style*="--gc:#F9C4D2"].cv.np,[style*="--gc:#F9C4D2"] .cv.np{background:var(--rb) !important}
+[style*="--gc:#F9C4D2"] .fade{background:var(--rb) !important;-webkit-mask-image:linear-gradient(transparent,rgba(0,0,0,.6) 45%,#000);mask-image:linear-gradient(transparent,rgba(0,0,0,.6) 45%,#000)}
 </style>
 </head>
 <body>
@@ -1152,14 +1157,20 @@ var GENRES = [
   {id:'scifi', en:'SCI-FI', th:'ไซไฟ', c:'#6EC1CF'},
   {id:'drama', en:'DRAMA', th:'ดราม่า', c:'#A497D4'},
   {id:'romance', en:'ROMANCE', th:'โรแมนซ์', c:'#DDA0BA'},
-  {id:'horror', en:'HORROR', th:'สยองขวัญ/ระทึก', c:'#C9636D'},
+  {id:'horror', en:'HORROR', th:'สยองขวัญ', c:'#C9636D'},
+  {id:'thriller', en:'THRILLER', th:'ระทึกขวัญ/ลุ้นระทึก', c:'#6F8FE8'},
   {id:'comedy', en:'COMEDY', th:'ตลก', c:'#DEC46A'},
   {id:'action', en:'ACTION', th:'แอ็กชัน/ผจญภัย', c:'#F28A2E'},
-  {id:'animation', en:'ANIMATION', th:'แอนิเมชัน/แฟนตาซี', c:'#7FC3A3'},
+  {id:'fantasy', en:'FANTASY', th:'แฟนตาซี', c:'#F9C4D2', rb:[[0,'#FF9EC4'],[.22,'#FFC38A'],[.42,'#FFE98A'],[.6,'#A8E6A1'],[.8,'#8FD3F4'],[1,'#C3A6F5']]},
+  {id:'animation', en:'ANIMATION', th:'แอนิเมชัน', c:'#7FC3A3'},
   {id:'doc', en:'OTHER', th:'สารคดี/อื่นๆ', c:'#97A3AF'}
 ];
 var GMAP = {}; GENRES.forEach(function(g){ GMAP[g.id]=g; });
-var GDARK = {scifi:'#2B5C8A', drama:'#5A3A8C', romance:'#B8436E', horror:'#5E1E28', comedy:'#B79A2E', action:'#B4500F', animation:'#3D7F8A', doc:'#4A5568'};
+var RB_CSS = 'linear-gradient(90deg,#FF9EC4,#FFC38A 22%,#FFE98A 42%,#A8E6A1 60%,#8FD3F4 80%,#C3A6F5)';
+function gbg(g){ return g.rb ? RB_CSS : g.c; }
+function gfill(x, g, x0, w){ if (!g.rb) return g.c; var lg = x.createLinearGradient(x0, 0, x0+w, 0); g.rb.forEach(function(s2){ lg.addColorStop(s2[0], s2[1]); }); return lg; }
+function gfade(x, g, x0, y0, w, h){ var n = Math.max(24, Math.round(h/3)); x.save(); x.fillStyle = gfill(x, g, x0, w); for (var i=0;i<n;i++){ var a = i/(n-1); x.globalAlpha = a<.45 ? a/.45*.6 : .6+(a-.45)/.55*.4; var ya = Math.round(y0+h*i/n), yb = i===n-1 ? Math.ceil(y0+h) : Math.round(y0+h*(i+1)/n); x.fillRect(x0, ya, w, yb-ya); } x.restore(); }
+var GDARK = {scifi:'#2B5C8A', drama:'#5A3A8C', romance:'#B8436E', horror:'#5E1E28', thriller:'#2A3F8F', fantasy:'#FFF3FA', comedy:'#B79A2E', action:'#B4500F', animation:'#3D7F8A', doc:'#4A5568'};
 function hexRgb(h){ h=h.replace('#',''); return parseInt(h.slice(0,2),16)+','+parseInt(h.slice(2,4),16)+','+parseInt(h.slice(4,6),16); }
 var FORMATS = ['2D','3D','IMAX','4DX','ScreenX','Dolby','Kids'];
 /* Venue directory.
@@ -1350,7 +1361,7 @@ function posterHTML(t){
 }
 function band(t){
   var g = GMAP[t.genre] || GMAP.doc;
-  return '<div class="band" style="background:'+g.c+'"><span>'+g.en+'</span><span class="no">'+ticketNo(t.no||S.meta.nextNo)+'</span></div>';
+  return '<div class="band" style="background:'+gbg(g)+'"><span>'+g.en+'</span><span class="no">'+ticketNo(t.no||S.meta.nextNo)+'</span></div>';
 }
 function seatLine(t){
   var p = [];
@@ -1383,7 +1394,7 @@ function ticketFront(t, glare){
   var top = u ? '<img class="tkImg" src="'+u+'" alt="โปสเตอร์ '+esc(t.title)+'">' : '<span class="tkAura" aria-hidden="true"><i></i><i></i><b>'+esc(t.releaseYear||g.en)+'</b></span>';
   return '<article class="ticket tk2'+(ed?' '+ed.cls:'')+(fe?' fest':'')+'" style="--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+';--rgb:'+hexRgb(g.c)+(fe?';--fring:'+fe.grad+';--flight:'+fe.light+';--ftint:'+fe.ring:'')+'" aria-label="ตั๋ว '+esc(t.title)+' ด้านหน้า'+(ed?' · '+ed.label:'')+(fe?' · '+fe.th:'')+'">'+(fe?festDeco(fe):'')+
     '<div class="tkTop">'+top+'<i class="foil" aria-hidden="true"></i><i class="fade" aria-hidden="true"></i>'+tkSparkles()+
-      '<div class="tkChips"><span class="tkChip"><i style="background:'+g.c+'"></i>'+g.en+'</span><span class="tkChip"><i></i>'+ticketNo(t.no||S.meta.nextNo).replace(' ','')+'</span></div>'+
+      '<div class="tkChips"><span class="tkChip"><i style="background:'+gbg(g)+'"></i>'+g.en+'</span><span class="tkChip"><i></i>'+ticketNo(t.no||S.meta.nextNo).replace(' ','')+'</span></div>'+
       (ed?'<span class="edBadge" style="background:'+ed.bg+'">✦ NO.'+t.no+' '+ed.short+'</span>':'')+
       '<div class="tkTitle"><span class="tkEye">'+(fe?fe.en+' SHOWING':kindEyebrow(t))+' · '+g.en+'</span><b>'+esc(t.title||'ชื่อหนัง')+'</b><span class="tkVen">'+ven+'</span></div></div>'+
     '<div class="perf"><i class="l"></i><i class="r"></i></div>'+
@@ -1502,7 +1513,7 @@ function viewForm(editId){
   } else if (!S.draft || S.draft.id) S.draft = newDraft();
   var d = S.draft, popAt = d._pop; d._pop = null; if (!d.moods) d.moods = []; var K = d.kind || 'cinema'; var popMood = d._popMood; d._popMood = null;
   var titles = {}; S.tickets.forEach(function(t){ titles[t.title + (t.releaseYear?' ('+t.releaseYear+')':'')] = true; });
-  var gchips = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="genre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.en+'</button>'; }).join('');
+  var gchips = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="genre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+gbg(g)+'"></span>'+g.en+'</button>'; }).join('');
   var g2 = GENRES.filter(function(g){ return g.id!==d.genre; }).map(function(g){ return '<button type="button" class="gchip sec" style="--gc:'+g.c+'" data-act="genre2" data-v="'+g.id+'" aria-pressed="'+(d.genres2.indexOf(g.id)>=0)+'">'+g.th+'</button>'; }).join('');
   var favs = S.meta.favVenues || [];
   var vchip = function(v, star){ return '<button type="button" class="chip" style="min-height:32px;font-size:12px;font-family:var(--body)" data-act="venue" data-v="'+esc(v)+'" aria-pressed="'+(d.venue===v)+'">'+(star?'★ ':'')+esc(v)+'</button>'; };
@@ -1669,7 +1680,7 @@ function viewCollection(noAnim){
   if (f.year!=='all' && years.indexOf(f.year)<0) f.year = 'all';
   var list = filtered(), base = S.tickets.filter(function(t){ return f.year==='all' || t.date.slice(0,4)===f.year; }), st = statsFor(base);
   var yearOpts = '<option value="all"'+(f.year==='all'?' selected':'')+'>ทุกปี</option>'+years.map(function(y){ return '<option value="'+y+'"'+(f.year===y?' selected':'')+'>'+y+'</option>'; }).join('');
-  var gch = '<button class="chip" data-act="fGenre" data-v="" aria-pressed="'+(!f.genre)+'">ทั้งหมด</button>'+GENRES.map(function(g){ return '<button class="chip" data-act="fGenre" data-v="'+g.id+'" aria-pressed="'+(f.genre===g.id)+'"><span class="dot" style="background:'+g.c+'"></span>'+g.en+'</button>'; }).join('');
+  var gch = '<button class="chip" data-act="fGenre" data-v="" aria-pressed="'+(!f.genre)+'">ทั้งหมด</button>'+GENRES.map(function(g){ return '<button class="chip" data-act="fGenre" data-v="'+g.id+'" aria-pressed="'+(f.genre===g.id)+'"><span class="dot" style="background:'+gbg(g)+'"></span>'+g.en+'</button>'; }).join('');
   var extra = [];
   if (f.month) extra.push('<button class="chip" data-act="clearF" data-v="month">เดือน '+MONTHS_TH[+f.month-1]+' ✕</button>');
   if (f.venue) extra.push('<button class="chip" data-act="clearF" data-v="venue">'+esc(f.venue)+' ✕</button>');
@@ -1992,8 +2003,8 @@ function viewYear(){
     '<a class="tile" href="#passport"><span class="eyebrow">PASSPORT</span><span style="font-size:15px;font-weight:400;margin-top:4px">แสตมป์ '+got+' / '+STAMPS.length+' →</span></a></div>'+
     '<div class="tiles"><a class="tile hi" href="#collection" data-act="goYear"><b data-count="'+st.films+'">'+st.films+'</b><span>เรื่อง</span></a><a class="tile" href="#collection" data-act="goYear"><b data-count="'+st.visits+'">'+st.visits+'</b><span class="muted">ครั้งที่ดู</span></a><a class="tile" href="#collection" data-act="goYear"><b data-count="'+st.rewatches+'">'+st.rewatches+'</b><span class="muted">ดูซ้ำ</span></a></div>'+
     '<section class="ysec"><h2>รายเดือน · ตามวันที่ดู</h2><div class="bars">'+bars+'</div></section>'+
-    '<section class="ysec"><h2>แนวหนัง · แนวหลัก (รวม '+st.visits+')</h2><div class="stack" aria-hidden="true">'+gs.map(function(g){ return '<span style="flex:'+st.genres[g.id]+' 1 0;background:'+g.c+'"></span>'; }).join('')+'</div>'+
-      '<div class="glist">'+gs.map(function(g){ return '<a href="#collection" data-act="goGenre" data-v="'+g.id+'"><i style="background:'+g.c+'"></i>'+g.th+'<span class="n">'+st.genres[g.id]+'</span></a>'; }).join('')+'</div></section>'+
+    '<section class="ysec"><h2>แนวหนัง · แนวหลัก (รวม '+st.visits+')</h2><div class="stack" aria-hidden="true">'+gs.map(function(g){ return '<span style="flex:'+st.genres[g.id]+' 1 0;background:'+gbg(g)+'"></span>'; }).join('')+'</div>'+
+      '<div class="glist">'+gs.map(function(g){ return '<a href="#collection" data-act="goGenre" data-v="'+g.id+'"><i style="background:'+gbg(g)+'"></i>'+g.th+'<span class="n">'+st.genres[g.id]+'</span></a>'; }).join('')+'</div></section>'+
     (vs.length?'<section class="ysec"><h2>โรงที่ไปบ่อย</h2>'+vs.map(function(v,i){ return '<a class="rowlink" href="#collection" data-act="goVenue" data-v="'+esc(v)+'"><span style="font-family:var(--display);color:var(--lime);width:18px">'+(i+1)+'</span>'+esc(v)+'<span class="n">'+st.venues[v]+' ครั้ง</span>'+IC.chev+'</a>'; }).join('')+'</section>':'')+
     moodYearHTML(list)+(ps.length?'<section class="ysec"><h2 style="display:flex;justify-content:space-between">ดูกับใครบ่อย<a href="#people/'+y+'" style="color:var(--lime);text-decoration:none;letter-spacing:0;text-transform:none;font-family:var(--body)">เพื่อนดูหนังทั้งหมด →</a></h2>'+ps.map(function(p,i){ return '<a class="rowlink" href="#collection" data-act="goWho" data-v="'+esc(p)+'"><span style="font-family:var(--display);color:var(--lime);width:18px">'+(i+1)+'</span>'+esc(p)+'<span class="n">'+st.people[p]+' ครั้ง</span>'+IC.chev+'</a>'; }).join('')+'</section>':'')+
     (st.top.length?'<section class="ysec"><h2>คะแนนสูงสุด</h2>'+st.top.slice(0,3).map(function(t){ return '<a class="rowlink" href="#ticket/'+t.id+'"><i style="width:10px;height:10px;border-radius:3px;background:'+GMAP[t.genre].c+'"></i>'+esc(t.title)+'<span class="n" style="color:var(--lime)">★ '+t.rating+'</span>'+IC.chev+'</a>'; }).join('')+'</section>':'')
@@ -2078,7 +2089,7 @@ function viewWatch(){
     (list.length ? list.map(function(w, i){ var c = countdown(w), g = GMAP[w.genre] || GMAP.doc;
       return '<article class="wcard" style="--i:'+Math.min(i,10)+'"><span class="th">'+watchThumb(w)+'</span>'+
         '<div style="min-width:0;display:flex;flex-direction:column;gap:6px"><h3>'+esc(w.title)+(w.releaseYear?' <span class="mono muted" style="font-size:12px">'+esc(w.releaseYear)+'</span>':'')+'</h3>'+
-        '<span class="small" style="display:flex;align-items:center;gap:6px"><i style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></i>'+g.th+' · '+(KINDS.filter(function(k){ return k.id===(w.kind||'cinema'); })[0].th)+'</span>'+
+        '<span class="small" style="display:flex;align-items:center;gap:6px"><i style="width:8px;height:8px;border-radius:4px;background:'+gbg(g)+'"></i>'+g.th+' · '+(KINDS.filter(function(k){ return k.id===(w.kind||'cinema'); })[0].th)+'</span>'+
         (w.note?'<span class="small muted">'+esc(w.note)+'</span>':'')+((w.links||[]).length?'<div class="chips" style="gap:6px">'+linkChips(w)+'</div>':'')+'</div>'+
         '<div class="cd'+(c.soon?' soon':'')+'"><b>'+esc(c.big)+'</b><span>'+esc(c.sub)+'</span></div>'+
         '<div class="wact"><button class="btn sm" data-act="wToTicket" data-v="'+w.id+'" style="flex:1">ไปดูแล้ว · พิมพ์ตั๋ว</button><a class="icon" href="#invite/'+w.id+'" aria-label="ชวนเพื่อนไปดู '+esc(w.title)+'">'+ICON('send',18,1.6)+'</a><a class="icon" href="#watchedit/'+w.id+'" aria-label="แก้ไข '+esc(w.title)+'">'+IC.edit+'</a><button class="icon" data-act="wDelete" data-v="'+w.id+'" aria-label="ลบ '+esc(w.title)+'">'+IC.trash+'</button></div></article>'; }).join('') +
@@ -2092,7 +2103,7 @@ function viewWatchForm(id){
     if (!S.wdraft || S.wdraft.id !== id) { S.wdraft = JSON.parse(JSON.stringify(w0)); S.wdraft.links = S.wdraft.links || []; S.wdraft._err = ''; } }
   else if (!S.wdraft || S.wdraft.id) S.wdraft = newWDraft();
   var d = S.wdraft;
-  var gch = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="wGenre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+g.c+'"></span>'+g.th+'</button>'; }).join('');
+  var gch = GENRES.map(function(g){ return '<button type="button" class="gchip" style="--gc:'+g.c+'" data-act="wGenre" data-v="'+g.id+'" aria-pressed="'+(d.genre===g.id)+'"><span class="dot" style="width:8px;height:8px;border-radius:4px;background:'+gbg(g)+'"></span>'+g.th+'</button>'; }).join('');
   var links = d.links.map(function(l,i){ return '<span class="tag">'+esc(LINK_KINDS[l.kind]||'ลิงก์')+' · '+esc(hostOf(l.url))+'<button type="button" data-act="wRmLink" data-v="'+i+'" aria-label="ลบลิงก์">✕</button></span>'; }).join('');
   V.innerHTML = '<div class="top"><a class="icon ghost" href="#watch" aria-label="ย้อนกลับ">'+IC.back+'</a><h1 class="c">'+(d.id?'แก้ไขเรื่องที่อยากดู':'เพิ่มเรื่องที่อยากดู')+'</h1><span style="width:44px"></span></div>'+
     '<form id="wf" novalidate><section class="card"><span class="lbl">ประเภท</span>'+kindPicker(d.kind||'cinema','wKind')+
@@ -2132,7 +2143,7 @@ function viewGacha(){
     '<span class="small" style="opacity:.85">สุ่มจาก '+pool.length+' เรื่องในรายการอยากดู</span></section>'+
     '<div id="gres"></div>'+(S.watch.length?'':'<a class="btn out sm" href="#watchnew" style="margin-top:14px">+ เพิ่มหนังที่อยากดูก่อน</a>');
 }
-function reelItem(w){ var g = GMAP[w.genre] || GMAP.doc; return '<div class="ritem"><span class="band" style="background:'+g.c+'"><span>'+g.en+'</span></span><b>'+esc(w.title)+'</b></div>'; }
+function reelItem(w){ var g = GMAP[w.genre] || GMAP.doc; return '<div class="ritem"><span class="band" style="background:'+gbg(g)+'"><span>'+g.en+'</span></span><b>'+esc(w.title)+'</b></div>'; }
 function gachaPull(btn){
   var pool = S.watch.filter(function(w){ return !S.gachaReleased || (w.releaseDate && daysUntil(w.releaseDate) <= 0); });
   if (!pool.length) return;
@@ -2427,7 +2438,7 @@ function hashStr(str){ var h = 0; for (var i=0;i<str.length;i++) h = (h*31 + str
 
 /* ---------- persona ---------- */
 var P_TIME = { morning:['นกเช้า','EARLY BIRD'], afternoon:['ขารอบบ่าย','MATINEE'], evening:['คนเลิกงาน','AFTER-WORK'], night:['นกฮูกรอบดึก','MIDNIGHT'] };
-var P_GENRE = { scifi:'สายไซไฟ', drama:'สายดราม่า', romance:'สายโรแมนซ์', horror:'สายหลอน', comedy:'สายฮา', action:'สายบู๊', animation:'สายฟีลกู๊ด', doc:'สายสารคดี' };
+var P_GENRE = { scifi:'สายไซไฟ', drama:'สายดราม่า', romance:'สายโรแมนซ์', horror:'สายหลอน', thriller:'สายลุ้นระทึก', fantasy:'สายแฟนตาซี', comedy:'สายฮา', action:'สายบู๊', animation:'สายฟีลกู๊ด', doc:'สายสารคดี' };
 function timeBucket(tm){ if (!tm) return null; var h = +tm.slice(0,2); if (h < 4 || h >= 21) return 'night'; if (h < 12) return 'morning'; if (h < 17) return 'afternoon'; return 'evening'; }
 function persona(){
   var list = S.tickets; if (list.length < 5) return null;
@@ -2563,7 +2574,7 @@ function spineHTML(t){
   var g = GMAP[t.genre] || GMAP.doc, h = hashStr(t.id), style = ['c','k','w'][h % 3], bg = style==='c' ? g.c : style==='k' ? '#1D1B19' : '#E6DCC9';
   var fg = style==='k' ? '#E6DCC9' : '#1B1713', w = 22 + h % 12, ht = 128 + (h >> 3) % 36;
   return '<a class="spine" href="#ticket/'+t.id+'" aria-label="'+esc(t.title)+' · '+fmtDate(t.date)+'" style="width:'+w+'px;height:'+ht+'px;background:'+bg+';color:'+fg+'">'+
-    '<span class="cap" style="height:'+(style==='c'?6:10)+'px;background:'+(style==='c'?'rgba(0,0,0,.2)':g.c)+'"></span><span class="st" style="max-height:'+(ht-34)+'px">'+esc(t.title.toUpperCase())+'</span><span class="sn">'+pad(t.no||0,2)+'</span></a>';
+    '<span class="cap" style="height:'+(style==='c'?6:10)+'px;background:'+(style==='c'?'rgba(0,0,0,.2)':gbg(g))+'"></span><span class="st" style="max-height:'+(ht-34)+'px">'+esc(t.title.toUpperCase())+'</span><span class="sn">'+pad(t.no||0,2)+'</span></a>';
 }
 function shelfHTML(list){
   var items = S.shelfByGenre ? list.slice().sort(function(a,b){ return GENRES.findIndex(function(g){return g.id===a.genre;}) - GENRES.findIndex(function(g){return g.id===b.genre;}) || (sortKey(a)<sortKey(b)?-1:1); }) : list;
@@ -3070,7 +3081,7 @@ function viewSettings(){
     '<section class="card"><h2>การแสดงผล</h2><label class="check" style="color:var(--paper)"><input type="checkbox" data-act="reduce"'+(document.documentElement.classList.contains('reduce')?' checked':'')+'> ลดการเคลื่อนไหว (ปิดแอนิเมชันทั้งหมด)</label>'+
     '<label class="check" style="color:var(--paper)"><input type="checkbox" id="sndT"'+(SFX.on?' checked':'')+'> เสียงประกอบเบาๆ (พิมพ์ตั๋ว ปั๊มตรา ฉีกตั๋ว ฉลอง)</label>'+
     '<span class="small muted">ถ้าเปิดโหมดเงียบหรือปิดเสียงเครื่อง อาจไม่ได้ยินเสียง · ถ้าเปิด "ลดภาพเคลื่อนไหว" ในตั้งค่า iPhone แอปจะปิดแอนิเมชันให้อัตโนมัติ</span></section>'+
-    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9.3<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
+    '<section class="card"><h2>เกี่ยวกับ</h2><span class="small muted">Tuva · Ticket to Anywhere · v0.9.4<br>สำหรับใช้ส่วนตัว รูปโปสเตอร์และชื่อภาพยนตร์เป็นลิขสิทธิ์ของเจ้าของ<br>ติดตามข่าวสารและอัปเดต: <a href="https://www.instagram.com/tuva.club/" target="_blank" rel="noopener" style="color:var(--cream)">IG @tuva.club</a><br>ตั๋วในแอปเป็นของที่ระลึกส่วนตัว ไม่ใช่ตั๋วเข้าชม · รายชื่อโรงเครือเมเจอร์จาก majorcineplex.com/cinema (ตรวจ 11 พ.ย. 2569) · SF จาก thaiware.com (ไม่ใช่เว็บทางการ) · โรงอิสระเป็นตัวอย่าง · ไม่ครบทุกโรงในไทย · ทั้งหมด '+S.tickets.length+' ใบ</span></section>';
 }
 
 /* ================= router ================= */
@@ -3494,7 +3505,7 @@ function viewCollection(noAnim){
   var yearOpts = '<option value="all"'+(f.year==='all'?' selected':'')+'>ทุกปี</option>'+years.map(function(y){ return '<option value="'+y+'"'+(f.year===y?' selected':'')+'>'+y+'</option>'; }).join('');
   var ysel = '<label class="sr" for="ysel">เลือกปีที่ดู</label><select id="ysel" class="ypill" data-act="fYear">'+yearOpts+'</select>';
   var showQ = S.showSearch || !!f.q;
-  var gch = '<button class="gpill" data-act="fGenre" data-v="" aria-pressed="'+(!f.genre)+'"><i style="background:#0B0B0C"></i>ทั้งหมด</button>'+GENRES.map(function(g){ return '<button class="gpill" data-act="fGenre" data-v="'+g.id+'" aria-pressed="'+(f.genre===g.id)+'"><i style="background:'+g.c+'"></i>'+g.en+'</button>'; }).join('');
+  var gch = '<button class="gpill" data-act="fGenre" data-v="" aria-pressed="'+(!f.genre)+'"><i style="background:#0B0B0C"></i>ทั้งหมด</button>'+GENRES.map(function(g){ return '<button class="gpill" data-act="fGenre" data-v="'+g.id+'" aria-pressed="'+(f.genre===g.id)+'"><i style="background:'+gbg(g)+'"></i>'+g.en+'</button>'; }).join('');
   var extra = [];
   if (f.month) extra.push('<button class="chip" data-act="clearF" data-v="month">เดือน '+MONTHS_TH[+f.month-1]+' ✕</button>');
   if (f.venue) extra.push('<button class="chip" data-act="clearF" data-v="venue">'+esc(f.venue)+' ✕</button>');
@@ -3518,7 +3529,7 @@ var ICON_SEARCH = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" s
 /* ---- shelf (spec F07) ---- */
 var MON_EN = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
 function spineHTML(t, dup){
-  var g = GMAP[t.genre] || GMAP.doc, h = hashStr(t.id), style = ['c','k','w'][h % 3], bg = style==='c' ? g.c : style==='k' ? '#1D1B19' : '#E6DCC9';
+  var g = GMAP[t.genre] || GMAP.doc, h = hashStr(t.id), style = ['c','k','w'][h % 3], bg = style==='c' ? gbg(g) : style==='k' ? '#1D1B19' : '#E6DCC9';
   var fg = style==='k' ? '#E6DCC9' : '#1B1713', w = 24 + h % 12, ht = 128 + (h >> 3) % 36, ln = [0,0,0,-6,0,0,5,0][(h >> 5) % 8];
   return '<a class="spine'+(dup?' dup':'')+'" href="#ticket/'+t.id+'" data-id="'+t.id+'" draggable="false"'+(dup?' aria-hidden="true" tabindex="-1"':' aria-label="'+esc(t.title)+' · '+fmtDate(t.date)+'"')+' style="width:'+w+'px;height:'+ht+'px;background:'+bg+';color:'+fg+';--ln:'+ln+'deg;--gc:'+g.c+';--gc2:'+(GDARK[g.id]||'#4A5568')+';transform-origin:'+(ln<0?'0':'100%')+' 100%">'+
     '<span class="cap" style="height:'+(style==='c'?6:10)+'px;background:'+(style==='c'?'rgba(0,0,0,.2)':g.c)+'"></span><span class="st" style="max-height:'+(ht-34)+'px">'+esc(t.title.toUpperCase())+'</span><span class="sn">'+pad(t.no||0,2)+'</span></a>';
@@ -3613,7 +3624,7 @@ function stHead(x, eb, hl, K){
   x.fillText(hl, 540, 77*K); setLS(x, 0);
 }
 function stCoverNP(x, t, cx0, cy0, cw, ch, K, fs){
-  var gg = GMAP[t.genre]||GMAP.doc; x.fillStyle = gg.c; x.fillRect(cx0, cy0, cw, ch);
+  var gg = GMAP[t.genre]||GMAP.doc; x.fillStyle = gfill(x, gg, cx0, cw); x.fillRect(cx0, cy0, cw, ch);
   var rg = x.createRadialGradient(cx0+cw*.85, cy0+ch*.1, 0, cx0+cw*.85, cy0+ch*.1, cw*.7); rg.addColorStop(0, GDARK[gg.id]||'#4A5568'); rg.addColorStop(1, 'rgba(0,0,0,0)'); x.globalAlpha = .85; x.fillStyle = rg; x.fillRect(cx0, cy0, cw, ch); x.globalAlpha = 1;
 }
 function storyVend(y){
@@ -3632,7 +3643,7 @@ function storyVend(y){
       x.save(); rr(x, cx0, cy0, cw, ch, 8*K); x.clip();
       if (!t) { x.fillStyle = '#1F1D1B'; x.fillRect(cx0, cy0, cw, ch); }
       else { var gg = GMAP[t.genre]||GMAP.doc;
-        if (imgs[k]) { x.fillStyle = gg.c; x.fillRect(cx0, cy0, cw, ch); drawCover(x, imgs[k], cx0, cy0, cw, ch*.62, 'top'); var lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, 'rgba(0,0,0,0)'); lg.addColorStop(1, gg.c); var hx = gg.c; lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, hx+'00'); lg.addColorStop(1, hx); x.fillStyle = lg; x.fillRect(cx0, cy0+ch*.3, cw, ch*.33); }
+        if (imgs[k]) { x.fillStyle = gfill(x, gg, cx0, cw); x.fillRect(cx0, cy0, cw, ch); drawCover(x, imgs[k], cx0, cy0, cw, ch*.62, 'top'); if (gg.rb) gfade(x, gg, cx0, cy0+ch*.3, cw, ch*.33); else { var lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, 'rgba(0,0,0,0)'); lg.addColorStop(1, gg.c); var hx = gg.c; lg = x.createLinearGradient(0, cy0+ch*.3, 0, cy0+ch*.62); lg.addColorStop(0, hx+'00'); lg.addColorStop(1, hx); x.fillStyle = lg; x.fillRect(cx0, cy0+ch*.3, cw, ch*.33); } }
         else stCoverNP(x, t, cx0, cy0, cw, ch, K);
         x.fillStyle = '#0B0B0C'; x.textAlign = 'left'; x.font = '600 '+(8*K)+'px '+FN.un; setLS(x, 0); var tl = wrapText(x, t.title, cw-12*K).slice(0,2); tl.forEach(function(l, j){ x.fillText(l, cx0+6*K, cy0+ch*.64+8*K+j*9*K); });
         var dd = parseISO(t.date); x.font = '900 '+(12*K)+'px '+FN.dot; x.fillText(pad(dd.getDate())+'.'+pad(dd.getMonth()+1), cx0+6*K, cy0+ch-6*K); }
@@ -3673,14 +3684,14 @@ function storySpines(y){
       row.forEach(function(d, di){
         var t = d.t, h = hashStr(t.id), gg = GMAP[t.genre]||GMAP.doc, im = imgs[gi++];
         if (d.f) { var fx = xx+4*K, fw = 100*K, fh = 148*K, fy = base-fh;
-          x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 14*K; x.shadowOffsetY = 8*K; x.fillStyle = gg.c; rr(x, fx, fy, fw, fh, 4*K); x.fill(); x.restore();
+          x.save(); x.shadowColor = 'rgba(0,0,0,.45)'; x.shadowBlur = 14*K; x.shadowOffsetY = 8*K; x.fillStyle = gfill(x, gg, fx, fw); rr(x, fx, fy, fw, fh, 4*K); x.fill(); x.restore();
           x.save(); rr(x, fx, fy, fw, fh, 4*K); x.clip();
           if (im) drawCover(x, im, fx, fy, fw, fh, 'top');
           else { stCoverNP(x, t, fx, fy, fw, fh, K); x.fillStyle = '#0B0B0C'; x.textAlign = 'left'; x.font = '600 '+(11*K)+'px '+FN.un; setLS(x, 0); var tl = wrapText(x, t.title, fw-16*K).slice(0,3); tl.forEach(function(l, j){ x.fillText(l, fx+8*K, fy+fh-12*K-(tl.length-1-j)*12*K); }); }
           x.restore(); x.strokeStyle = 'rgba(255,255,255,.08)'; x.lineWidth = 2*K; rr(x, fx+K, fy+K, fw-2*K, fh-2*K, 3*K); x.stroke();
-        } else { var style = ['c','k','w'][h%3], bg = style==='c' ? gg.c : style==='k' ? '#1D1B19' : '#E6DCC9', fg = style==='k' ? '#E6DCC9' : '#1B1713', w = (24+h%12)*K, ht = (128+(h>>3)%36)*K, ln = [0,0,0,-6,0,0,5,0][(h>>5)%8], capH = (style==='c'?6:10)*K;
+        } else { var style = ['c','k','w'][h%3], bg = style==='c' ? 0 : style==='k' ? '#1D1B19' : '#E6DCC9', fg = style==='k' ? '#E6DCC9' : '#1B1713', w = (24+h%12)*K, ht = (128+(h>>3)%36)*K, ln = [0,0,0,-6,0,0,5,0][(h>>5)%8], capH = (style==='c'?6:10)*K;
           x.save(); x.translate(ln<0 ? xx : xx+w, base); x.rotate(ln*Math.PI/180); var sx = ln<0 ? 0 : -w;
-          x.fillStyle = bg; x.fillRect(sx, -ht, w, ht); x.fillStyle = style==='c' ? 'rgba(0,0,0,.2)' : gg.c; x.fillRect(sx, -ht, w, capH);
+          x.fillStyle = bg || gfill(x, gg, sx, w); x.fillRect(sx, -ht, w, ht); x.fillStyle = style==='c' ? 'rgba(0,0,0,.2)' : gfill(x, gg, sx, w); x.fillRect(sx, -ht, w, capH);
           x.fillStyle = 'rgba(0,0,0,.15)'; x.fillRect(sx+w-2*K, -ht, 2*K, ht); x.fillStyle = 'rgba(255,255,255,.12)'; x.fillRect(sx, -ht, 2*K, ht);
           x.fillStyle = fg; x.textAlign = 'center'; x.font = '900 '+(8*K)+'px '+FN.dot; setLS(x, 0); x.fillText(pad(t.no||0,2), sx+w/2, -5*K);
           x.save(); x.beginPath(); x.rect(sx, -ht+capH+4*K, w, ht-capH-22*K); x.clip(); x.translate(sx+w/2, -ht+capH+6*K); x.rotate(Math.PI/2); x.textAlign = 'left'; x.textBaseline = 'middle'; x.font = '600 '+(8*K)+'px '+FN.un; setLS(x, 1.5*K); x.fillText(t.title.toUpperCase(), 0, 0); x.restore(); x.textBaseline = 'alphabetic';
@@ -3716,7 +3727,7 @@ function viewYear(){
     '<span class="tiles"><span class="tile"><b>'+st.films+'</b> FILMS</span> · <span class="tile"><b>'+st.visits+'</b> TICKETS</span> · <span class="tile"><b>'+st.rewatches+'</b> REWATCH</span></span></div>'+
     '<div class="ychips"><span>'+cins+' CINEMAS</span><a href="#passport">'+got+' STAMPS</a><a class="cr" href="#wrapped/'+y+'">▶ Wrapped</a></div></section>';
   if (!list.length) { V.innerHTML = head + board + challengeHTML(y) + '<div class="empty">ยังไม่มีตั๋วในปี '+y+'<a class="btn" href="#new" style="max-width:240px">พิมพ์ตั๋วใบแรก</a></div>'; return; }
-  var bars = gs.map(function(g){ return '<a class="gbar" href="#collection" data-act="goGenre" data-v="'+g.id+'"><span class="gl">'+g.en+'</span><span class="gt"><i style="width:'+Math.round(st.genres[g.id]/gmax*100)+'%;background:'+g.c+'"></i></span><b>'+st.genres[g.id]+'</b></a>'; }).join('');
+  var bars = gs.map(function(g){ return '<a class="gbar" href="#collection" data-act="goGenre" data-v="'+g.id+'"><span class="gl">'+g.en+'</span><span class="gt"><i style="width:'+Math.round(st.genres[g.id]/gmax*100)+'%;background:'+gbg(g)+'"></i></span><b>'+st.genres[g.id]+'</b></a>'; }).join('');
   var mb = st.months.map(function(n,i){ return '<a href="#collection" data-act="goMonth" data-v="'+pad(i+1)+'" aria-label="'+MONTHS_TH[i]+' '+n+' ครั้ง"><i style="height:'+(n?Math.max(6,Math.round(n/mmax*84)):2)+'px;background:'+(i===curM?'#FFB547':'#5E1E28')+'"></i><span>'+'JFMAMJJASOND'.charAt(i)+'</span></a>'; }).join('');
   var heat = ''; for (var mi=0; mi<12; mi++){ var c = st.months[mi]; heat += '<a href="#collection" data-act="goMonth" data-v="'+pad(mi+1)+'" style="background:'+(c>=4?'#FFB547':c>=2?'#B3121B':c>=1?'#5E1E28':'#2A2A2C')+'" aria-label="'+MONTHS_TH[mi]+' '+c+' ครั้ง"></a>'; }
   V.innerHTML = head + board + challengeHTML(y) +
@@ -3821,12 +3832,12 @@ function drawTicket(t, side, hidePrivate){
     var poster = imgs[0], photos = imgs.slice(1).filter(Boolean), dd = parseISO(t.date);
     x.save(); rr(x, 0, 0, W, H, 30*S3); x.clip();
     if (side === 'front') {
-      x.fillStyle = g.c; x.fillRect(0, 0, W, H);
+      x.fillStyle = gfill(x, g, 0, W); x.fillRect(0, 0, W, H);
       var PH = 446*S3;
       if (poster) { x.save(); x.beginPath(); x.rect(0,0,W,PH); x.clip(); drawCover(x, poster, 0, 0, W, PH, 'top'); x.restore(); }
       else { x.save(); x.filter = 'blur('+(50*S3)+'px)'; x.fillStyle = g2; x.beginPath(); x.arc(W-50*S3, 40*S3, 160*S3, 0, Math.PI*2); x.fill(); x.globalAlpha = .55; x.fillStyle = '#F2EEE8'; x.beginPath(); x.arc(40*S3, 230*S3, 110*S3, 0, Math.PI*2); x.fill(); x.restore();
         x.fillStyle = 'rgba(11,11,12,.85)'; x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.font = '900 '+(64*S3)+'px '+FN.dot; setLS(x, 0); x.fillText(g.en, W/2, 190*S3); }
-      var fg = x.createLinearGradient(0, PH*.38, 0, PH); fg.addColorStop(0, hexA(g.c, 0)); fg.addColorStop(.45, hexA(g.c, .6)); fg.addColorStop(1, g.c); x.fillStyle = fg; x.fillRect(0, PH*.38, W, PH*.62+2);
+      if (g.rb) gfade(x, g, 0, PH*.38, W, PH*.62+2); else { var fg = x.createLinearGradient(0, PH*.38, 0, PH); fg.addColorStop(0, hexA(g.c, 0)); fg.addColorStop(.45, hexA(g.c, .6)); fg.addColorStop(1, g.c); x.fillStyle = fg; x.fillRect(0, PH*.38, W, PH*.62+2); }
       x.save(); x.filter = 'blur('+(50*S3)+'px)'; x.globalAlpha = .6; x.fillStyle = g2; x.beginPath(); x.arc(W+10*S3, H+0*S3, 130*S3, 0, Math.PI*2); x.fill(); x.restore();
       tkSpark(x, 309*S3, 35*S3, 18*S3); tkSpark(x, 323*S3, 67*S3, 10*S3); tkSpark(x, 290*S3, 74*S3, 8*S3);
       var c1 = chipC(x, g.en, g.c, 0, 16*S3, S3), c2 = chipC(x, ticketNo(t.no).replace(' ',''), '#F2EEE8', 0, 16*S3, S3); c1.draw(16*S3); c2.draw(W-16*S3-c2.w);
@@ -3852,7 +3863,7 @@ function drawTicket(t, side, hidePrivate){
       if (fe) drawFestC(x, fe, W, H, S3);
     } else {
       x.fillStyle = '#F2EEE8'; x.fillRect(0, 0, W, H);
-      x.fillStyle = g.c; x.fillRect(0, 0, W, 64*S3); x.save(); x.beginPath(); x.rect(0,0,W,64*S3); x.clip(); x.filter = 'blur('+(40*S3)+'px)'; x.fillStyle = g2; x.beginPath(); x.arc(W-(-40)*S3, -10*S3, 100*S3, 0, Math.PI*2); x.fill(); x.restore();
+      x.fillStyle = gfill(x, g, 0, W); x.fillRect(0, 0, W, 64*S3); x.save(); x.beginPath(); x.rect(0,0,W,64*S3); x.clip(); x.filter = 'blur('+(40*S3)+'px)'; x.fillStyle = g2; x.beginPath(); x.arc(W-(-40)*S3, -10*S3, 100*S3, 0, Math.PI*2); x.fill(); x.restore();
       x.fillStyle = '#0B0B0C'; x.textAlign = 'left'; x.textBaseline = 'alphabetic';
       x.font = '900 '+(11*S3)+'px '+FN.dot; setLS(x, 2*S3); x.fillText(g.en+' · MY NOTE', 20*S3, 26*S3);
       x.font = '600 '+(17*S3)+'px '+FN.un; setLS(x, 0); var tt = t.title; while (x.measureText(tt).width > 230*S3 && tt.length > 3) tt = tt.slice(0,-2); if (tt !== t.title) tt += '…'; x.fillText(tt, 20*S3, 50*S3);
@@ -3941,7 +3952,7 @@ function storyShelf(y){
     // genre bar
     var gs = GENRES.filter(function(g){ return st.genres[g.id]; }).sort(function(a,b){ return st.genres[b.id]-st.genres[a.id]; }), tot = gs.reduce(function(s2,g){ return s2+st.genres[g.id]; }, 0) || 1, barY = gy + 3*(ch+8*K) + 10*K, xx = 24*K, bwid = 1080-48*K;
     x.save(); rr(x, xx, barY, bwid, 10*K, 5*K); x.clip(); x.fillStyle = '#1C1C1E'; x.fillRect(xx, barY, bwid, 10*K);
-    gs.forEach(function(g){ var w = bwid*st.genres[g.id]/tot; x.fillStyle = g.c; x.fillRect(xx, barY, w+1, 10*K); xx += w; }); x.restore();
+    gs.forEach(function(g){ var w = bwid*st.genres[g.id]/tot; x.fillStyle = gfill(x, g, xx, w); x.fillRect(xx, barY, w+1, 10*K); xx += w; }); x.restore();
     x.fillStyle = '#B9B4AD'; x.font = '900 '+(9*K)+'px '+FN.dot; setLS(x, 1*K);
     var labs = gs.slice(0,3).map(function(g){ return g.en+' '+st.genres[g.id]; }); if (gs.length > 3) labs.push('+'+(gs.length-3));
     labs.forEach(function(l, j){ x.textAlign = j===0 ? 'left' : j===labs.length-1 ? 'right' : 'center'; x.fillText(l, labs.length===1 ? 24*K : 24*K + j*(bwid/(labs.length-1)), barY + 22*K); });
@@ -4054,8 +4065,8 @@ function kindSeat(t){
 }
 
 /* ---------- what's new (once per version) ---------- */
-var APP_VER = '0.9.3';
-var WHATS_NEW = [['MOVING SHELF','ชั้นวางเลื่อนเองได้ ปัดแล้วสันปกจะหันหน้าปกหนังออกมา','#FFB547'],['SHARE COLLECTION','แชร์ตู้ตั๋วและชั้นวางของปีนี้ลง Story ได้แล้ว','#E0262F'],['SIMPLER VIEWS','คอลเลกชันเหลือ 2 มุมมอง ตู้ตั๋วกับชั้นวาง','#C5D46E'],['SOFTER RED','ตู้สีแดงหม่นลง สบายตาขึ้น','#6EC1CF']];
+var APP_VER = '0.9.4';
+var WHATS_NEW = [['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง) แก้แนวของตั๋วเก่าได้ที่ปุ่มแก้ไข','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเองได้ ปัดแล้วสันปกจะหันหน้าปกหนังออกมา','#FFB547'],['SHARE COLLECTION','แชร์ตู้ตั๋วและชั้นวางของปีนี้ลง Story ได้แล้ว','#E0262F'],['SIMPLER VIEWS','คอลเลกชันเหลือ 2 มุมมอง ตู้ตั๋วกับชั้นวาง','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
