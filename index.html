@@ -1161,6 +1161,38 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .wcard.missed h3{color:var(--muted);text-decoration:line-through;text-decoration-color:rgba(224,38,47,.7)}
 .cd.miss b{font-family:var(--dot);font-weight:900;font-size:13px;letter-spacing:1px;color:#E0262F;border:1.5px solid #E0262F;border-radius:4px;padding:4px 5px;transform:rotate(-6deg);display:inline-block}
 .cd.miss span{margin-top:6px}
+
+/* ===== v0.10 My Room ===== */
+.rmStage{position:relative;margin:-28px -18px -18px;aspect-ratio:1;max-width:430px}
+@media (min-width:467px){.rmStage{margin-left:auto;margin-right:auto}}
+.rmStage canvas{display:block;width:100%;height:100%}
+.rmSlot{position:absolute;width:30px;height:30px;margin:-15px 0 0 -15px;border-radius:50%;border:0;background:#FFB547;color:#0B0B0C;font-size:20px;font-weight:700;line-height:30px;text-align:center;padding:0;box-shadow:0 0 0 6px rgba(255,181,71,.25);animation:rmPl 1.2s infinite alternate,rmIn .3s ease}
+@keyframes rmPl{to{box-shadow:0 0 0 12px rgba(255,181,71,.08)}}@keyframes rmIn{from{opacity:0;transform:translateY(8px)}}
+.rmBtn{height:44px;padding:0 16px;border-radius:22px;border:0;font-family:var(--body);font-size:14px;background:var(--cream);color:#0B0B0C;position:relative;flex-shrink:0}
+.rmBtn.done{background:#E0262F;color:#fff}.rmBtn .dot{position:absolute;right:2px;top:2px;width:10px;height:10px;border-radius:50%;background:#FFB547;box-shadow:0 0 0 2px #0B0B0C}
+#rmView,#rmEdit{animation:rmIn .3s ease}#rmView[hidden],#rmEdit[hidden]{display:none}
+.rmTabs{display:flex;gap:6px;padding-top:6px;overflow-x:auto}.rmTabs button{flex:none;height:44px;padding:0 18px;border-radius:22px;border:1px solid #3A3A3C;background:none;color:var(--cream);font-family:var(--body);font-size:14px}.rmTabs button[aria-pressed=true]{background:var(--cream);color:#0B0B0C;border-color:var(--cream)}
+.rmPan{margin-top:12px;border-radius:20px;background:#1C1C1E;padding:14px}.rmPan h4{margin:0 0 8px;font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px;color:#FFB547}.rmPan h4:not(:first-child){margin-top:14px}
+.rmSw{display:flex;gap:10px;flex-wrap:wrap}.rmSw button{width:44px;height:44px;border-radius:50%;border:0;padding:0}.rmSw button[aria-pressed=true]{box-shadow:0 0 0 2px #1C1C1E,0 0 0 4px var(--cream)}.rmSw button.off{background:#2A2A2C;color:#B9B4AD;font-family:var(--body);font-size:11px}
+.rmTray{display:flex;gap:8px;flex-wrap:wrap}.rmTray button{flex:none;width:calc(33.33% - 5.4px);min-height:64px;border-radius:16px;border:2px solid transparent;background:#232325;color:var(--cream);font-family:var(--body);font-size:13px;padding:10px 4px;line-height:1.3}.rmTray button[aria-pressed=true]{border-color:#FFB547}.rmTray small{display:block;font-size:10.5px;color:#B9B4AD;margin-top:3px}.rmTray button:disabled{opacity:.42}
+.rmPs{display:flex;gap:10px;flex-wrap:wrap}.rmPs button{width:58px;height:87px;border-radius:8px;border:2px solid transparent;padding:0;overflow:hidden;background:#232325}.rmPs button[aria-pressed=true]{border-color:#FFB547}.rmPs img{width:100%;height:100%;object-fit:cover;display:block}
+.rmNext{margin:10px 0 22px;border-radius:18px;background:#1C1C1E;padding:14px}.rmNext .hh{display:flex;justify-content:space-between;font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:2px;color:#FFB547}.rmNext .hh span+span{color:#B9B4AD}.rmNext p{font-size:14px;margin:6px 0 10px}.rmNext .pb{height:8px;border-radius:4px;background:#2A2A2C;overflow:hidden}.rmNext .pb i{display:block;height:100%;border-radius:4px;background:#FFB547}
+.rmShare{width:100%;height:48px;border-radius:24px;border:0;background:#E0262F;color:#fff;font-family:var(--body);font-size:15px;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.id2{position:relative;margin-top:14px;aspect-ratio:1.586;border-radius:20px;overflow:hidden;color:#F2EEE8;padding:14px 16px;display:flex;flex-direction:column;justify-content:space-between;background:#2A2326;box-shadow:0 10px 30px rgba(0,0,0,.5),inset 0 0 0 1px rgba(242,238,232,.14)}
+.id2>*{position:relative;z-index:2}.id2 .i2mesh,.id2 .i2holo,.id2 .i2sheen{position:absolute;inset:0;z-index:1}
+.id2 .i2mesh{background:radial-gradient(120% 90% at 0% 0%,#B86A72 0,transparent 62%),radial-gradient(90% 100% at 100% 0%,#7A6A9A 0,transparent 66%),radial-gradient(110% 100% at 100% 100%,#4F7F8C 0,transparent 64%),radial-gradient(90% 90% at 0% 100%,#BF9A70 0,transparent 60%),#3A3036;background-size:140% 140%;animation:idmesh 14s ease-in-out infinite alternate}
+.id2 .i2holo{left:auto;bottom:auto;right:14px;top:48px;width:32px;height:32px;border-radius:50%;background:conic-gradient(from 0deg,#E6B8C2,#C9C0E8,#B5DDE0,#E8DDB8,#E6B8C2);opacity:.38;mix-blend-mode:screen;animation:idspin 9s linear infinite}
+.id2 .i2sheen{background:linear-gradient(105deg,transparent 38%,rgba(255,255,255,.05) 44%,rgba(255,244,230,.42) 50%,rgba(255,255,255,.05) 56%,transparent 62%);transform:translateX(-120%);animation:idsheen 4.5s ease-in-out infinite;mix-blend-mode:screen;z-index:3;pointer-events:none}
+@keyframes idsheen{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}@keyframes idmesh{to{background-position:100% 100%}}@keyframes idspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.id2 .i2sheen,.id2 .i2mesh,.id2 .i2holo{animation:none}}.reduce .id2 .i2sheen,.reduce .id2 .i2mesh,.reduce .id2 .i2holo{animation:none}
+.id2 .i2top{display:flex;justify-content:space-between;align-items:center;gap:8px}.id2 .i2t{font-family:var(--dot);font-weight:900;font-size:11px;letter-spacing:2.5px;white-space:nowrap}.id2 .i2lv{font-family:var(--dot);font-weight:900;font-size:10.5px;padding:3px 9px;border-radius:10px;background:rgba(11,11,12,.45);white-space:nowrap}
+.id2 .i2mid{display:flex;gap:14px;align-items:center}.id2 .i2ph{flex:none;width:84px;height:104px;border-radius:12px;overflow:hidden;background:rgba(11,11,12,.38);box-shadow:inset 0 0 0 1.5px rgba(242,238,232,.35);display:flex;flex-direction:column;gap:6px;align-items:center;justify-content:center;border:0;padding:0;color:#F2EEE8}
+.id2 .i2ph img{width:100%;height:100%;object-fit:cover;display:block}.id2 .i2ph em{font-style:normal;font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:1px}
+.id2 .i2inf{flex:1;min-width:0}.id2 h2{margin:0;font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.02em;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.id2 h2 a{color:inherit}
+.id2 .i2rk{font-family:'Unbounded',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:1.6px;margin:4px 0 9px;background:linear-gradient(90deg,#F6DDB4,#F0BFCB 40%,#CFC6F0 70%,#B9E2E4);-webkit-background-clip:text;background-clip:text;color:transparent;white-space:nowrap}
+.id2 .i2g{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;gap:6px 8px}.id2 .i2g span{display:block;font-family:var(--dot);font-weight:900;font-size:8px;letter-spacing:1.5px;opacity:.75}.id2 .i2g b{font-family:'Unbounded',var(--body);font-weight:600;font-size:12px;white-space:nowrap}
+.id2 .i2bot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}.id2 .i2mrz{font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:1.5px;opacity:.8;white-space:nowrap;overflow:hidden}
+.id2 .i2bar{flex:none;height:22px;width:86px;background:repeating-linear-gradient(90deg,#F2EEE8 0 2px,transparent 2px 4px,#F2EEE8 4px 5px,transparent 5px 9px);opacity:.85}
 </style>
 </head>
 <body>
@@ -2761,7 +2793,7 @@ function storyPersona(){
   });
 }
 function shareStory(kind, arg){
-  var job = kind==='id' ? storyID() : kind==='rank' ? storyRank(arg!=null ? arg : Math.max(0, rankOf(S.tickets.length))) : kind==='shelf' ? storyShelf(String(arg || S.yearView || todayISO().slice(0,4))) : kind==='vend' ? storyVend(colShareYear()) : kind==='spines' ? storySpines(colShareYear()) : storyPersona();
+  var job = kind==='room' ? storyRoom() : kind==='id' ? storyID() : kind==='rank' ? storyRank(arg!=null ? arg : Math.max(0, rankOf(S.tickets.length))) : kind==='shelf' ? storyShelf(String(arg || S.yearView || todayISO().slice(0,4))) : kind==='vend' ? storyVend(colShareYear()) : kind==='spines' ? storySpines(colShareYear()) : storyPersona();
   toast('กำลังสร้างรูป…');
   return job.then(function(c){ return canvasBlob(c, 'image/png'); }).then(function(b){ return shareBlob(b, 'story-'+kind+'.png', 'Tuva'); }).catch(function(){ toast('สร้างรูปไม่สำเร็จ'); });
 }
@@ -3366,7 +3398,7 @@ function exportBackup(){
   var blobs = {};
   Promise.all(Object.keys(ids).map(function(id){ return DB.get('blobs', id).then(function(b){ if (b) return blobToDataURL(b).then(function(u){ blobs[id]=u; }); }); }))
   .then(function(){
-    var data = { app:'memory-ticket-booth', version:2, exportedAt:new Date().toISOString(), meta:{ nextNo:S.meta.nextNo, recentVenues:S.meta.recentVenues, recentCompanions:S.meta.recentCompanions, profile:S.profile, seenRank:S.meta.seenRank, challenges:S.meta.challenges||{} },
+    var data = { app:'memory-ticket-booth', version:2, exportedAt:new Date().toISOString(), meta:{ nextNo:S.meta.nextNo, recentVenues:S.meta.recentVenues, recentCompanions:S.meta.recentCompanions, profile:S.profile, room:S.room, seenRank:S.meta.seenRank, challenges:S.meta.challenges||{} },
       tickets: S.tickets.map(stripPriv), watch: S.watch, blobs: blobs };
     var url = URL.createObjectURL(new Blob([JSON.stringify(data)], {type:'application/json'}));
     var a = document.createElement('a'); a.href = url; a.download = 'ticket-booth-backup-'+todayISO()+'.json';
@@ -3393,6 +3425,7 @@ function importBackup(file){
       DB.put('meta', S.meta.nextNo, 'nextNo');
       if (data.meta && data.meta.profile && !S.profile.name && !S.profile.photoId) { S.profile = Object.assign(S.profile, data.meta.profile); DB.put('meta', S.profile, 'profile'); }
       S.meta.seenRank = rankOf(S.tickets.length); DB.put('meta', S.meta.seenRank, 'seenRank');
+      if (data.meta && data.meta.room && !Object.keys(S.room.items||{}).length) { S.room = Object.assign(S.room, data.meta.room); if (!S.room.items) S.room.items = {}; saveRoom(); }
       if (data.meta && data.meta.challenges) { var chs = S.meta.challenges || (S.meta.challenges = {}); Object.keys(data.meta.challenges).forEach(function(k){ if (!chs[k]) chs[k] = data.meta.challenges[k]; }); saveChallenges(); }
       if (data.meta && data.meta.recentCompanions && !S.meta.recentCompanions.length) { S.meta.recentCompanions = data.meta.recentCompanions; DB.put('meta', S.meta.recentCompanions, 'recentCompanions'); }
       reindex(); S.meta.seenStamps = earnedStampIds(); DB.put('meta', S.meta.seenStamps, 'seenStamps'); toast('กู้คืน '+add.length+' ใบ'+(addW.length?' · อยากดู '+addW.length+' เรื่อง':'')+' แล้ว'); render();
@@ -3404,7 +3437,7 @@ function importBackup(file){
 /* ================= boot ================= */
 try { if (localStorage.getItem('mtb-reduce')) document.documentElement.classList.add('reduce'); } catch(x){}
 DB.open().then(function(){
-  return Promise.all([DB.all('tickets'), DB.get('meta','nextNo'), DB.get('meta','recentVenues'), DB.get('meta','recentCompanions'), DB.get('meta','favVenues'), DB.get('meta','seenStamps'), DB.all('watch'), DB.get('meta','profile'), DB.get('meta','seenRank'), DB.get('meta','challenges')]);
+  return Promise.all([DB.all('tickets'), DB.get('meta','nextNo'), DB.get('meta','recentVenues'), DB.get('meta','recentCompanions'), DB.get('meta','favVenues'), DB.get('meta','seenStamps'), DB.all('watch'), DB.get('meta','profile'), DB.get('meta','seenRank'), DB.get('meta','challenges'), DB.get('meta','room')]);
 }).then(function(r){
   S.tickets = (r[0]||[]).filter(function(t){ return t && t.id && t.date; });
   S.meta.nextNo = r[1] || (S.tickets.reduce(function(m,t){ return Math.max(m,t.no||0); },0)+1);
@@ -3415,6 +3448,7 @@ DB.open().then(function(){
   S.watch = (r[6]||[]).filter(function(w){ return w && w.id && w.title; });
   if (r[7]) S.profile = Object.assign(S.profile, r[7]);
   S.meta.challenges = r[9] || {};
+  if (r[10]) { S.room = Object.assign(S.room, r[10]); if (!S.room.items) S.room.items = {}; }
   S.meta.seenRank = (r[8]===undefined || r[8]===null) ? rankOf(S.tickets.length) : r[8]; if (r[8]===undefined || r[8]===null) DB.put('meta', S.meta.seenRank, 'seenRank');
   if (!S.meta.seenStamps) { S.meta.seenStamps = earnedStampIds(); DB.put('meta', S.meta.seenStamps, 'seenStamps'); }
   renumberTickets().then(function(){ reindex(); render(); if (!maybeOnboarding()) setTimeout(maybeWhatsNew, 900); });
@@ -4093,8 +4127,174 @@ function kindSeat(t){
 }
 
 /* ---------- what's new (once per version) ---------- */
-var APP_VER = '0.9.5';
-var WHATS_NEW = [['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+
+/* ================= v0.10 MY ROOM ================= */
+var RM_DEF = {sun:'#FFC27A', lamp:'#FFB547', neon:'#FF4A72', wall:'#D9A38A', ceil:'#E6C2AE', floor:'#B97A52', items:{}, poster:null, seen:0};
+S.room = JSON.parse(JSON.stringify(RM_DEF));
+var RM = {edit:false, tab:2, IM:{}, PIM:{}, ready:false, raf:0, drawn:false};
+var RM_SUN = [['#FFC27A','แสงทอง'],['#FF8FA8','ชมพูเย็น'],['#8FB0FF','แสงจันทร์'],['#B8C4CC','วันฝน'],['','ปิด']], RM_LAMP = [['#FFB547','ส้มอุ่น'],['#FF5EC4','ชมพู'],['#5EF2FF','ฟ้า'],['#FFFFFF','ขาว'],['','ปิด']], RM_NEON = [['#FF4A72','แดงชมพู'],['#5EF2FF','ฟ้า'],['#FFE98A','เหลือง'],['#C5D46E','เขียว']];
+var RM_WALL = ['#D9A38A','#8FB3A6','#A497D4','#E6DCC9','#6E8FB8','#C9636D'], RM_CEIL = ['#E6C2AE','#F2E6D0','#FFFFFF','#C9D8CF','#D9C8E6','#3A3F52'], RM_FLOOR = ['#B97A52','#6E4A3A','#D9B88A','#8A8F96','#4A3A46','#C98A6A'];
+var RM_UNLOCK = ['sofa','tv','bookshelf','neon','fishtank','bedside','clock','desk','chair','lowcab','beanbag','wshelf','vinyl','slate','reel','glasses','rocket','fairy','vase','trophy','bunting','camera','cat','pumpkin','xmas'];
+var RM_ORDER = ["bunting", "fairy", "clock", "wshelf", "bookshelf", "rocket", "trophy", "desk", "vase", "chair", "fishtank", "lowcab", "reel", "beanbag", "tv", "slate", "bedside", "glasses", "cat", "pumpkin", "camera", "sofa", "vinyl", "xmas"], RM_SLOT = {"bunting": [298, 100], "fairy": [126, 170], "clock": [232, 108], "wshelf": [313, 170], "bookshelf": [225, 164], "rocket": [218, 124], "trophy": [233, 132], "desk": [174, 176], "vase": [181, 162], "chair": [197, 193], "fishtank": [143, 197], "lowcab": [261, 206], "reel": [265, 199], "beanbag": [200, 229], "tv": [304, 231], "slate": [283, 206], "bedside": [118, 216], "glasses": [112, 212], "cat": [109, 233], "pumpkin": [84, 269], "camera": [148, 250], "sofa": [230, 277], "vinyl": [226, 310], "xmas": [191, 309], "neon": [300, 128]}, RM_NAME = {"slate": "สเลต", "reel": "ม้วนฟิล์ม", "glasses": "แว่น 3D", "rocket": "โมเดลจรวด", "trophy": "ถ้วยรางวัล", "vase": "แจกันดอกไม้", "pumpkin": "โคมฟักทอง", "cat": "แมว", "xmas": "ต้นคริสต์มาส", "camera": "กล้องถ่ายหนัง", "bunting": "ธงราว", "fairy": "ไฟราว", "bookshelf": "ชั้นหนังสือ", "fishtank": "ตู้ปลา", "tv": "ทีวี + ตู้", "beanbag": "บีนแบ็ก", "sofa": "โซฟา", "neon": "ป้ายนีออน", "clock": "นาฬิกา", "wshelf": "ชั้นลอย", "desk": "โต๊ะทำงาน", "chair": "เก้าอี้", "lowcab": "ตู้เตี้ย", "bedside": "โต๊ะข้างเตียง", "vinyl": "เครื่องเล่นแผ่นเสียง"}, RM_REQ = {slate:'tv', reel:'lowcab', glasses:'bedside', rocket:'bookshelf', trophy:'bookshelf', vase:'desk'};
+var RM_FILES = {"base": "webp", "sun": "jpg", "lamp": "jpg", "light_tv": "jpg", "light_neon": "jpg", "light_fishtank": "jpg", "light_pumpkin": "jpg", "light_xmas": "jpg", "light_fairy": "jpg", "mask_wall": "webp", "mask_ceil": "webp", "mask_floor": "webp", "item_neon": "webp", "item_bunting": "webp", "lamp_bunting": "jpg", "item_fairy": "webp", "item_clock": "webp", "lamp_clock": "jpg", "item_wshelf": "webp", "lamp_wshelf": "jpg", "item_bookshelf": "webp", "lamp_bookshelf": "jpg", "item_rocket": "webp", "lamp_rocket": "jpg", "item_trophy": "webp", "lamp_trophy": "jpg", "item_desk": "webp", "lamp_desk": "jpg", "sun_desk": "jpg", "item_vase": "webp", "lamp_vase": "jpg", "item_chair": "webp", "lamp_chair": "jpg", "item_fishtank": "webp", "lamp_fishtank": "jpg", "item_lowcab": "webp", "lamp_lowcab": "jpg", "item_reel": "webp", "lamp_reel": "jpg", "item_beanbag": "webp", "lamp_beanbag": "jpg", "sun_beanbag": "jpg", "item_tv": "webp", "lamp_tv": "jpg", "sun_tv": "jpg", "item_slate": "webp", "lamp_slate": "jpg", "item_bedside": "webp", "lamp_bedside": "jpg", "item_glasses": "webp", "lamp_glasses": "jpg", "item_cat": "webp", "lamp_cat": "jpg", "item_pumpkin": "webp", "lamp_pumpkin": "jpg", "item_camera": "webp", "lamp_camera": "jpg", "item_sofa": "webp", "lamp_sofa": "jpg", "item_vinyl": "webp", "lamp_vinyl": "jpg", "item_xmas": "webp", "lamp_xmas": "jpg"}, RM_PM = [0.4352, 0.2512, 0.0, 0.5064, 509.02, 217.38];
+var RM_ALIAS = {scifi:'STAR DRIFTER', drama:'HEARTBREAK COLLECTOR', romance:'HOPELESS ROMANTIC', horror:'MIDNIGHT SCREAMER', thriller:'PLOT TWIST HUNTER', comedy:'LAUGH DEALER', action:'ADRENALINE CHASER', fantasy:'REALM WANDERER', animation:'FRAME DREAMER', doc:'TRUTH SEEKER'};
+function saveRoom(){ return DB.put('meta', S.room, 'room'); }
+function rmCount(){ return Math.min(RM_UNLOCK.length, Math.ceil(S.tickets.length/2)); }
+function rmHas(k){ return RM_UNLOCK.indexOf(k) < rmCount(); }
+function rmOn(k){ return !!S.room.items[k] && rmHas(k) && (!RM_REQ[k] || (!!S.room.items[RM_REQ[k]] && rmHas(RM_REQ[k]))); }
+function rmNeedTix(k){ return RM_UNLOCK.indexOf(k)*2 + 1 - S.tickets.length; }
+function rmPosters(){ var seen = {}, out = []; S.tickets.slice().sort(function(a,b){ return sortKey(b) > sortKey(a) ? 1 : -1; }).forEach(function(t){ if (t.posterId && !seen[t.posterId] && blobURL(t.posterId)) { seen[t.posterId] = 1; out.push(t); } }); return out.slice(0, 24); }
+function rmPosterId(){ var ps = rmPosters(), cur = S.room.poster; if (cur && ps.some(function(t){ return t.posterId===cur; })) return cur; return ps.length ? ps[0].posterId : null; }
+function rmMk(){ var c = document.createElement('canvas'); c.width = c.height = 780; return c; }
+function rmLoad(){
+  var need = ['base','sun','lamp','mask_wall','mask_ceil','mask_floor'];
+  RM_UNLOCK.slice(0, rmCount()).forEach(function(k){ ['item_','lamp_','sun_','light_'].forEach(function(p){ if (RM_FILES[p+k]) need.push(p+k); }); });
+  var jobs = need.filter(function(k){ return !RM.IM[k]; }).map(function(k){ return loadImg('room/'+k+'.'+RM_FILES[k]).then(function(i){ if (i) RM.IM[k] = i; }); });
+  var pid = rmPosterId();
+  if (pid && !RM.PIM[pid]) jobs.push(loadImg(blobURL(pid)).then(function(i){ if (i) RM.PIM[pid] = i; }));
+  return Promise.all(jobs).then(function(){ RM.ready = !!RM.IM.base; if (!RM.CUR) { RM.CUR = rmMk(); RM.NXT = rmMk(); RM.TMP = rmMk(); RM.TMP2 = rmMk(); RM.MSK = rmMk(); } });
+}
+function rmTint(key, col){ var x = RM.TMP.getContext('2d'); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; x.clearRect(0,0,780,780); x.drawImage(RM.IM[key],0,0,780,780); if (col) { x.globalCompositeOperation = 'multiply'; x.fillStyle = col; x.fillRect(0,0,780,780); x.globalCompositeOperation = 'source-over'; } return RM.TMP; }
+function rmCompose(dst){
+  var st = S.room, IM = RM.IM, x = dst.getContext('2d'), m = RM.MSK.getContext('2d'), T2 = RM.TMP2;
+  x.setTransform(1,0,0,1,0,0); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; x.shadowBlur = 0; x.fillStyle = '#000'; x.fillRect(0,0,780,780);
+  m.clearRect(0,0,780,780); m.drawImage(IM.base,0,0,780,780); x.drawImage(IM.base,0,0,780,780);
+  var dim = st.sun==='#8FB0FF' ? .38 : st.sun==='#B8C4CC' ? .2 : st.sun ? .08 : .45; x.fillStyle = 'rgba(0,0,0,'+dim+')'; x.fillRect(0,0,780,780);
+  function add(key, col, a){ if (!IM[key] || a <= 0) return; var t = rmTint(key, col); x.globalCompositeOperation = 'screen'; x.globalAlpha = a; x.drawImage(t,0,0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; }
+  if (st.sun) add('sun', st.sun, 1); if (st.lamp) add('lamp', st.lamp, .7);
+  ['tv','fishtank','pumpkin','xmas','fairy'].forEach(function(k){ if (rmOn(k)) add('light_'+k, null, 1); }); if (rmOn('fishtank')) add('light_fishtank', null, .7); if (rmOn('neon')) add('light_neon', st.neon, 1);
+  [['wall','mask_wall'],['ceil','mask_ceil'],['floor','mask_floor']].forEach(function(p){ if (!IM[p[1]]) return; var t = T2.getContext('2d'); t.globalCompositeOperation = 'source-over'; t.globalAlpha = 1; t.clearRect(0,0,780,780); t.fillStyle = st[p[0]]; t.fillRect(0,0,780,780); t.globalCompositeOperation = 'destination-in'; t.drawImage(IM[p[1]],0,0,780,780); t.globalCompositeOperation = 'source-over'; x.globalCompositeOperation = 'multiply'; x.drawImage(T2,0,0); x.globalCompositeOperation = 'source-over'; });
+  var pim = RM.PIM[rmPosterId()];
+  if (pim) { var pw = pim.naturalWidth, ph = pim.naturalHeight, sw = Math.min(pw, ph*2/3), sh = sw*1.5; x.save(); x.setTransform(RM_PM[0],RM_PM[1],RM_PM[2],RM_PM[3],RM_PM[4],RM_PM[5]); x.drawImage(pim, (pw-sw)/2, (ph-sh)/2, sw, sh, 0, 0, 100, 150); x.fillStyle = 'rgba(0,0,0,'+(dim*.6+.08)+')'; x.fillRect(0,0,100,150); x.restore(); }
+  if (rmOn('neon') && IM.item_neon) { var tn = T2.getContext('2d'); tn.globalCompositeOperation = 'source-over'; tn.globalAlpha = 1; tn.clearRect(0,0,780,780); tn.fillStyle = '#fff'; tn.fillRect(0,0,780,780); tn.globalCompositeOperation = 'destination-in'; tn.drawImage(IM.item_neon,0,0,780,780); tn.globalCompositeOperation = 'source-over'; x.shadowColor = st.neon; x.shadowBlur = 16; x.drawImage(T2,0,0); x.drawImage(T2,0,0); x.shadowBlur = 0; x.shadowColor = 'transparent'; }
+  RM_ORDER.forEach(function(k){ if (!rmOn(k) || !IM['item_'+k]) return; var t = T2.getContext('2d'), L; t.globalCompositeOperation = 'source-over'; t.globalAlpha = 1; t.clearRect(0,0,780,780); t.drawImage(IM['item_'+k],0,0,780,780);
+    t.globalCompositeOperation = 'source-atop'; t.fillStyle = 'rgba(0,0,0,'+(dim*.8)+')'; t.fillRect(0,0,780,780);
+    if (st.lamp && IM['lamp_'+k]) { L = rmTint('lamp_'+k, st.lamp); t.globalCompositeOperation = 'screen'; t.globalAlpha = .7; t.drawImage(L,0,0); }
+    if (st.sun && IM['sun_'+k]) { L = rmTint('sun_'+k, st.sun); t.globalCompositeOperation = 'screen'; t.globalAlpha = 1; t.drawImage(L,0,0); }
+    t.globalAlpha = 1; t.globalCompositeOperation = 'destination-in'; t.drawImage(IM['item_'+k],0,0,780,780); t.globalCompositeOperation = 'source-over'; x.drawImage(T2,0,0); m.drawImage(IM['item_'+k],0,0,780,780); });
+  x.globalCompositeOperation = 'destination-in'; x.drawImage(RM.MSK,0,0); x.globalCompositeOperation = 'source-over';
+}
+function rmPaint(instant){
+  var cv = document.getElementById('rmcv'); if (!cv || !RM.ready) return; cancelAnimationFrame(RM.raf);
+  var CX = cv.getContext('2d'), c = RM.CUR.getContext('2d');
+  c.globalAlpha = 1; c.globalCompositeOperation = 'copy'; c.drawImage(RM.drawn ? RM.NXT : cv, 0, 0); c.globalCompositeOperation = 'source-over';
+  if (RM.shown) { c.globalCompositeOperation = 'copy'; c.drawImage(RM.shown === cv ? cv : RM.NXT, 0, 0); c.globalCompositeOperation = 'source-over'; }
+  rmCompose(RM.NXT); RM.drawn = true; RM.shown = cv;
+  var t0 = performance.now(), D = (instant || document.documentElement.classList.contains('reduce') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) ? 0 : 320;
+  (function step(now){ var t = D ? Math.min(1, (now-t0)/D) : 1, e = t*t*(3-2*t); CX.globalCompositeOperation = 'copy'; CX.globalAlpha = 1; CX.drawImage(RM.CUR,0,0); CX.globalCompositeOperation = 'source-over'; CX.globalAlpha = e; CX.drawImage(RM.NXT,0,0); CX.globalAlpha = 1; if (t < 1) RM.raf = requestAnimationFrame(step); })(t0);
+}
+function rmSw(list, key){ return '<div class="rmSw">'+list.map(function(c){ var col = typeof c==='string' ? c : c[0], lab = typeof c==='string' ? c : c[1]; return '<button '+(col?'style="background:'+col+'"':'class="off"')+' aria-label="'+lab+'" aria-pressed="'+((S.room[key]||'')===col)+'" data-x="rmSet" data-k="'+key+'" data-v="'+col+'">'+(col?'':'ปิด')+'</button>'; }).join('')+'</div>'; }
+function rmPanel(){
+  var el = document.getElementById('rmEdit'), stg = document.getElementById('rmStage'); if (!el || !stg) return;
+  var T = ['ของ','แสง','สีห้อง','โปสเตอร์'], tb = RM.tab, h = '', st = S.room, u = rmCount();
+  if (tb===0) h = '<h4>MY ITEMS · '+u+' / '+RM_UNLOCK.length+'</h4>'+(u?'':'<p class="small muted" style="margin:0 0 10px">พิมพ์ตั๋วใบแรก ได้ของชิ้นแรกทันที</p>')+'<div class="rmTray">'+RM_UNLOCK.map(function(k){ var has = rmHas(k), need = RM_REQ[k] && !(st.items[RM_REQ[k]] && rmHas(RM_REQ[k])), nt = rmNeedTix(k);
+      return '<button aria-pressed="'+rmOn(k)+'" data-x="rmItem" data-v="'+k+'"'+((!has||need)?' disabled':'')+'>'+RM_NAME[k]+'<small>'+(!has ? 'ดูอีก '+nt+' เรื่อง' : need ? 'วาง'+RM_NAME[RM_REQ[k]]+'ก่อน' : rmOn(k) ? 'วางแล้ว · แตะเพื่อเก็บ' : 'แตะเพื่อวาง')+'</small></button>'; }).join('')+'</div>';
+  if (tb===1) h = '<h4>WINDOW LIGHT</h4>'+rmSw(RM_SUN,'sun')+'<h4>LAMP</h4>'+rmSw(RM_LAMP,'lamp')+(rmOn('neon')?'<h4>NEON SIGN</h4>'+rmSw(RM_NEON,'neon'):'');
+  if (tb===2) h = '<h4>WALL</h4>'+rmSw(RM_WALL,'wall')+'<h4>CEILING</h4>'+rmSw(RM_CEIL,'ceil')+'<h4>FLOOR</h4>'+rmSw(RM_FLOOR,'floor');
+  if (tb===3) { var ps = rmPosters(), cur = rmPosterId(); h = '<h4>POSTER IN FRAME</h4>'+(ps.length ? '<div class="rmPs">'+ps.map(function(t){ return '<button aria-pressed="'+(t.posterId===cur)+'" data-x="rmPoster" data-v="'+esc(t.posterId)+'" aria-label="โปสเตอร์ '+esc(t.title||'')+'"><img src="'+blobURL(t.posterId)+'" alt=""></button>'; }).join('')+'</div>' : '<p class="small muted" style="margin:0">ยังไม่มีตั๋วที่ใส่โปสเตอร์ · ใส่รูปโปสเตอร์ตอนพิมพ์ตั๋ว แล้วเลือกมาใส่กรอบได้ที่นี่</p>'); }
+  el.innerHTML = '<div class="rmTabs">'+T.map(function(t,i){ return '<button aria-pressed="'+(tb===i)+'" data-x="rmTab" data-v="'+i+'">'+t+'</button>'; }).join('')+'</div><div class="rmPan">'+h+'</div>';
+  Array.prototype.slice.call(stg.querySelectorAll('.rmSlot')).forEach(function(e){ e.remove(); });
+  if (RM.edit && tb===0) RM_UNLOCK.forEach(function(k){ if (!rmHas(k) || st.items[k] || !RM_SLOT[k] || (RM_REQ[k] && !rmOn(RM_REQ[k]))) return; var b = document.createElement('button'); b.className = 'rmSlot'; b.textContent = '+'; b.setAttribute('aria-label','วาง '+RM_NAME[k]); b.setAttribute('data-x','rmItem'); b.setAttribute('data-v',k); b.style.left = (RM_SLOT[k][0]/3.9)+'%'; b.style.top = (RM_SLOT[k][1]/3.9)+'%'; stg.appendChild(b); });
+}
+function rmMode(){
+  var v = document.getElementById('rmView'), e = document.getElementById('rmEdit'), b = document.getElementById('rmBtn'); if (!v) return;
+  v.hidden = RM.edit; e.hidden = !RM.edit; b.className = 'rmBtn'+(RM.edit?' done':''); b.innerHTML = RM.edit ? 'เสร็จ' : 'แต่งห้อง'+(rmCount() > (S.room.seen||0) ? '<i class="dot" aria-label="มีของใหม่"></i>' : '');
+  if (RM.edit) { if (rmCount() > (S.room.seen||0)) { S.room.seen = rmCount(); saveRoom(); } rmPanel(); } else { var stg = document.getElementById('rmStage'); Array.prototype.slice.call(stg.querySelectorAll('.rmSlot')).forEach(function(x){ x.remove(); }); }
+}
+function rmAct(a, b){
+  var v = b.getAttribute('data-v'), st = S.room;
+  if (a==='rmEditTog') { RM.edit = !RM.edit; if (RM.edit) RM.tab = 0; rmMode(); if (!RM.edit) viewMe(); return; }
+  if (a==='rmTab') { RM.tab = +v; rmPanel(); return; }
+  if (a==='rmSet') st[b.getAttribute('data-k')] = v || null;
+  else if (a==='rmItem') { if (!rmHas(v)) return; st.items[v] = !st.items[v]; }
+  else if (a==='rmPoster') { st.poster = v; saveRoom(); rmPanel(); rmLoad().then(function(){ rmPaint(); }); return; }
+  saveRoom(); rmPanel(); rmPaint();
+}
+function cardData(){
+  var P = S.profile, n = S.tickets.length, ri = rankOf(n), st = statsFor(S.tickets);
+  var gk = Object.keys(st.genres).sort(function(a,b){ return st.genres[b]-st.genres[a]; })[0];
+  var first = S.tickets.slice().sort(function(a,b){ return a.date<b.date?-1:1; })[0];
+  var seats = {}; S.tickets.forEach(function(t){ var s = (t.seat||'').trim().toUpperCase(); if (s) seats[s] = (seats[s]||0)+1; });
+  var seat = (P.seat||'').trim() || Object.keys(seats).sort(function(a,b){ return seats[b]-seats[a]; })[0] || '—';
+  var rank = ri >= 0 ? RANKS[ri].en : 'NEWCOMER', asc = (P.name||'').toUpperCase().replace(/[^A-Z0-9]/g,'');
+  return { name: P.name||'', lv: 'LV.'+(ri+1)+' · '+rank, alias: gk && RM_ALIAS[gk] ? RM_ALIAS[gk] : 'NEW IN TOWN',
+    cells: [['FILMS', st.films], ['TICKETS', n], ['SINCE', first ? first.date.slice(0,4) : todayISO().slice(0,4)], ['GENRE', gk && GMAP[gk] ? GMAP[gk].en : '—'], ['SEAT', seat.slice(0,8)], ['ITEMS', rmCount()]],
+    mrz: 'TUVA<<'+(asc||'MEMBER')+'<<<0001<<'+rank.replace(/[^A-Z]/g,'')+'<<<<' };
+}
+function cardHTML(){
+  var D = cardData(), P = S.profile, pu = blobURL(P.photoId);
+  return '<article class="id2" id="idcard" aria-label="บัตร Cinema ID"><i class="i2mesh"></i><i class="i2holo"></i><i class="i2sheen"></i>'+
+    '<div class="i2top"><span class="i2t">TUVA · CINEMA ID</span><span class="i2lv">'+esc(D.lv)+'</span></div>'+
+    '<div class="i2mid"><button class="i2ph" data-x="mePhoto" aria-label="'+(pu?'เปลี่ยนรูปบัตร':'ใส่รูปบัตร')+'">'+(pu?'<img src="'+pu+'" alt="รูปโปรไฟล์">':'<svg viewBox="0 0 40 48" width="40" height="48" aria-hidden="true"><circle cx="20" cy="17" r="9" fill="rgba(242,238,232,.55)"/><path d="M4 48c0-11 7-17 16-17s16 6 16 17z" fill="rgba(242,238,232,.55)"/></svg><em>+ PHOTO</em>')+'</button>'+
+    '<div class="i2inf"><h2>'+(esc(D.name)||'<a href="#meedit">ใส่ชื่อ</a>')+'</h2><div class="i2rk">✦ '+D.alias+'</div><div class="i2g">'+D.cells.map(function(c){ return '<div><span>'+c[0]+'</span><b>'+esc(String(c[1]))+'</b></div>'; }).join('')+'</div></div></div>'+
+    '<div class="i2bot"><span class="i2mrz">'+esc(D.mrz)+'</span><i class="i2bar"></i></div></article>';
+}
+function rmNextHTML(){
+  var n = S.tickets.length, u = rmCount(), all = RM_UNLOCK.length;
+  if (u >= all) return '<div class="rmNext"><div class="hh"><span>ROOM ITEMS</span><span>'+all+' / '+all+'</span></div><p style="margin-bottom:0">เก็บของครบทุกชิ้นแล้ว</p></div>';
+  var nx = RM_NAME[RM_UNLOCK[u]], need = u*2+1-n, done = n ? (n-1)%2 : 0;
+  return '<div class="rmNext"><div class="hh"><span>NEXT ITEM</span><span>'+(n?done+' / 2 FILMS':'FIRST TICKET')+'</span></div><p>'+(n ? 'ดูอีก '+need+' เรื่อง ได้ '+nx : 'พิมพ์ตั๋วใบแรก ได้ '+nx+' ทันที')+'</p><div class="pb"><i style="width:'+(n?done*50:0)+'%"></i></div></div>';
+}
+function storyRoom(){
+  var D = cardData();
+  return fontsReady().then(rmLoad).then(function(){ return loadImg(blobURL(S.profile.photoId)); }).then(function(im){
+    var room = rmMk(); if (RM.ready) rmCompose(room);
+    var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d');
+    x.fillStyle = '#0B0B0C'; x.fillRect(0,0,1080,1920); var g = x.createRadialGradient(540,640,60,540,640,780); g.addColorStop(0,'rgba(150,84,70,.32)'); g.addColorStop(1,'rgba(11,11,12,0)'); x.fillStyle = g; x.fillRect(0,0,1080,1400);
+    x.textAlign = 'center'; x.fillStyle = '#FFB547'; x.font = '900 30px Doto'; setLS(x,10); x.fillText('MY ROOM',545,118); setLS(x,0);
+    x.drawImage(room,20,140,1040,1040);
+    var X = 70, Y = 1180, W = 940, H = 593; x.save(); rr(x,X,Y,W,H,48); x.clip(); x.fillStyle = '#3A3036'; x.fillRect(X,Y,W,H);
+    [[X,Y,'#B86A72'],[X+W,Y,'#7A6A9A'],[X+W,Y+H,'#4F7F8C'],[X,Y+H,'#BF9A70']].forEach(function(p){ var q = x.createRadialGradient(p[0],p[1],0,p[0],p[1],W*.72); q.addColorStop(0,p[2]); q.addColorStop(1,'rgba(58,48,54,0)'); x.fillStyle = q; x.fillRect(X,Y,W,H); });
+    var sg = x.createLinearGradient(X+W*.2,Y,X+W*.62,Y+H); sg.addColorStop(.4,'rgba(255,255,255,0)'); sg.addColorStop(.5,'rgba(255,244,230,.2)'); sg.addColorStop(.6,'rgba(255,255,255,0)'); x.fillStyle = sg; x.fillRect(X,Y,W,H); x.restore();
+    x.strokeStyle = 'rgba(242,238,232,.2)'; x.lineWidth = 2; rr(x,X+1,Y+1,W-2,H-2,47); x.stroke();
+    x.textAlign = 'left'; x.fillStyle = '#F2EEE8'; x.font = '900 28px Doto'; setLS(x,6); x.fillText('TUVA · CINEMA ID',X+44,Y+72); setLS(x,0);
+    x.font = '900 25px Doto'; var cw = x.measureText(D.lv).width+44; x.fillStyle = 'rgba(11,11,12,.45)'; rr(x,X+W-44-cw,Y+40,cw,46,23); x.fill(); x.fillStyle = '#F2EEE8'; x.textAlign = 'center'; x.fillText(D.lv,X+W-44-cw/2,Y+72);
+    var PX = X+44, PY = Y+140, PW = 220, PH = 272; x.save(); rr(x,PX,PY,PW,PH,30); x.clip(); x.fillStyle = 'rgba(11,11,12,.4)'; x.fillRect(PX,PY,PW,PH);
+    if (im) { var s = Math.max(PW/im.naturalWidth, PH/im.naturalHeight), w = im.naturalWidth*s, hh = im.naturalHeight*s; x.drawImage(im, PX+(PW-w)/2, PY+(PH-hh)/2, w, hh); }
+    else { x.fillStyle = 'rgba(242,238,232,.55)'; x.beginPath(); x.arc(PX+PW/2,PY+105,44,0,7); x.fill(); x.beginPath(); x.ellipse(PX+PW/2,PY+250,82,84,0,Math.PI,0); x.fill(); }
+    x.restore(); x.strokeStyle = 'rgba(242,238,232,.38)'; x.lineWidth = 3; rr(x,PX,PY,PW,PH,30); x.stroke();
+    var IX = X+306, IW = W-44-306, nm = D.name || 'MEMBER', fs = 64; x.textAlign = 'left'; x.fillStyle = '#F2EEE8';
+    do { x.font = '700 '+fs+'px Unbounded, Anuphan, sans-serif'; fs -= 4; } while (x.measureText(nm).width > IW && fs > 30);
+    x.fillText(nm, IX-2, Y+200);
+    x.font = '600 27px Unbounded'; setLS(x,4); var at = '✦ '+D.alias, aw = x.measureText(at).width, ag = x.createLinearGradient(IX,0,IX+aw,0); ag.addColorStop(0,'#F6DDB4'); ag.addColorStop(.4,'#F0BFCB'); ag.addColorStop(.7,'#CFC6F0'); ag.addColorStop(1,'#B9E2E4'); x.fillStyle = ag; x.fillText(at,IX,Y+248); setLS(x,0);
+    x.font = '600 32px Unbounded, Anuphan, sans-serif'; var cwid = [0,0,0]; D.cells.forEach(function(cl,i){ cwid[i%3] = Math.max(cwid[i%3], x.measureText(String(cl[1])).width, 110); });
+    var gap = Math.max(18, (IW-cwid[0]-cwid[1]-cwid[2])/2), cx = [IX, IX+cwid[0]+gap, IX+cwid[0]+cwid[1]+gap*2];
+    D.cells.forEach(function(cl,i){ var gx = cx[i%3], gy = Y+310+Math.floor(i/3)*92; x.fillStyle = 'rgba(242,238,232,.75)'; x.font = '900 20px Doto'; setLS(x,3); x.fillText(cl[0],gx,gy); setLS(x,0); x.fillStyle = '#F2EEE8'; x.font = '600 32px Unbounded, Anuphan, sans-serif'; x.fillText(String(cl[1]),gx,gy+40); });
+    x.save(); x.beginPath(); x.rect(X+44,Y+H-80,W-44-290,60); x.clip(); x.fillStyle = 'rgba(242,238,232,.8)'; x.font = '900 24px Doto'; setLS(x,3); x.fillText(D.mrz,X+44,Y+H-42); setLS(x,0); x.restore();
+    x.fillStyle = 'rgba(242,238,232,.85)'; var bx = X+W-250; for (var i=0;i<52;i++){ var bw = [4,2,6,2,3][i%5]; if (i%2===0) x.fillRect(bx,Y+H-84,bw,52); bx += bw+1; if (bx > X+W-48) break; }
+    drawLogo(x, 540, 1836, 40, 'center');
+    x.textAlign = 'center'; x.fillStyle = '#B9B4AD'; x.font = '900 20px Doto'; setLS(x,6); x.fillText('TICKET TO ANYWHERE',543,1902); setLS(x,0);
+    return c;
+  });
+}
+function viewMe(){
+  setTabs('me');
+  var P = S.profile, n = S.tickets.length, ri = rankOf(n), fi = filmsIndex(), p = persona();
+  var nextNeed = ri >= 9 ? null : (ri+2)*10;
+  var t10 = ''; for (var i=0;i<10;i++) t10 += t10Slot(i, fi);
+  var fav = (P.favGenres||[]).slice(0,3);
+  var more = [P.seat?['SIGNATURE SEAT',esc(P.seat)]:null, P.snack?['CINEMA SNACK',esc(P.snack)]:null, P.obsessed?['CURRENTLY OBSESSED',esc(P.obsessed)]:null, P.cinema?['HOME CINEMA',esc(P.cinema)]:null].filter(Boolean);
+  V.innerHTML = '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="rmBtn" id="rmBtn" data-x="rmEditTog">แต่งห้อง</button><button class="icon" data-x="shareStory" data-v="room" aria-label="แชร์ห้องและบัตร Cinema ID ลง Story">'+IC.share+'</button><a class="icon" href="#meedit" aria-label="แก้ไขโปรไฟล์">'+IC.edit+'</a></span></div><h1 class="sr">My Room · Cinema ID</h1>'+
+    '<div class="rmStage" id="rmStage"><canvas id="rmcv" width="780" height="780" role="img" aria-label="ห้องใต้หลังคาของฉัน"></canvas></div>'+
+    '<div id="rmEdit" hidden></div><div id="rmView">'+cardHTML()+
+    '<button class="rmShare" data-x="shareStory" data-v="room">'+IC.share+' แชร์ห้อง + บัตร ลงสตอรี่</button>'+rmNextHTML()+
+    '<section class="msec"><div class="h"><span class="eyebrow">TOP 10</span><span class="small muted">TAP TO PICK</span></div><div class="t10row">'+t10+'</div></section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">MY MOVIE TYPE</span><a href="#persona">DETAILS →</a></div>'+(p?'<a class="persona pspec" href="#persona" style="--gc:'+GMAP[p.genre].c+';--gc2:'+(GDARK[p.genre]||'#4A5568')+'"><span class="pe">'+esc(p.en)+'</span><b class="pn">'+esc(p.name)+'</b><span class="tr">'+p.traits.map(esc).join(' · ')+'</span></a>':'<p class="small muted">ต้องมีตั๋ว 5 ใบถึงจะได้ฉายา · ตอนนี้ '+n+' ใบ</p>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">RANK CARDS · '+(ri+1)+' / 10</span><a href="#ranks">ALL →</a></div>'+
+      '<div class="rrow">'+[0,1,2,3].map(function(k){ var ix = Math.max(0, Math.min(6, ri)) + k; return '<a class="rtile'+(ix<=ri?' got':'')+'" href="#ranks" aria-label="ยศ '+RANKS[ix].en+(ix<=ri?' ได้แล้ว':' ยังไม่ได้')+'"><b>'+pad((ix+1)*10)+'</b><span>'+RANKS[ix].en.replace(' ','<br>')+'</span></a>'; }).join('')+'</div>'+
+      (nextNeed?'<div class="bar"><i style="width:'+Math.round((n%10)/10*100)+'%"></i></div><span class="small muted">อีก '+(nextNeed-n)+' เรื่องได้การ์ด '+RANKS[ri+1].en+'</span>':'<span class="small muted">ครบทุกยศแล้ว · ตำนานโรงหนัง</span>')+'</section>'+
+    '<section class="msec"><div class="h"><span class="eyebrow">SHARE TO STORIES</span></div><div class="row2"><button class="btn out sm" data-x="shareStory" data-v="room">ห้อง + Cinema ID</button><button class="btn out sm" data-x="shareStory" data-v="shelf">Year wall ปีนี้</button></div>'+
+      '<div class="row2" style="margin-top:8px"><button class="btn out sm" data-x="shareStory" data-v="rank"'+(ri>=0?'':' disabled')+'>Level up ยศ</button><button class="btn out sm" data-x="shareStory" data-v="persona"'+(p?'':' disabled')+'>ฉายา</button></div></section>'+
+    (fav.length||more.length ? '<section class="msec"><div class="h"><span class="eyebrow">ABOUT ME</span></div><div class="mabout">'+(fav.length?'<div><span>FAVOURITE GENRES</span><b>'+fav.map(function(g){ return '<i style="background:'+GMAP[g].c+'"></i>'+GMAP[g].en; }).join(' ')+'</b></div>':'')+more.map(function(x){ return '<div><span>'+x[0]+'</span><b>'+x[1]+'</b></div>'; }).join('')+'</div></section>' : '')+
+        '<a class="btn out sm" href="#passport">'+ICON('clapper',18)+' สมุดแสตมป์ · '+earnedStampIds().length+' / '+STAMPS.length+'</a></div>';
+  var cv = document.getElementById('rmcv'); if (RM.drawn) { cv.getContext('2d').drawImage(RM.NXT,0,0); RM.shown = cv; } else RM.shown = null;
+  rmMode();
+  rmLoad().then(function(){ rmPaint(!RM.drawn ? false : true); });
+}
+document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
+
+var APP_VER = '0.10.0';
+var WHATS_NEW = [['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ตั๋วใบแรกได้ของ 1 ชิ้น จากนั้นทุก 2 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
