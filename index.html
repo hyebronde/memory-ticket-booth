@@ -1193,6 +1193,26 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .id2 .i2g{display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;gap:6px 8px}.id2 .i2g span{display:block;font-family:var(--dot);font-weight:900;font-size:8px;letter-spacing:1.5px;opacity:.75}.id2 .i2g b{font-family:'Unbounded',var(--body);font-weight:600;font-size:12px;white-space:nowrap}
 .id2 .i2bot{display:flex;justify-content:space-between;align-items:flex-end;gap:10px}.id2 .i2mrz{font-family:var(--dot);font-weight:900;font-size:10px;letter-spacing:1.5px;opacity:.8;white-space:nowrap;overflow:hidden}
 .id2 .i2bar{flex:none;height:22px;width:86px;background:repeating-linear-gradient(90deg,#F2EEE8 0 2px,transparent 2px 4px,#F2EEE8 4px 5px,transparent 5px 9px);opacity:.85}
+
+/* ===== v0.11 Blender kiosk ===== */
+.top.hdr.onk{position:relative;z-index:3;margin-bottom:0}
+.kx{position:relative;z-index:1;isolation:isolate;display:block;width:calc(100% + 36px);max-width:430px;margin:-22px -18px 0;aspect-ratio:1000/1590;overflow:hidden;border-radius:0 0 26px 26px;font-size:calc(min(100vw,430px)/390);background:#101A13}
+@media (min-width:467px){.kx{margin-left:auto;margin-right:auto}}
+.kx:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 8%,rgba(11,11,12,0) 90%,rgba(11,11,12,.45));pointer-events:none;z-index:4}
+.kxbg,.kxlip{position:absolute;inset:0;width:100%;height:100%;display:block}.kxlip{clip-path:inset(75.84% 17.9% 22.14% 17.9%);z-index:2;pointer-events:none}
+.kxo{position:absolute;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:1}
+.kxsign{left:12.23%;top:10.64%;width:75.54%;height:14.14%;color:#141414;font-family:'Unbounded',var(--display)}.kxsign b{font-weight:800;font-size:27em;letter-spacing:.3px;line-height:1.05}.kxsign span{font-weight:600;font-size:8.5em;letter-spacing:.3em;margin-top:.7em}
+.kxscr{left:22.77%;top:33.58%;width:54.46%;height:15.77%;align-items:stretch;justify-content:space-between;text-align:left;padding:10em 13em;font-family:var(--dot);font-weight:900;color:#FFB547}
+.kxscr .l1{display:flex;justify-content:space-between;font-size:10.5em;letter-spacing:.15em}.kxscr b{font-size:40em;line-height:1;text-shadow:0 0 12px rgba(255,181,71,.6);white-space:nowrap}.kxscr .l3{font-size:9.5em;letter-spacing:.1em;white-space:nowrap;overflow:hidden}
+.kxscr .cur{animation:kxcur 1s steps(1) infinite}@keyframes kxcur{50%{opacity:0}}
+.kxst{left:36.82%;top:54.31%;width:26.36%;height:16.31%;border-radius:50%;color:#fff;text-decoration:none;font-family:'Unbounded',var(--display);-webkit-tap-highlight-color:transparent}.kxst b{font-weight:800;font-size:15.5em;line-height:1.2}.kxst small{font-family:var(--body);font-weight:500;font-size:12em;margin-top:.1em}
+.kxst:active{background:rgba(0,0,0,.18)}.kxst:focus-visible{outline:3px solid #FFB547;outline-offset:3px}
+.kxtg{left:39.9%;top:72.28%;width:20.2%;height:2.72%;font-family:'Unbounded',var(--display);font-weight:700;font-size:8em;letter-spacing:.3em;color:#141414}
+.kxlb{font-family:var(--dot);font-weight:900;font-size:6em;line-height:1.3;white-space:nowrap;color:#0E0F10}.kxlb.c{left:14%;top:64.53%;width:14%;height:3.14%}.kxlb.p{left:74.6%;top:56.77%;width:8.78%;height:7.35%}
+.kxtk{position:absolute;left:23%;width:54%;top:77.74%;height:11.9%;z-index:1;overflow:hidden}
+.kxtk div{height:100%;border-radius:0 0 8px 8px;background:var(--tk,#F2E6D0);color:#0B0B0C;font-family:var(--dot);font-weight:900;font-size:10.5em;letter-spacing:.2em;display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.2em;position:relative;box-shadow:inset 0 14px 14px -8px rgba(0,0,0,.45)}
+.kxtk div:before{content:"";position:absolute;left:1.1em;right:1.1em;top:45%;border-top:1.5px dashed rgba(11,11,12,.45)}
+@media (prefers-reduced-motion:no-preference){.kxtk div{animation:kxpk 3.2s ease-in-out infinite}}@keyframes kxpk{0%,100%{transform:translateY(-10%)}50%{transform:translateY(0)}}.reduce .kxtk div,.reduce .kxscr .cur{animation:none}
 </style>
 </head>
 <body>
@@ -3474,18 +3494,13 @@ function viewHome(){
     lastHTML = '<a class="stub" href="#ticket/'+last.id+'" style="--gc:'+lg.c+';--gc2:'+(GDARK[lg.id]||'#4A5568')+'" aria-label="ตั๋วล่าสุด '+esc(last.title)+'"><span class="sp">'+(lu?'<img src="'+lu+'" alt="">':'')+'</span><span class="sx"><small>ความทรงจำล่าสุด · '+lg.en+'</small><b>'+esc(last.title)+'</b></span><span class="sd">'+pad(ld.getDate())+'<br>'+pad(ld.getMonth()+1)+'</span></a>'; }
   V.innerHTML =
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
-    '<div class="top hdr">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
-    '<div class="tbooth">'+
-      '<div class="tbSign" aria-hidden="true"><i class="rays"></i><div class="sb tp">'+chaseB(17)+'</div><div class="sb l">'+chaseB(4)+'</div><div class="sb r">'+chaseB(4)+'</div><span class="no">★ NOW OPEN ★</span><b>TICKET BOOTH</b></div>'+
-      '<section class="booth home h1a" aria-label="ตู้พิมพ์ตั๋ว">'+bulbs(13,'lit')+
-      '<div class="pil l" aria-hidden="true">'+chaseB(7)+'</div><div class="pil r" aria-hidden="true">'+chaseB(7)+'</div>'+
-      '<i class="scr s1" aria-hidden="true"></i><i class="scr s2" aria-hidden="true"></i><i class="scr s3" aria-hidden="true"></i><i class="scr s4" aria-hidden="true"></i>'+
-      '<div class="bez"><div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div></div>'+
-      '<i class="led" aria-hidden="true"></i><div class="coin" aria-hidden="true"><i></i><span>INSERT<br>MEMORY</span></div>'+
-      '<a class="press" href="#new" data-act="start"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></a>'+
-      '<div class="brass" aria-hidden="true"><i></i>TUVA CO. · EST 2026<i></i></div>'+
-      '<div class="slot" aria-hidden="true"><div class="lip"></div><div class="peek"><div>★ ADMIT ONE ★</div></div></div></section>'+
-      '<div class="tbFeet" aria-hidden="true"><i class="f l"></i><i class="f r"></i></div></div>'+
+    '<div class="top hdr onk">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
+    '<section class="kx" aria-label="ตู้พิมพ์ตั๋ว"><img class="kxbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
+      '<div class="kxo kxsign" aria-hidden="true"><b>NOW SHOWING</b><span>YOUR MOVIE MEMORIES · OPEN DAILY</span></div>'+
+      '<div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
+      '<a class="kxo kxst" href="#new" data-act="start"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></a>'+
+      '<div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div>'+
+      '<div class="kxtk" aria-hidden="true"'+(last?' style="--tk:'+(GMAP[last.genre]||GMAP.doc).c+'"':'')+'><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section>'+
     '<div class="hrow">'+
       (ch ? circleBtn('#year', ch.n+'/'+ch.goal, 'เป้าปีนี้', 'เป้าหมายปีนี้ '+ch.n+' จาก '+ch.goal) : circleBtn('#year', '+', 'ตั้งเป้าปี', 'ตั้งเป้าดูหนังปีนี้'))+
       circleBtn('#watch', nr==null?'—':(nr===0?'TODAY':nr+'d'), 'หนังเข้าโรง', nr==null?'ยังไม่มีหนังรอเข้าโรง':'อีก '+nr+' วันหนังเข้าโรง')+
@@ -4294,8 +4309,8 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.10.1';
-var WHATS_NEW = [['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+var APP_VER = '0.11.0';
+var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วหน้าแรกโฉมใหม่ ตู้โลหะเงิน ป้ายไฟ NOW SHOWING','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
