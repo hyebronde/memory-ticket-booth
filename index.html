@@ -1554,7 +1554,7 @@ function miniCard(t, i){
 }
 function slotCode(i){ return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(i/2)%26)+(i%2+1); }
 function vendHTML(list){
-  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>MEMORY VENDING</b><span>YOUR TICKETS · OPEN DAILY</span></div></div><section class="vend" aria-label="ตู้ตั๋ว"><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
+  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>MEMORY VENDING</b><span>A TICKET TO ANYWHERE</span></div></div><section class="vend" aria-label="ตู้ตั๋ว"><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
     list.map(function(t, i){ return '<div class="vslot">'+miniCard(t, i)+'<i class="rail" aria-hidden="true"></i><span class="vlab" aria-hidden="true">'+slotCode(i)+' · '+pad(t.no||0,4)+'</span></div>'; }).join('')+
     '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH</span><i></i></div></section><div class="cabBot" aria-hidden="true"></div></div>';
 }
@@ -3547,7 +3547,7 @@ function viewHome(){
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
     '<div class="top hdr onk">'+logoHTML(22)+'<span style="display:flex;gap:8px"><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
     '<section class="kx" aria-label="ตู้พิมพ์ตั๋ว"><img class="kxbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
-      '<div class="kxo kxsign" aria-hidden="true"><b>NOW SHOWING</b><span>YOUR MOVIE MEMORIES · OPEN DAILY</span></div>'+
+      '<div class="kxo kxsign" aria-hidden="true"><b>NOW SHOWING</b><span>A TICKET TO ANYWHERE</span></div>'+
       '<div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
       '<a class="kxo kxst" href="#new" data-act="start"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></a>'+
       '<div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div>'+
@@ -3669,7 +3669,7 @@ function shelfHTML(list){
   var viewW = Math.min(window.innerWidth, 480) - 56, totW = items.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0);
   var R = Math.max(1, Math.min(3, Math.floor(totW/(viewW*1.15)))), per = Math.ceil(n/R), rows = [];
   for (var r=0;r<R;r++){ var it = items.slice(r*per, (r+1)*per); if (it.length) rows.push(it); }
-  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>NOW SHOWING</b><span>MY SHELF · OPEN DAILY</span></div></div><section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="shelfWrap mq" aria-label="ชั้นวางสันปก">'+
+  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>NOW SHOWING</b><span>A TICKET TO ANYWHERE</span></div></div><section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="shelfWrap mq" aria-label="ชั้นวางสันปก">'+
     rows.map(function(it){
       var w = it.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0), loop = w > viewW;
       return '<div class="sRow'+(loop?' loop':' still')+'" data-n="'+it.length+'"><div class="sTrack">'+it.map(function(t){ return spineHTML(t); }).join('')+(loop?it.map(function(t){ return spineHTML(t, true); }).join(''):'')+'</div><i class="sBoard" aria-hidden="true"></i></div>';
@@ -4364,7 +4364,7 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.11.5';
+var APP_VER = '0.11.6';
 var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
@@ -4465,7 +4465,7 @@ function maybeOnboarding(){
   showOnboarding(); return true;
 }
 function showOnboarding(){
-  var booth = '<div class="kx kxe" style="font-size:1px;width:390px;max-width:none;margin:0"><img class="kxbg" src="room/kiosk.webp" alt=""><div class="kxo kxsign"><b>NOW SHOWING</b><span>YOUR MOVIE MEMORIES · OPEN DAILY</span></div><div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>RANK --</span></span><b>NO.0001<span class="cur">_</span></b><span class="l3">YOUR FIRST TICKET</span></div><span class="kxo kxst"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span><div class="kxo kxtg">TICKETS</div><div class="kxo kxlb c">INSERT<br>MEMORY</div><div class="kxo kxlb p">TUVA CO<br>EST 2026</div><div class="kxtk"><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt=""></div>';
+  var booth = '<div class="kx kxe" style="font-size:1px;width:390px;max-width:none;margin:0"><img class="kxbg" src="room/kiosk.webp" alt=""><div class="kxo kxsign"><b>NOW SHOWING</b><span>A TICKET TO ANYWHERE</span></div><div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>RANK --</span></span><b>NO.0001<span class="cur">_</span></b><span class="l3">YOUR FIRST TICKET</span></div><span class="kxo kxst"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span><div class="kxo kxtg">TICKETS</div><div class="kxo kxlb c">INSERT<br>MEMORY</div><div class="kxo kxlb p">TUVA CO<br>EST 2026</div><div class="kxtk"><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt=""></div>';
   var kinds = [['CINEMA','โรงหนัง','ที่นั่ง · โรง · รอบ','#F2EEE8','#0B0B0C',-2],['MOVIE','ดูที่บ้าน','Netflix · Prime · Disney+','#C5D46E','#12180F',1],['SERIES','ซีรีส์','ซีซัน · ตอน · สถานะ','#E0262F','#F2EEE8',-1]];
   var slides = [
     {art:'<div class="obArt">'+obTicket('#E68BB0','#B8436E','Past Lives',22,40,-12,122)+obTicket('#6EC1CF','#2B5C8A','Dune: Part Two',212,46,9,122)+obTicket('#F28A2E','#B4500F','Avengers: Doomsday',112,8,-2,140)+'</div>',
