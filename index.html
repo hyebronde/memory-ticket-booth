@@ -1210,9 +1210,26 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .kxtg{left:39.9%;top:72.28%;width:20.2%;height:2.72%;font-family:'Unbounded',var(--display);font-weight:700;font-size:8em;letter-spacing:.3em;color:#141414}
 .kxlb{font-family:var(--dot);font-weight:900;font-size:6em;line-height:1.3;white-space:nowrap;color:#0E0F10}.kxlb.c{left:14%;top:64.53%;width:14%;height:3.14%}.kxlb.p{left:74.6%;top:56.77%;width:8.78%;height:7.35%}
 .kxtk{position:absolute;left:23%;width:54%;top:77.74%;height:11.9%;z-index:1;overflow:hidden}
-.kxtk div{height:100%;border-radius:0 0 8px 8px;background:var(--tk,#F2E6D0);color:#0B0B0C;font-family:var(--dot);font-weight:900;font-size:10.5em;letter-spacing:.2em;display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.2em;position:relative;box-shadow:inset 0 14px 14px -8px rgba(0,0,0,.45)}
-.kxtk div:before{content:"";position:absolute;left:1.1em;right:1.1em;top:45%;border-top:1.5px dashed rgba(11,11,12,.45)}
+.kxtk div{height:100%;border-radius:0 0 8px 8px;background:#F2EEE8;color:#B3121B;font-family:var(--dot);font-weight:900;font-size:10.5em;letter-spacing:.2em;display:flex;align-items:flex-end;justify-content:center;padding-bottom:1.2em;position:relative;box-shadow:inset 0 14px 14px -8px rgba(0,0,0,.45)}
+.kxtk div:before{content:"";position:absolute;left:1.1em;right:1.1em;top:45%;border-top:1.5px dashed rgba(179,18,27,.45)}
 @media (prefers-reduced-motion:no-preference){.kxtk div{animation:kxpk 3.2s ease-in-out infinite}}@keyframes kxpk{0%,100%{transform:translateY(-10%)}50%{transform:translateY(0)}}.reduce .kxtk div,.reduce .kxscr .cur{animation:none}
+
+/* ===== v0.11.1 silver skin for every remaining cabinet ===== */
+.booth,.pmach,.vend,.kiosk{background:linear-gradient(90deg,#8D9197 0,#D9DCE0 9%,#F1F2F4 22%,#C9CCD1 50%,#EEF0F2 76%,#B4B8BE 92%,#7E8288 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),inset 0 -10px 0 #6F7379}
+
+.vendHead,.vendHead *,.vendFoot>span,.kiosk .kHead,.pbtns span,.prow .coin{color:#17181A}
+.vendFoot{color:#17181A}
+.prow .grill{background:radial-gradient(circle,#4A4D52 3px,transparent 3.5px) 0 0/11px 9px}
+.pbtns .k{box-shadow:0 5px 0 #55585D,inset 0 -4px 0 #222}
+.pbtns .k.cr{background:#D8232C;color:#fff;box-shadow:0 5px 0 #8E1219,inset 0 -4px 0 #B81C24}
+.plip{box-shadow:inset 0 6px 8px #000,0 2px 0 #fff}.prow .coin i{box-shadow:inset 0 2px 4px #000,0 1px 0 #fff}
+.lcd,.vendGlass{box-shadow:inset 0 0 0 4px #2A2B2E,inset 0 6px 18px rgba(0,0,0,.8)}.kiosk .shelfWrap{box-shadow:inset 0 0 0 3px #2A2B2E}
+.press span{background:radial-gradient(circle at 35% 28%,#F2545B,#D81F29 55%,#9E1219);color:#fff;box-shadow:0 8px 0 #7A0E14,inset 0 -6px 0 #B01820,0 0 0 8px #E9EBED,0 0 0 9px #8E9299}
+.press:active span,.press.down span{box-shadow:0 2px 0 #7A0E14,inset 0 -4px 0 #B01820,0 0 0 8px #E9EBED,0 0 0 9px #8E9299}
+.h1a .pil{background:#3A3C40;box-shadow:inset 0 0 0 2px #C9CCD1}
+.h1a .brass{background:linear-gradient(180deg,#F4F5F6,#B9BCC2 60%,#F4F5F6);box-shadow:0 2px 0 #6F7379,inset 0 0 0 1px rgba(60,62,66,.5);color:#17181A}.h1a .brass i{background:#55585D}
+.h1a .coin{box-shadow:0 3px 0 #6F7379}
+.stmGlow{background:radial-gradient(circle at 50% 40%,rgba(47,77,56,.75),rgba(47,77,56,0) 65%)}
 </style>
 </head>
 <body>
@@ -3500,7 +3517,7 @@ function viewHome(){
       '<div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
       '<a class="kxo kxst" href="#new" data-act="start"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></a>'+
       '<div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div>'+
-      '<div class="kxtk" aria-hidden="true"'+(last?' style="--tk:'+(GMAP[last.genre]||GMAP.doc).c+'"':'')+'><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section>'+
+      '<div class="kxtk" aria-hidden="true"><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section>'+
     '<div class="hrow">'+
       (ch ? circleBtn('#year', ch.n+'/'+ch.goal, 'เป้าปีนี้', 'เป้าหมายปีนี้ '+ch.n+' จาก '+ch.goal) : circleBtn('#year', '+', 'ตั้งเป้าปี', 'ตั้งเป้าดูหนังปีนี้'))+
       circleBtn('#watch', nr==null?'—':(nr===0?'TODAY':nr+'d'), 'หนังเข้าโรง', nr==null?'ยังไม่มีหนังรอเข้าโรง':'อีก '+nr+' วันหนังเข้าโรง')+
@@ -3692,8 +3709,9 @@ function colShareYear(){
 }
 function stCab(x, bx, by, bw, bh, K){
   x.save(); x.beginPath(); x.moveTo(bx+24*K, by); x.arcTo(bx+bw, by, bx+bw, by+bh, 24*K); x.arcTo(bx+bw, by+bh, bx, by+bh, 14*K); x.arcTo(bx, by+bh, bx, by, 14*K); x.arcTo(bx, by, bx+bw, by, 24*K); x.closePath(); x.clip();
-  x.fillStyle = '#7A1B21'; x.fillRect(bx, by, bw, bh); var rg = x.createRadialGradient(bx+60*K, by+10*K, 0, bx+60*K, by+10*K, 150*K); rg.addColorStop(0, 'rgba(160,52,56,.55)'); rg.addColorStop(1, 'rgba(160,52,56,0)'); x.fillStyle = rg; x.fillRect(bx, by, bw, bh);
-  x.fillStyle = '#4D1014'; x.fillRect(bx, by+bh-8*K, bw, 8*K); x.restore();
+  var sg = x.createLinearGradient(bx, 0, bx+bw, 0); [[0,'#8D9197'],[.09,'#D9DCE0'],[.22,'#F1F2F4'],[.5,'#C9CCD1'],[.76,'#EEF0F2'],[.92,'#B4B8BE'],[1,'#7E8288']].forEach(function(s){ sg.addColorStop(s[0], s[1]); });
+  x.fillStyle = sg; x.fillRect(bx, by, bw, bh); x.fillStyle = 'rgba(255,255,255,.8)'; x.fillRect(bx, by, bw, 2*K);
+  x.fillStyle = '#6F7379'; x.fillRect(bx, by+bh-8*K, bw, 8*K); x.restore();
 }
 function stHead(x, eb, hl, K){
   x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillStyle = '#FFB547'; x.font = '900 '+(11*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText(eb, 540+1.5*K, 40*K);
@@ -3712,9 +3730,9 @@ function storyVend(y){
     stHead(x, 'MY COLLECTION', y+' IN TICKETS', K);
     var bx = 20*K, by = 104*K, bw = 320*K, cw = 63*K, ch = 92*K, cellH = ch + 3*K + 4*K + 3*K + 8*K, gh = 10*K + 3*cellH + 2*8*K + 8*K, bh = 12*K + 20*K + gh + 10*K + 22*K + 18*K;
     stCab(x, bx, by, bw, bh, K);
-    x.fillStyle = '#FFD98A'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 2*K); x.textAlign = 'left'; x.fillText('MEMORY VENDING', bx+16*K, by+22*K); x.textAlign = 'right'; x.fillText('● '+y, bx+bw-16*K, by+22*K);
+    x.fillStyle = '#17181A'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 2*K); x.textAlign = 'left'; x.fillText('MEMORY VENDING', bx+16*K, by+22*K); x.textAlign = 'right'; x.fillText('● '+y, bx+bw-16*K, by+22*K);
     var gx = bx+12*K, gy = by+32*K, gw = bw-24*K;
-    x.fillStyle = '#141312'; rr(x, gx, gy, gw, gh, 14*K); x.fill(); x.strokeStyle = '#2A0407'; x.lineWidth = 3*K; rr(x, gx+1.5*K, gy+1.5*K, gw-3*K, gh-3*K, 13*K); x.stroke();
+    x.fillStyle = '#141312'; rr(x, gx, gy, gw, gh, 14*K); x.fill(); x.strokeStyle = '#2A2B2E'; x.lineWidth = 3*K; rr(x, gx+1.5*K, gy+1.5*K, gw-3*K, gh-3*K, 13*K); x.stroke();
     for (var k=0;k<12;k++){
       var cx0 = gx + 10*K + (k%4)*(cw+8*K), cy0 = gy + 10*K + Math.floor(k/4)*(cellH+8*K), t = list[k];
       x.save(); rr(x, cx0, cy0, cw, ch, 8*K); x.clip();
@@ -3726,10 +3744,10 @@ function storyVend(y){
         var dd = parseISO(t.date); x.font = '900 '+(12*K)+'px '+FN.dot; x.fillText(pad(dd.getDate())+'.'+pad(dd.getMonth()+1), cx0+6*K, cy0+ch-6*K); }
       x.restore();
       var bg2 = x.createLinearGradient(0, cy0+ch+3*K, 0, cy0+ch+7*K); bg2.addColorStop(0, '#C9C2B8'); bg2.addColorStop(1, '#6E6862'); x.fillStyle = bg2; rr(x, cx0, cy0+ch+3*K, cw, 4*K, 2*K); x.fill();
-      x.fillStyle = '#FFD98A'; x.textAlign = 'center'; x.font = '900 '+(7*K)+'px '+FN.dot; setLS(x, 0); x.fillText('ABC'[Math.floor(k/4)]+(k%4+1), cx0+cw/2, cy0+ch+16*K);
+      x.fillStyle = '#17181A'; x.textAlign = 'center'; x.font = '900 '+(7*K)+'px '+FN.dot; setLS(x, 0); x.fillText('ABC'[Math.floor(k/4)]+(k%4+1), cx0+cw/2, cy0+ch+16*K);
     }
     var fy = gy + gh + 10*K;
-    x.fillStyle = '#FFD98A'; x.textAlign = 'left'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 1*K); x.fillText(st.films+' FILMS · '+st.visits+' TICKETS', bx+16*K, fy+15*K);
+    x.fillStyle = '#17181A'; x.textAlign = 'left'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 1*K); x.fillText(st.films+' FILMS · '+st.visits+' TICKETS', bx+16*K, fy+15*K);
     x.fillStyle = '#0B0B0C'; rr(x, bx+bw-16*K-58*K, fy, 58*K, 22*K, 11*K); x.fill(); x.fillStyle = '#FFB547'; x.textAlign = 'center'; x.font = '900 '+(9*K)+'px '+FN.dot; x.fillText('PUSH ▸', bx+bw-16*K-29*K, fy+14.5*K);
     storyFoot(x); return c;
   });
@@ -3749,8 +3767,8 @@ function storySpines(y){
     stHead(x, 'MY SHELF', y+' ON MY SHELF', K);
     var bx = 20*K, by = 104*K, bw = 320*K, ph = 8*K + 2*178*K, bh = 30*K + ph + 34*K + 12*K;
     stCab(x, bx, by, bw, bh, K);
-    for (var i=0;i<6;i++){ x.fillStyle = '#FFD98A'; x.shadowColor = '#FFB547'; x.shadowBlur = 14; x.beginPath(); x.arc(i<3 ? bx+19.5*K+i*15*K : bx+bw-19.5*K-(i-3)*15*K, by+15*K, 3.5*K, 0, Math.PI*2); x.fill(); } x.shadowColor = 'transparent';
-    x.fillStyle = '#FFD98A'; x.textAlign = 'center'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText('NOW SHOWING', 540+1.5*K, by+18.5*K);
+    for (var i=0;i<6;i++){ x.fillStyle = '#17181A'; x.shadowColor = '#FFB547'; x.shadowBlur = 14; x.beginPath(); x.arc(i<3 ? bx+19.5*K+i*15*K : bx+bw-19.5*K-(i-3)*15*K, by+15*K, 3.5*K, 0, Math.PI*2); x.fill(); } x.shadowColor = 'transparent';
+    x.fillStyle = '#17181A'; x.textAlign = 'center'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText('NOW SHOWING', 540+1.5*K, by+18.5*K);
     var px0 = bx+10*K, py0 = by+30*K, pw = bw-20*K;
     x.fillStyle = '#1E1A16'; rr(x, px0, py0, pw, ph, 8*K); x.fill();
     var gi = 0;
@@ -3780,7 +3798,7 @@ function storySpines(y){
     });
     var gs = GENRES.filter(function(g){ return st.genres[g.id]; }).sort(function(a,b){ return st.genres[b.id]-st.genres[a.id]; });
     var parts = [st.films+' FILMS'].concat(gs.slice(0,3).map(function(g){ return g.en.toUpperCase()+' '+st.genres[g.id]; })); if (gs.length > 3) parts.push('+'+(gs.length-3));
-    x.fillStyle = '#FFD98A'; x.textAlign = 'center'; var fs = 10*K, line = parts.join(' · '); do { x.font = '900 '+fs+'px '+FN.dot; setLS(x, 0); fs -= 1; } while (x.measureText(line).width > pw && fs > 14);
+    x.fillStyle = '#17181A'; x.textAlign = 'center'; var fs = 10*K, line = parts.join(' · '); do { x.font = '900 '+fs+'px '+FN.dot; setLS(x, 0); fs -= 1; } while (x.measureText(line).width > pw && fs > 14);
     x.fillText(line, 540, py0+ph+20*K);
     storyFoot(x); return c;
   });
@@ -4309,8 +4327,8 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.11.0';
-var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วหน้าแรกโฉมใหม่ ตู้โลหะเงิน ป้ายไฟ NOW SHOWING','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+var APP_VER = '0.11.1';
+var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
