@@ -1244,6 +1244,19 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 @media (prefers-reduced-motion:no-preference){html:not(.reduce) .kplcd .prog i{animation:fillP 3.2s steps(14) both}}
 .kplip{position:absolute;left:50%;top:-22px;width:var(--kw);margin-left:calc(var(--kw)/-2);aspect-ratio:1000/1240;height:auto;z-index:3;pointer-events:none;clip-path:inset(74.41% 9.1% 22.9% 9.1%)}
 .printWrap.kpw .slotWin.full{margin:calc(var(--kw)*-.2875 + 0px) calc(var(--kw)*.12 - 18px) 0;z-index:2}
+
+/* ===== v0.11.3 Blender cabinet pieces for collection, shelf, onboarding, motion ===== */
+.cab{position:relative;margin-bottom:10px}
+.cabTop{position:relative;aspect-ratio:844/373;background:url(room/cab-top.webp) 0 0/100% 100% no-repeat;font-size:calc((min(100vw,430px) - 36px)/358*.92)}
+.cabSign{position:absolute;left:5.25%;top:13.2%;width:89.5%;height:60.3%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.cabBot{aspect-ratio:844/135;background:url(room/cab-bot.webp) 0 0/100% 100% no-repeat;margin-top:-1px}
+.cab .vend,.cab .kiosk{border-radius:0;margin:-1px 0 0;box-shadow:none;-webkit-mask-image:none;mask-image:none;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6)),linear-gradient(90deg,#3E4140 0%,#595858 3.0%,#555556 8.0%,#555556 15.0%,#555557 25.0%,#57585A 35.0%,#5B5C5F 50.0%,#66686B 65.0%,#727579 75.0%,#878B91 85.0%,#9CA2AA 92.0%,#E5EDF9 97.0%,#7E8282 100%)}
+.cab .kiosk{padding-top:12px}.cab .vend{padding-top:12px}
+.cab .vendFoot,.cab .vendFoot>span{color:#B9B4AD}.cab .vendFoot span{box-shadow:inset 0 8px 10px #000,0 2px 0 rgba(255,255,255,.35)}
+.kxe{pointer-events:none}
+
+.stmBoothIn{padding:0}.stmBooth{top:-34px}.stmWrap{top:227px}.stmGlow{background:none}.stm .kp{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.obBIn{padding:0;transform:scale(.6)}
 </style>
 </head>
 <body>
@@ -1534,9 +1547,9 @@ function miniCard(t, i){
 }
 function slotCode(i){ return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(i/2)%26)+(i%2+1); }
 function vendHTML(list){
-  return '<section class="vend" aria-label="ตู้ตั๋ว"><div class="vendHead" aria-hidden="true"><span>MEMORY VENDING</span><span class="on">● OPEN</span></div><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
+  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>MEMORY VENDING</b><span>YOUR TICKETS · OPEN DAILY</span></div></div><section class="vend" aria-label="ตู้ตั๋ว"><div class="vendGlass"><i class="sheen" aria-hidden="true"></i><div class="grid">'+
     list.map(function(t, i){ return '<div class="vslot">'+miniCard(t, i)+'<i class="rail" aria-hidden="true"></i><span class="vlab" aria-hidden="true">'+slotCode(i)+' · '+pad(t.no||0,4)+'</span></div>'; }).join('')+
-    '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH</span><i></i></div></section>';
+    '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH</span><i></i></div></section><div class="cabBot" aria-hidden="true"></div></div>';
 }
 function setTabs(active){
   var tabs = document.getElementById('tabs');
@@ -3646,12 +3659,12 @@ function shelfHTML(list){
   var viewW = Math.min(window.innerWidth, 480) - 56, totW = items.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0);
   var R = Math.max(1, Math.min(3, Math.floor(totW/(viewW*1.15)))), per = Math.ceil(n/R), rows = [];
   for (var r=0;r<R;r++){ var it = items.slice(r*per, (r+1)*per); if (it.length) rows.push(it); }
-  return '<section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="kb" aria-hidden="true">'+bulbs(3)+'<span class="kHead">NOW SHOWING</span>'+bulbs(3)+'</div><div class="shelfWrap mq" aria-label="ชั้นวางสันปก">'+
+  return '<div class="cab"><div class="cabTop" aria-hidden="true"><div class="kxsign cabSign"><b>NOW SHOWING</b><span>MY SHELF · OPEN DAILY</span></div></div><section class="kiosk" aria-label="ตู้ชั้นวาง"><div class="shelfWrap mq" aria-label="ชั้นวางสันปก">'+
     rows.map(function(it){
       var w = it.reduce(function(a,t){ return a + 27 + hashStr(t.id) % 12; }, 0), loop = w > viewW;
       return '<div class="sRow'+(loop?' loop':' still')+'" data-n="'+it.length+'"><div class="sTrack">'+it.map(function(t){ return spineHTML(t); }).join('')+(loop?it.map(function(t){ return spineHTML(t, true); }).join(''):'')+'</div><i class="sBoard" aria-hidden="true"></i></div>';
     }).join('')+
-    '</div></section><p class="small muted" style="text-align:center">ปัดชั้นวางเพื่อดูปกหนัง · แตะเพื่อเปิดตั๋ว</p>';
+    '</div></section><div class="cabBot" aria-hidden="true"></div></div><p class="small muted" style="text-align:center">ปัดชั้นวางเพื่อดูปกหนัง · แตะเพื่อเปิดตั๋ว</p>';
 }
 function shelfCover(el){
   if (el.querySelector('.cv')) return;
@@ -3720,11 +3733,15 @@ function colShareYear(){
   if (y && y!=='all' && ys.indexOf(y)>=0) return y;
   y = todayISO().slice(0,4); return ys.indexOf(y)>=0 ? y : (ys.slice().sort().pop() || y);
 }
+var CABIMG = {};
+function cabPreload(){ return Promise.all(['cab-slim','cab-bot'].map(function(k){ return CABIMG[k] ? null : loadImg('room/'+k+'.webp').then(function(i){ if (i) CABIMG[k] = i; }); })); }
 function stCab(x, bx, by, bw, bh, K){
-  x.save(); x.beginPath(); x.moveTo(bx+24*K, by); x.arcTo(bx+bw, by, bx+bw, by+bh, 24*K); x.arcTo(bx+bw, by+bh, bx, by+bh, 14*K); x.arcTo(bx, by+bh, bx, by, 14*K); x.arcTo(bx, by, bx+bw, by, 24*K); x.closePath(); x.clip();
-  var sg = x.createLinearGradient(bx, 0, bx+bw, 0); [[0,'#8D9197'],[.09,'#D9DCE0'],[.22,'#F1F2F4'],[.5,'#C9CCD1'],[.76,'#EEF0F2'],[.92,'#B4B8BE'],[1,'#7E8288']].forEach(function(s){ sg.addColorStop(s[0], s[1]); });
-  x.fillStyle = sg; x.fillRect(bx, by, bw, bh); x.fillStyle = 'rgba(255,255,255,.8)'; x.fillRect(bx, by, bw, 2*K);
-  x.fillStyle = '#6F7379'; x.fillRect(bx, by+bh-8*K, bw, 8*K); x.restore();
+  var th = Math.round(bw*20/844), bhh = Math.round(bw*70/844);
+  x.save(); x.beginPath(); x.rect(bx, by+th-1, bw, bh-th+1); x.clip();
+  var sg = x.createLinearGradient(bx, 0, bx+bw, 0); [["#3E4140", 0], ["#595858", 3.0], ["#555556", 8.0], ["#555556", 15.0], ["#555557", 25.0], ["#57585A", 35.0], ["#5B5C5F", 50.0], ["#66686B", 65.0], ["#727579", 75.0], ["#878B91", 85.0], ["#9CA2AA", 92.0], ["#E5EDF9", 97.0], ["#7E8282", 100]].forEach(function(s){ sg.addColorStop(s[1]/100, s[0]); });
+  x.fillStyle = sg; x.fillRect(bx, by, bw, bh); var vg = x.createLinearGradient(0, by, 0, by+bh); vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(0,0,0,.6)'); x.fillStyle = vg; x.fillRect(bx, by, bw, bh); x.restore();
+  if (CABIMG['cab-slim']) x.drawImage(CABIMG['cab-slim'], 0, 0, 844, 20, bx, by, bw, th); else { x.fillStyle = '#C9CCD1'; x.fillRect(bx, by, bw, th); }
+  if (CABIMG['cab-bot']) x.drawImage(CABIMG['cab-bot'], 0, 65, 844, 70, bx, by+bh-2, bw, bhh); else { x.fillStyle = '#17181A'; x.fillRect(bx, by+bh-8*K, bw, 8*K); }
 }
 function stHead(x, eb, hl, K){
   x.textAlign = 'center'; x.textBaseline = 'alphabetic'; x.fillStyle = '#FFB547'; x.font = '900 '+(11*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText(eb, 540+1.5*K, 40*K);
@@ -3737,13 +3754,13 @@ function stCoverNP(x, t, cx0, cy0, cw, ch, K, fs){
 }
 function storyVend(y){
   var all = S.tickets.filter(function(t){ return t.date.slice(0,4)===y; }).sort(function(a,b){ return sortKey(a)<sortKey(b)?1:-1; }), list = all.slice(0,12);
-  return fontsReady().then(function(){ return Promise.all(list.map(function(t){ return loadImg(blobURL(t.posterId)); })); }).then(function(imgs){
+  return fontsReady().then(cabPreload).then(function(){ return Promise.all(list.map(function(t){ return loadImg(blobURL(t.posterId)); })); }).then(function(imgs){
     var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'), K = 3, st = statsFor(all);
     x.fillStyle = '#0B0B0C'; x.fillRect(0,0,1080,1920);
     stHead(x, 'MY COLLECTION', y+' IN TICKETS', K);
     var bx = 20*K, by = 104*K, bw = 320*K, cw = 63*K, ch = 92*K, cellH = ch + 3*K + 4*K + 3*K + 8*K, gh = 10*K + 3*cellH + 2*8*K + 8*K, bh = 12*K + 20*K + gh + 10*K + 22*K + 18*K;
     stCab(x, bx, by, bw, bh, K);
-    x.fillStyle = '#17181A'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 2*K); x.textAlign = 'left'; x.fillText('MEMORY VENDING', bx+16*K, by+22*K); x.textAlign = 'right'; x.fillText('● '+y, bx+bw-16*K, by+22*K);
+    x.fillStyle = '#F2EEE8'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 2*K); x.textAlign = 'left'; x.fillText('MEMORY VENDING', bx+16*K, by+22*K); x.textAlign = 'right'; x.fillText('● '+y, bx+bw-16*K, by+22*K);
     var gx = bx+12*K, gy = by+32*K, gw = bw-24*K;
     x.fillStyle = '#141312'; rr(x, gx, gy, gw, gh, 14*K); x.fill(); x.strokeStyle = '#2A2B2E'; x.lineWidth = 3*K; rr(x, gx+1.5*K, gy+1.5*K, gw-3*K, gh-3*K, 13*K); x.stroke();
     for (var k=0;k<12;k++){
@@ -3757,10 +3774,10 @@ function storyVend(y){
         var dd = parseISO(t.date); x.font = '900 '+(12*K)+'px '+FN.dot; x.fillText(pad(dd.getDate())+'.'+pad(dd.getMonth()+1), cx0+6*K, cy0+ch-6*K); }
       x.restore();
       var bg2 = x.createLinearGradient(0, cy0+ch+3*K, 0, cy0+ch+7*K); bg2.addColorStop(0, '#C9C2B8'); bg2.addColorStop(1, '#6E6862'); x.fillStyle = bg2; rr(x, cx0, cy0+ch+3*K, cw, 4*K, 2*K); x.fill();
-      x.fillStyle = '#17181A'; x.textAlign = 'center'; x.font = '900 '+(7*K)+'px '+FN.dot; setLS(x, 0); x.fillText('ABC'[Math.floor(k/4)]+(k%4+1), cx0+cw/2, cy0+ch+16*K);
+      x.fillStyle = '#F2EEE8'; x.textAlign = 'center'; x.font = '900 '+(7*K)+'px '+FN.dot; setLS(x, 0); x.fillText('ABC'[Math.floor(k/4)]+(k%4+1), cx0+cw/2, cy0+ch+16*K);
     }
     var fy = gy + gh + 10*K;
-    x.fillStyle = '#17181A'; x.textAlign = 'left'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 1*K); x.fillText(st.films+' FILMS · '+st.visits+' TICKETS', bx+16*K, fy+15*K);
+    x.fillStyle = '#F2EEE8'; x.textAlign = 'left'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 1*K); x.fillText(st.films+' FILMS · '+st.visits+' TICKETS', bx+16*K, fy+15*K);
     x.fillStyle = '#0B0B0C'; rr(x, bx+bw-16*K-58*K, fy, 58*K, 22*K, 11*K); x.fill(); x.fillStyle = '#FFB547'; x.textAlign = 'center'; x.font = '900 '+(9*K)+'px '+FN.dot; x.fillText('PUSH ▸', bx+bw-16*K-29*K, fy+14.5*K);
     storyFoot(x); return c;
   });
@@ -3774,14 +3791,14 @@ function storySpines(y){
     else { for (var q2=0;q2<pool.length;q2++) if (!(pool[q2].posterId && blobURL(pool[q2].posterId))) { i = q2; break; } }
     return {f: ch==='F', t: pool.splice(i,1)[0]}; }).filter(Boolean); });
   var flat = rowsD[0].concat(rowsD[1]);
-  return fontsReady().then(function(){ return Promise.all(flat.map(function(d){ return d.f ? loadImg(blobURL(d.t.posterId)) : Promise.resolve(null); })); }).then(function(imgs){
+  return fontsReady().then(cabPreload).then(function(){ return Promise.all(flat.map(function(d){ return d.f ? loadImg(blobURL(d.t.posterId)) : Promise.resolve(null); })); }).then(function(imgs){
     var c = document.createElement('canvas'); c.width = 1080; c.height = 1920; var x = c.getContext('2d'), K = 3, st = statsFor(all);
     x.fillStyle = '#0B0B0C'; x.fillRect(0,0,1080,1920);
     stHead(x, 'MY SHELF', y+' ON MY SHELF', K);
     var bx = 20*K, by = 104*K, bw = 320*K, ph = 8*K + 2*178*K, bh = 30*K + ph + 34*K + 12*K;
     stCab(x, bx, by, bw, bh, K);
-    for (var i=0;i<6;i++){ x.fillStyle = '#17181A'; x.shadowColor = '#FFB547'; x.shadowBlur = 14; x.beginPath(); x.arc(i<3 ? bx+19.5*K+i*15*K : bx+bw-19.5*K-(i-3)*15*K, by+15*K, 3.5*K, 0, Math.PI*2); x.fill(); } x.shadowColor = 'transparent';
-    x.fillStyle = '#17181A'; x.textAlign = 'center'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText('NOW SHOWING', 540+1.5*K, by+18.5*K);
+    for (var i=0;i<6;i++){ x.fillStyle = '#F2EEE8'; x.shadowColor = '#FFB547'; x.shadowBlur = 14; x.beginPath(); x.arc(i<3 ? bx+19.5*K+i*15*K : bx+bw-19.5*K-(i-3)*15*K, by+15*K, 3.5*K, 0, Math.PI*2); x.fill(); } x.shadowColor = 'transparent';
+    x.fillStyle = '#F2EEE8'; x.textAlign = 'center'; x.font = '900 '+(10*K)+'px '+FN.dot; setLS(x, 3*K); x.fillText('NOW SHOWING', 540+1.5*K, by+18.5*K);
     var px0 = bx+10*K, py0 = by+30*K, pw = bw-20*K;
     x.fillStyle = '#1E1A16'; rr(x, px0, py0, pw, ph, 8*K); x.fill();
     var gi = 0;
@@ -3811,7 +3828,7 @@ function storySpines(y){
     });
     var gs = GENRES.filter(function(g){ return st.genres[g.id]; }).sort(function(a,b){ return st.genres[b.id]-st.genres[a.id]; });
     var parts = [st.films+' FILMS'].concat(gs.slice(0,3).map(function(g){ return g.en.toUpperCase()+' '+st.genres[g.id]; })); if (gs.length > 3) parts.push('+'+(gs.length-3));
-    x.fillStyle = '#17181A'; x.textAlign = 'center'; var fs = 10*K, line = parts.join(' · '); do { x.font = '900 '+fs+'px '+FN.dot; setLS(x, 0); fs -= 1; } while (x.measureText(line).width > pw && fs > 14);
+    x.fillStyle = '#F2EEE8'; x.textAlign = 'center'; var fs = 10*K, line = parts.join(' · '); do { x.font = '900 '+fs+'px '+FN.dot; setLS(x, 0); fs -= 1; } while (x.measureText(line).width > pw && fs > 14);
     x.fillText(line, 540, py0+ph+20*K);
     storyFoot(x); return c;
   });
@@ -4100,10 +4117,7 @@ function storyRank(i){
 /* in-app motion preview for the ticket story (ST1) */
 function storyMotionHTML(t, pngURL){
   var n = S.tickets.length, ri = rankOf(n);
-  var booth = '<section class="booth home h1a" aria-hidden="true">'+bulbs(13,'lit')+'<div class="pil l">'+chaseB(7)+'</div><div class="pil r">'+chaseB(7)+'</div><i class="scr s1"></i><i class="scr s2"></i><i class="scr s3"></i><i class="scr s4"></i>'+
-    '<div class="bez"><div class="screen"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="l3">'+n+' TICKETS</span></div></div>'+
-    '<i class="led"></i><div class="coin"><i></i><span>INSERT<br>MEMORY</span></div><span class="press"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></span>'+
-    '<div class="brass"><i></i>TUVA CO. · EST 2026<i></i></div><div class="slot"><div class="lip"></div></div></section><div class="tbFeet"><i class="f l"></i><i class="f r"></i></div>';
+  var booth = '<div class="kp kxe" style="--kw:390px;margin:0"><img class="kpbg" src="room/kiosk-print.webp" alt=""><div class="kxo kxsign kps"><b>NOW PRINTING</b><span>YOUR TICKET IS ON THE WAY</span></div><div class="kxo kxscr kplcd"><span class="l1"><span>PRINTING TICKET</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="l3">'+n+' TICKETS</span></div></div>';
   return '<div class="stm" aria-hidden="true"><div class="stmIn"><div class="stmGlow"></div>'+
     '<div class="stmWrap"><div class="stmOut"><div class="stmTk">'+ticketFront(t,false)+'</div></div></div>'+
     '<div class="stmBooth"><div class="stmBoothIn">'+booth+'</div></div></div>'+
@@ -4340,7 +4354,7 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.11.2';
+var APP_VER = '0.11.3';
 var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
@@ -4441,10 +4455,7 @@ function maybeOnboarding(){
   showOnboarding(); return true;
 }
 function showOnboarding(){
-  var booth = '<section class="booth home h1a" aria-hidden="true">'+bulbs(13,'lit')+'<div class="pil l">'+chaseB(7)+'</div><div class="pil r">'+chaseB(7)+'</div><i class="scr s1"></i><i class="scr s2"></i><i class="scr s3"></i><i class="scr s4"></i>'+
-    '<div class="bez"><div class="screen"><span class="l1"><span>NOW PRINTING</span><span>RANK --</span></span><b>NO.0001<span class="cur">_</span></b><span class="l3">YOUR FIRST TICKET</span></div></div>'+
-    '<i class="led"></i><div class="coin"><i></i><span>INSERT<br>MEMORY</span></div><span class="press"><span><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span></span>'+
-    '<div class="brass"><i></i>TUVA CO. · EST 2026<i></i></div><div class="slot"><div class="lip"></div><div class="peek"><div>★ ADMIT ONE ★</div></div></div></section><div class="tbFeet"><i class="f l"></i><i class="f r"></i></div>';
+  var booth = '<div class="kx kxe" style="font-size:1px;width:390px;max-width:none;margin:0"><img class="kxbg" src="room/kiosk.webp" alt=""><div class="kxo kxsign"><b>NOW SHOWING</b><span>YOUR MOVIE MEMORIES · OPEN DAILY</span></div><div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>RANK --</span></span><b>NO.0001<span class="cur">_</span></b><span class="l3">YOUR FIRST TICKET</span></div><span class="kxo kxst"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></span><div class="kxo kxtg">TICKETS</div><div class="kxo kxlb c">INSERT<br>MEMORY</div><div class="kxo kxlb p">TUVA CO<br>EST 2026</div><div class="kxtk"><div>★ ADMIT ONE ★</div></div><img class="kxlip" src="room/kiosk.webp" alt=""></div>';
   var kinds = [['CINEMA','โรงหนัง','ที่นั่ง · โรง · รอบ','#F2EEE8','#0B0B0C',-2],['MOVIE','ดูที่บ้าน','Netflix · Prime · Disney+','#C5D46E','#12180F',1],['SERIES','ซีรีส์','ซีซัน · ตอน · สถานะ','#E0262F','#F2EEE8',-1]];
   var slides = [
     {art:'<div class="obArt">'+obTicket('#E68BB0','#B8436E','Past Lives',22,40,-12,122)+obTicket('#6EC1CF','#2B5C8A','Dune: Part Two',212,46,9,122)+obTicket('#F28A2E','#B4500F','Avengers: Doomsday',112,8,-2,140)+'</div>',
