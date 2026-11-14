@@ -4139,10 +4139,11 @@ var RM_ORDER = ["bunting", "fairy", "clock", "wshelf", "bookshelf", "rocket", "t
 var RM_FILES = {"base": "webp", "sun": "jpg", "lamp": "jpg", "light_tv": "jpg", "light_neon": "jpg", "light_fishtank": "jpg", "light_pumpkin": "jpg", "light_xmas": "jpg", "light_fairy": "jpg", "mask_wall": "webp", "mask_ceil": "webp", "mask_floor": "webp", "item_neon": "webp", "item_bunting": "webp", "lamp_bunting": "jpg", "item_fairy": "webp", "item_clock": "webp", "lamp_clock": "jpg", "item_wshelf": "webp", "lamp_wshelf": "jpg", "item_bookshelf": "webp", "lamp_bookshelf": "jpg", "item_rocket": "webp", "lamp_rocket": "jpg", "item_trophy": "webp", "lamp_trophy": "jpg", "item_desk": "webp", "lamp_desk": "jpg", "sun_desk": "jpg", "item_vase": "webp", "lamp_vase": "jpg", "item_chair": "webp", "lamp_chair": "jpg", "item_fishtank": "webp", "lamp_fishtank": "jpg", "item_lowcab": "webp", "lamp_lowcab": "jpg", "item_reel": "webp", "lamp_reel": "jpg", "item_beanbag": "webp", "lamp_beanbag": "jpg", "sun_beanbag": "jpg", "item_tv": "webp", "lamp_tv": "jpg", "sun_tv": "jpg", "item_slate": "webp", "lamp_slate": "jpg", "item_bedside": "webp", "lamp_bedside": "jpg", "item_glasses": "webp", "lamp_glasses": "jpg", "item_cat": "webp", "lamp_cat": "jpg", "item_pumpkin": "webp", "lamp_pumpkin": "jpg", "item_camera": "webp", "lamp_camera": "jpg", "item_sofa": "webp", "lamp_sofa": "jpg", "item_vinyl": "webp", "lamp_vinyl": "jpg", "item_xmas": "webp", "lamp_xmas": "jpg"}, RM_PM = [0.4352, 0.2512, 0.0, 0.5064, 509.02, 217.38];
 var RM_ALIAS = {scifi:'STAR DRIFTER', drama:'HEARTBREAK COLLECTOR', romance:'HOPELESS ROMANTIC', horror:'MIDNIGHT SCREAMER', thriller:'PLOT TWIST HUNTER', comedy:'LAUGH DEALER', action:'ADRENALINE CHASER', fantasy:'REALM WANDERER', animation:'FRAME DREAMER', doc:'TRUTH SEEKER'};
 function saveRoom(){ return DB.put('meta', S.room, 'room'); }
-function rmCount(){ return Math.min(RM_UNLOCK.length, Math.ceil(S.tickets.length/2)); }
+var RM_AT = [2,3,5,7,9,12,14,17,19,22,24,27,29,32,34,37,39,42,44,47,49,52,54,57,59];
+function rmCount(){ var n = S.tickets.length, c = 0; while (c < RM_AT.length && RM_AT[c] <= n) c++; return c; }
 function rmHas(k){ return RM_UNLOCK.indexOf(k) < rmCount(); }
 function rmOn(k){ return !!S.room.items[k] && rmHas(k) && (!RM_REQ[k] || (!!S.room.items[RM_REQ[k]] && rmHas(RM_REQ[k]))); }
-function rmNeedTix(k){ return RM_UNLOCK.indexOf(k)*2 + 1 - S.tickets.length; }
+function rmNeedTix(k){ return RM_AT[RM_UNLOCK.indexOf(k)] - S.tickets.length; }
 function rmPosters(){ var seen = {}, out = []; S.tickets.slice().sort(function(a,b){ return sortKey(b) > sortKey(a) ? 1 : -1; }).forEach(function(t){ if (t.posterId && !seen[t.posterId] && blobURL(t.posterId)) { seen[t.posterId] = 1; out.push(t); } }); return out.slice(0, 24); }
 function rmPosterId(){ var ps = rmPosters(), cur = S.room.poster; if (cur && ps.some(function(t){ return t.posterId===cur; })) return cur; return ps.length ? ps[0].posterId : null; }
 function rmMk(){ var c = document.createElement('canvas'); c.width = c.height = 780; return c; }
@@ -4187,7 +4188,7 @@ function rmSw(list, key){ return '<div class="rmSw">'+list.map(function(c){ var 
 function rmPanel(){
   var el = document.getElementById('rmEdit'), stg = document.getElementById('rmStage'); if (!el || !stg) return;
   var T = ['ของ','แสง','สีห้อง','โปสเตอร์'], tb = RM.tab, h = '', st = S.room, u = rmCount();
-  if (tb===0) h = '<h4>MY ITEMS · '+u+' / '+RM_UNLOCK.length+'</h4>'+(u?'':'<p class="small muted" style="margin:0 0 10px">พิมพ์ตั๋วใบแรก ได้ของชิ้นแรกทันที</p>')+'<div class="rmTray">'+RM_UNLOCK.map(function(k){ var has = rmHas(k), need = RM_REQ[k] && !(st.items[RM_REQ[k]] && rmHas(RM_REQ[k])), nt = rmNeedTix(k);
+  if (tb===0) h = '<h4>MY ITEMS · '+u+' / '+RM_UNLOCK.length+'</h4>'+(u?'':'<p class="small muted" style="margin:0 0 10px">ดูครบ 2 เรื่อง ได้ของชิ้นแรก</p>')+'<div class="rmTray">'+RM_UNLOCK.map(function(k){ var has = rmHas(k), need = RM_REQ[k] && !(st.items[RM_REQ[k]] && rmHas(RM_REQ[k])), nt = rmNeedTix(k);
       return '<button aria-pressed="'+rmOn(k)+'" data-x="rmItem" data-v="'+k+'"'+((!has||need)?' disabled':'')+'>'+RM_NAME[k]+'<small>'+(!has ? 'ดูอีก '+nt+' เรื่อง' : need ? 'วาง'+RM_NAME[RM_REQ[k]]+'ก่อน' : rmOn(k) ? 'วางแล้ว · แตะเพื่อเก็บ' : 'แตะเพื่อวาง')+'</small></button>'; }).join('')+'</div>';
   if (tb===1) h = '<h4>WINDOW LIGHT</h4>'+rmSw(RM_SUN,'sun')+'<h4>LAMP</h4>'+rmSw(RM_LAMP,'lamp')+(rmOn('neon')?'<h4>NEON SIGN</h4>'+rmSw(RM_NEON,'neon'):'');
   if (tb===2) h = '<h4>WALL</h4>'+rmSw(RM_WALL,'wall')+'<h4>CEILING</h4>'+rmSw(RM_CEIL,'ceil')+'<h4>FLOOR</h4>'+rmSw(RM_FLOOR,'floor');
@@ -4232,8 +4233,8 @@ function cardHTML(){
 function rmNextHTML(){
   var n = S.tickets.length, u = rmCount(), all = RM_UNLOCK.length;
   if (u >= all) return '<div class="rmNext"><div class="hh"><span>ROOM ITEMS</span><span>'+all+' / '+all+'</span></div><p style="margin-bottom:0">เก็บของครบทุกชิ้นแล้ว</p></div>';
-  var nx = RM_NAME[RM_UNLOCK[u]], need = u*2+1-n, done = n ? (n-1)%2 : 0;
-  return '<div class="rmNext"><div class="hh"><span>NEXT ITEM</span><span>'+(n?done+' / 2 FILMS':'FIRST TICKET')+'</span></div><p>'+(n ? 'ดูอีก '+need+' เรื่อง ได้ '+nx : 'พิมพ์ตั๋วใบแรก ได้ '+nx+' ทันที')+'</p><div class="pb"><i style="width:'+(n?done*50:0)+'%"></i></div></div>';
+  var nx = RM_NAME[RM_UNLOCK[u]], prev = u ? RM_AT[u-1] : 0, span = RM_AT[u]-prev, need = RM_AT[u]-n, done = n-prev;
+  return '<div class="rmNext"><div class="hh"><span>NEXT ITEM</span><span>'+done+' / '+span+' FILMS</span></div><p>ดูอีก '+need+' เรื่อง ได้ '+nx+'</p><div class="pb"><i style="width:'+Math.round(done/span*100)+'%"></i></div></div>';
 }
 function storyRoom(){
   var D = cardData();
@@ -4293,8 +4294,8 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.10.0';
-var WHATS_NEW = [['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ตั๋วใบแรกได้ของ 1 ชิ้น จากนั้นทุก 2 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+var APP_VER = '0.10.1';
+var WHATS_NEW = [['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
