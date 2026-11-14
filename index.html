@@ -1264,6 +1264,7 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .kpst b{font-size:11.5em}
 .kplip.kpf{aspect-ratio:1000/1590;clip-path:inset(75.84% 9.1% 22.14% 9.1%)}
 .printWrap.kpw.kpfw .slotWin.full{margin-top:calc(var(--kw)*-.352)}
+.betaNote{margin:18px 4px 0;font-size:11.5px;line-height:1.5;color:#8E887F;text-align:center}.betaNote b{font-family:var(--dot);font-weight:900;font-size:9px;letter-spacing:2px;color:#0B0B0C;background:#FFB547;border-radius:8px;padding:2px 6px;margin-right:6px;vertical-align:1px}.betaNote a{color:#B9B4AD;text-decoration:underline}
 </style>
 </head>
 <body>
@@ -3558,7 +3559,8 @@ function viewHome(){
       '<a class="wpill" href="#watch"><span class="wi">'+'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 7h16v10H4z M8 7V5h8v2 M10 12l2 2 4-4"/></svg></span><span class="wt"><b>Watchlist</b><span>หนังที่อยากดู '+wn+'</span></span></a></div>'+
     (last ? lastHTML : '<div class="stub empty">ยังไม่มีตั๋ว · กด START เลย</div>')+
     (otd ? '<a class="otd" href="#ticket/'+otd.id+'"><span class="th">'+(blobURL(otd.posterId)?'<img src="'+blobURL(otd.posterId)+'" alt="">':'<span style="display:block;height:100%;border-top:4px solid '+GMAP[otd.genre].c+'"></span>')+'</span>'+
-      '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+cy - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+cy - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '');
+      '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+cy - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+cy - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '')+
+    '<p class="betaNote"><b>BETA</b> ตั๋วทั้งหมดเก็บอยู่ในเครื่องนี้เท่านั้น ถ้าล้างข้อมูลเว็บไซต์หรือแคชของเบราว์เซอร์ ข้อมูลจะหาย · <a href="#settings">สำรองข้อมูลไว้ก่อน</a></p>';
 }
 /* ---- compact print ticket ---- */
 function ticketMini(t){
@@ -4364,7 +4366,7 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.11.6';
+var APP_VER = '0.11.7';
 var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
