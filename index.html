@@ -1287,6 +1287,7 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .sxtk button b{font-family:'Unbounded',var(--display);font-weight:700;font-size:12.5em;line-height:1.15;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.sxtk button s{text-decoration:none;font-family:var(--dot);font-weight:900;font-size:8em;letter-spacing:.15em}
 .sxtk.out button{transform:translateY(0);transition:transform .9s cubic-bezier(.2,.8,.2,1)}.reduce .sxtk.out button{transition:none}
 .sxlip{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:2;pointer-events:none;clip-path:inset(74.75% 21.45% 23.14% 12.67%)}
+.tabs a{font-size:7.5px;letter-spacing:.4px}.tabs .in{padding:0 5px}
 </style>
 </head>
 <body>
@@ -1294,9 +1295,10 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 <nav class="tabs" id="tabs" aria-label="แท็บหลัก"><div class="in">
   <a href="#home" data-tab="home"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4z"/></svg><span>BOOTH</span></a>
   <a href="#collection" data-tab="collection" id="tabCollection"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M4 4h7v7H4z M13 4h7v7h-7z M4 13h7v7H4z M13 13h7v7h-7z"/></svg><span>COLLECTION</span></a>
+  <a href="#gacha" data-tab="gacha" aria-label="Movie Roulette"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="15" height="14" rx="2.5"/><path d="M7.5 9v6M12.5 9v6"/><path d="M17.5 14h2.2V7.5"/><circle cx="19.7" cy="5.6" r="1.7" fill="currentColor"/></svg><span>ROULETTE</span></a>
   <a href="#me" data-tab="me"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M12 4a4 4 0 1 0 .01 0z M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg><span>ME</span></a>
   <a href="#year" data-tab="year"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M6 20V11 M12 20V5 M18 20v-6"/></svg><span>YEAR</span></a>
-</div><a class="fab" href="#gacha" aria-label="ตู้สุ่มหนัง"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="15" height="14" rx="2.5"/><path d="M7.5 9v6M12.5 9v6"/><path d="M17.5 14h2.2V7.5"/><circle cx="19.7" cy="5.6" r="1.7" fill="currentColor"/></svg></a></nav>
+</div></nav>
 <input type="file" id="filePoster" accept="image/*" class="sr" tabindex="-1" aria-hidden="true">
 <input type="file" id="filePhoto" accept="image/*" class="sr" tabindex="-1" aria-hidden="true">
 <input type="file" id="fileBackup" accept="application/json,.json" class="sr" tabindex="-1" aria-hidden="true">
@@ -2230,7 +2232,7 @@ function comingSoonHTML(){
     return '<a class="cmini" href="#watch" aria-label="'+esc(w.title)+' · '+c.sub+'"><span class="th">'+watchThumb(w)+(c.tag?'<span class="cdb">'+c.tag+'</span>':'')+'</span><span class="t">'+esc(w.title)+'</span></a>'; }).join('');
   return '<section style="margin-top:20px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><span class="eyebrow">COMING SOON</span>'+(n?'<a href="#watch" class="small" style="color:var(--lime);text-decoration:none">ทั้งหมด '+n+' →</a>':'')+'</div>'+
     (n ? '<div class="comingRow">'+row+'</div>' : '<p class="small muted" style="margin:0 0 4px">จดหนังที่รอเข้าโรงไว้ พร้อมนับถอยหลังและลิงก์ trailer</p>')+
-    '<div class="row2" style="margin-top:12px"><a class="btn out sm" href="#watchnew">+ หนังที่อยากดู</a><a class="btn sm" href="#gacha">ตู้สุ่มหนัง</a></div></section>';
+    '<div class="row2" style="margin-top:12px"><a class="btn out sm" href="#watchnew">+ หนังที่อยากดู</a><a class="btn sm" href="#gacha">Movie Roulette</a></div></section>';
 }
 function viewWatch(){
   setTabs(null);
@@ -2245,7 +2247,7 @@ function viewWatch(){
         (cin?'<button type="button" class="wmiss" role="checkbox" data-act="wMiss" data-v="'+w.id+'" aria-checked="'+ms+'"><i aria-hidden="true">'+(ms?'✓':'')+'</i>ออกโรงแล้ว · พลาดดู</button>':'')+'</div>'+
         (ms?'<div class="cd miss"><b>MISSED</b><span>ออกโรงแล้ว</span></div>':'<div class="cd'+(c.soon?' soon':'')+'"><b>'+esc(c.big)+'</b><span>'+esc(c.sub)+'</span></div>')+
         '<div class="wact"><button class="btn sm" data-act="wToTicket" data-v="'+w.id+'" style="flex:1">'+(ms?'ได้ดูแล้ว · พิมพ์ตั๋ว':'ไปดูแล้ว · พิมพ์ตั๋ว')+'</button><a class="icon" href="#invite/'+w.id+'" aria-label="ชวนเพื่อนไปดู '+esc(w.title)+'">'+ICON('send',18,1.6)+'</a><a class="icon" href="#watchedit/'+w.id+'" aria-label="แก้ไข '+esc(w.title)+'">'+IC.edit+'</a><button class="icon" data-act="wDelete" data-v="'+w.id+'" aria-label="ลบ '+esc(w.title)+'">'+IC.trash+'</button></div></article>'; }).join('') +
-      '<a class="btn" href="#gacha" style="margin-top:6px">ตู้สุ่มหนัง · สุ่มจาก '+list.length+' เรื่อง</a>'
+      '<a class="btn" href="#gacha" style="margin-top:6px">Movie Roulette · สุ่มจาก '+list.length+' เรื่อง</a>'
     : '<div class="empty"><span>ยังไม่มีหนังที่อยากดู</span><a class="btn" href="#watchnew" style="max-width:260px">+ เพิ่มเรื่องแรก</a></div>');
 }
 function newWDraft(){ return {id:null, kind:'cinema', title:'', releaseYear:'', releaseDate:'', genre:'', posterId:null, links:[], note:'', _err:''}; }
@@ -2294,16 +2296,16 @@ function sxCell(kind, w){
   return '<div class="sxc"><span class="ps" style="background:'+gbg(g)+'">'+(pu ? '<img src="'+pu+'" alt="">' : '<em>'+esc(w.title)+'</em>')+'</span></div>';
 }
 function viewGacha(){
-  setTabs(null);
+  setTabs('gacha');
   var pool = gachaPool();
-  V.innerHTML = '<div class="top hdr onk"><a class="icon ghost" href="#home" aria-label="ย้อนกลับ">'+IC.back+'</a><h1 class="c">ตู้สุ่มหนัง</h1><span style="width:44px"></span></div>'+
-    '<section class="kx sx" id="gw" aria-label="ตู้สุ่มหนัง"><img class="kxbg" src="room/slot.webp" alt="" width="1000" height="1590">'+
-      '<div class="kxo kxsign sxsign" id="sxsign" aria-hidden="true"><b>WHAT TO WATCH?</b><span>A TICKET TO ANYWHERE</span></div>'+
+  V.innerHTML = '<div class="top hdr onk">'+logoHTML(22)+'<a class="rmBtn" href="#watch" style="display:inline-flex;align-items:center;text-decoration:none">Watchlist</a></div><h1 class="sr">Movie Roulette</h1>'+
+    '<section class="kx sx" id="gw" aria-label="Movie Roulette"><img class="kxbg" src="room/slot.webp" alt="" width="1000" height="1590">'+
+      '<div class="kxo kxsign sxsign" id="sxsign" aria-hidden="true"><b>MOVIE ROULETTE</b><span>A TICKET TO ANYWHERE</span></div>'+
       [0,1,2].map(function(i){ return '<div class="sxr r'+i+'" aria-hidden="true"><div class="sxs" id="sxs'+i+'">'+sxCell('q')+'</div></div>'; }).join('')+
       '<i class="sxa l" aria-hidden="true"></i><i class="sxa r" aria-hidden="true"></i>'+
       '<span class="sxl l0" aria-hidden="true">GENRE</span><span class="sxl l1" aria-hidden="true">TYPE</span><span class="sxl l2" aria-hidden="true">FILM</span>'+
       '<span class="sxpull" aria-hidden="true">PULL</span><img class="sxlev" id="sxlev" src="room/slot-lever.webp" alt="">'+
-      '<button class="sxhit" data-act="gachaPull" aria-label="ดึงคันโยกสุ่มหนัง"'+(pool.length?'':' disabled')+'></button>'+
+      '<button class="sxhit" data-act="gachaPull" aria-label="ดึงคันโยก Movie Roulette"'+(pool.length?'':' disabled')+'></button>'+
       '<div class="sxtk" id="sxtk"></div><img class="sxlip" src="room/slot.webp" alt="" aria-hidden="true">'+
       '<span class="gxcount">'+(pool.length ? 'สุ่มจาก '+pool.length+' เรื่องในรายการอยากดู' : 'ยังไม่มีเรื่องให้สุ่ม')+'</span></section>'+
     '<div style="display:flex;justify-content:center;margin-top:14px"><button class="chip" data-act="gachaReleased" aria-pressed="'+S.gachaReleased+'" style="border-color:rgba(243,235,221,.4)">เฉพาะเรื่องที่เข้าโรงแล้ว</button></div>'+
@@ -4405,8 +4407,8 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.12.0';
-var WHATS_NEW = [['SLOT MACHINE','ตู้สุ่มหนังโฉมใหม่ ดึงคันโยก 3 วงล้อ: แนว · ประเภท · หนังที่ได้ แล้วตั๋วไหลออกมา','#C9CCD1'],['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+var APP_VER = '0.12.1';
+var WHATS_NEW = [['MOVIE ROULETTE','ตู้สุ่มหนังชื่อใหม่ ย้ายมาอยู่แถบเมนูล่าง ดึงคันโยก 3 วงล้อ: แนว · ประเภท · หนังที่ได้','#C9CCD1'],['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
