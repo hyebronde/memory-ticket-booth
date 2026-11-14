@@ -1,6 +1,6 @@
 /* Memory Ticket Booth – offline cache. Network first for the app page, cache fallback. */
-var CACHE = 'mtb-v117a';
-var SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png', './room/kiosk.webp', './room/kiosk-print.webp', './room/cab-top.webp', './room/cab-bot.webp', './room/cab-slim.webp'];
+var CACHE = 'mtb-v120a';
+var SHELL = ['./', './index.html', './manifest.webmanifest', './icon-180.png', './icon-192.png', './icon-512.png', './room/kiosk.webp', './room/kiosk-print.webp', './room/cab-top.webp', './room/cab-bot.webp', './room/cab-slim.webp', './room/slot.webp', './room/slot-lever.webp'];
 self.addEventListener('install', function (e) {
   e.waitUntil(caches.open(CACHE).then(function (c) { return c.addAll(SHELL); }).then(function () { return self.skipWaiting(); }));
 });
