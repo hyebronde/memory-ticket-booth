@@ -1233,8 +1233,8 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 
 /* ===== v0.11.2 Blender kiosk on the print page ===== */
 .printWrap.kpw{position:relative;--kw:min(100vw,430px);z-index:1}
-.kp{position:relative;isolation:isolate;flex:none;align-self:center;width:var(--kw);margin:-22px -18px 0;aspect-ratio:1000/1240;overflow:hidden;font-size:calc(var(--kw)/390);background:#101A13}
-.kp:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 9%,rgba(11,11,12,0) 86%,#0B0B0C);pointer-events:none;z-index:4}
+.kpk{position:relative;isolation:isolate;flex:none;align-self:center;width:var(--kw);margin:-22px -18px 0;aspect-ratio:1000/1240;overflow:hidden;font-size:calc(var(--kw)/390);background:#101A13}
+.kpk:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 9%,rgba(11,11,12,0) 86%,#0B0B0C);pointer-events:none;z-index:4}
 .kpbg{position:absolute;inset:0;width:100%;height:100%;display:block}
 .kps{left:12.23%;top:15.22%;width:75.54%;height:18.13%}
 .kplcd{left:22.77%;top:44.63%;width:54.46%;height:20.23%}.kplcd .l1{justify-content:flex-start}
@@ -1255,11 +1255,11 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 .cab .vendFoot,.cab .vendFoot>span{color:#B9B4AD}.cab .vendFoot span{box-shadow:inset 0 8px 10px #000,0 2px 0 rgba(255,255,255,.35)}
 .kxe{pointer-events:none}
 
-.stmBoothIn{padding:0}.stmBooth{top:-34px}.stmWrap{top:227px}.stmGlow{background:none}.stm .kp{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.stmBoothIn{padding:0}.stmBooth{top:-34px}.stmWrap{top:227px}.stmGlow{background:none}.stm .kpk{-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
 .obBIn{padding:0;transform:scale(.6)}
 
 /* ===== v0.11.4 one kiosk for home and print ===== */
-.kp.kpf{aspect-ratio:1000/1590}.kp.kpf:after{background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 8%,rgba(11,11,12,0) 90%,rgba(11,11,12,.45))}
+.kpk.kpf{aspect-ratio:1000/1590}.kpk.kpf:after{background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 8%,rgba(11,11,12,0) 90%,rgba(11,11,12,.45))}
 .kpf .kps{left:12.23%;top:10.64%;width:75.54%;height:14.14%}.kpf .kplcd{left:22.77%;top:33.58%;width:54.46%;height:15.77%}
 .kpst b{font-size:11.5em}
 .kplip.kpf{aspect-ratio:1000/1590;clip-path:inset(75.84% 9.1% 22.14% 9.1%)}
@@ -3575,7 +3575,7 @@ function viewPrint(){
   var dd = parseISO(t.date);
   V.innerHTML =
     '<div class="top hdr onk">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="icon" data-act="pSound" aria-label="'+(SFX.on?'ปิดเสียง':'เปิดเสียง')+'" aria-pressed="'+SFX.on+'">'+(SFX.on?ICON_SND_ON:ICON_SND_OFF)+'</button><a class="icon" href="#home" aria-label="ปิด กลับหน้าแรก">'+ICON_X+'</a></span></div>'+
-    '<section class="printWrap kpw kpfw" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="kp kpf"><img class="kpbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
+    '<section class="printWrap kpw kpfw" id="pw" aria-label="ตั๋วกำลังพิมพ์"><div class="kpk kpf"><img class="kpbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
       '<div class="kxo kxsign kps" aria-hidden="true"><b>NOW PRINTING</b><span>YOUR TICKET IS ON THE WAY</span></div>'+
       '<div class="kxo kxscr kplcd" role="status"><span class="l1"><span>PRINTING TICKET<span class="cur">_</span></span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="prog" aria-hidden="true"><i></i></span></div>'+
       '<div class="kxo kxst kpst" aria-hidden="true"><b>NOW</b><b>PRINTING</b></div><div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div></div>'+
@@ -3587,6 +3587,8 @@ function viewPrint(){
   var shown = false, show = function(){ if (shown) return; shown = true; btns.style.visibility = 'visible'; pw.classList.add('done'); setTimeout(function(){ try { btns.scrollIntoView({behavior: isReduced()?'auto':'smooth', block:'end'}); } catch(x){} }, 80);  };
   if (isReduced()) { show(); return; }
   requestAnimationFrame(function(){ out.classList.add('go'); pw.classList.add('shake'); SFX.print(); });
+  var follow = function(){ if (shown || !document.body.contains(out)) return; var r = out.getBoundingClientRect(), tgt = Math.max(0, r.bottom + window.scrollY + 96 - window.innerHeight); if (tgt > window.scrollY) window.scrollTo(0, tgt); requestAnimationFrame(follow); };
+  requestAnimationFrame(follow);
   out.addEventListener('animationend', show); setTimeout(show, 3600);
 }
 var ICON_SND_ON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 9h4l5-4v14l-5-4H4z M17 9a4 4 0 0 1 0 6"/></svg>';
@@ -4125,7 +4127,7 @@ function storyRank(i){
 /* in-app motion preview for the ticket story (ST1) */
 function storyMotionHTML(t, pngURL){
   var n = S.tickets.length, ri = rankOf(n);
-  var booth = '<div class="kp kxe" style="--kw:390px;margin:0"><img class="kpbg" src="room/kiosk-print.webp" alt=""><div class="kxo kxsign kps"><b>NOW PRINTING</b><span>YOUR TICKET IS ON THE WAY</span></div><div class="kxo kxscr kplcd"><span class="l1"><span>PRINTING TICKET</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="l3">'+n+' TICKETS</span></div></div>';
+  var booth = '<div class="kpk kxe" style="--kw:390px;margin:0"><img class="kpbg" src="room/kiosk-print.webp" alt=""><div class="kxo kxsign kps"><b>NOW PRINTING</b><span>YOUR TICKET IS ON THE WAY</span></div><div class="kxo kxscr kplcd"><span class="l1"><span>PRINTING TICKET</span></span><b>'+ticketNo(t.no).replace(' ','')+'</b><span class="l3">'+n+' TICKETS</span></div></div>';
   return '<div class="stm" aria-hidden="true"><div class="stmIn"><div class="stmGlow"></div>'+
     '<div class="stmWrap"><div class="stmOut"><div class="stmTk">'+ticketFront(t,false)+'</div></div></div>'+
     '<div class="stmBooth"><div class="stmBoothIn">'+booth+'</div></div></div>'+
@@ -4362,7 +4364,7 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.11.4';
+var APP_VER = '0.11.5';
 var WHATS_NEW = [['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
