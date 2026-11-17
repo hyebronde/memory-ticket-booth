@@ -1296,21 +1296,76 @@ main{padding-bottom:calc(104px + var(--safe-b))}
 
 /* ===== v0.13 iPhone Duo + any screen shape ===== */
 :root{--kw:min(100vw,430px)}
-@media (min-aspect-ratio:11/20){:root{--kw:min(100vw,430px,calc((100dvh - var(--safe-t) - var(--safe-b) - 150px)*.7))}}
+html.duo-outer{--kw:min(100vw,430px,calc((100dvh - var(--safe-t) - var(--safe-b) - 150px)*.7))}
 .cab{container-type:inline-size}
 main{padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 .wnew{align-items:flex-start;overflow-y:auto;-webkit-overflow-scrolling:touch}.wnCard{margin:auto;flex:none}
-@media (min-width:820px){
-  #app{max-width:960px}
-  #view{max-width:480px;margin-left:auto;margin-right:auto}
-  #view:has(> .kx),#view:has(> .rmStage){max-width:none}
-  #view:has(> .kx),#view:has(> .rmStage){display:grid;grid-template-columns:var(--kw) minmax(0,1fr);column-gap:32px;align-items:start;grid-auto-flow:row dense}
-  #view:has(> .kx) > *,#view:has(> .rmStage) > *{grid-column:2}
-  #view:has(> .kx) > .top,#view:has(> .rmStage) > .top{grid-column:1 / -1}
-  #view > .kx{grid-column:1;grid-row:2 / span 40;margin:0;border-radius:26px;position:sticky;top:12px}
-  #view > .rmStage{grid-column:1;grid-row:2 / span 40;margin:0;width:var(--kw);max-width:none;position:sticky;top:12px}
-  #view:has(> .kx) > :nth-child(3),#view:has(> .rmStage) > #rmEdit{margin-top:0}
-}
+/* ===== v0.14 green wall reaches every screen edge ===== */
+.kwall{position:relative;isolation:isolate;margin:-22px calc(50% - 50vw) 0;width:100vw;background:url(room/kwall.webp) 50% 100%/calc(var(--kw)*.127) calc(var(--kw)*1.59) repeat-x,linear-gradient(#0B0B0C,#394F3A 40%);border-radius:0 0 26px 26px;overflow:hidden}
+.kwall:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 8%,rgba(11,11,12,0) 90%,rgba(11,11,12,.45));pointer-events:none;z-index:0}
+.kwall>.kx{margin:0 auto!important}
+.kwall:has(> .sx){margin-top:-10px}
+.printWrap.kpfw:before{content:"";position:absolute;z-index:-1;top:-22px;left:calc(50% - 50vw);width:100vw;height:calc(var(--kw)*1.59);background:url(room/kwall.webp) 50% 100%/calc(var(--kw)*.127) calc(var(--kw)*1.59) repeat-x,linear-gradient(#0B0B0C,#394F3A 40%);pointer-events:none}
+.printWrap.kpfw:after{content:"";position:absolute;z-index:-1;top:-22px;left:calc(50% - 50vw);width:100vw;height:calc(var(--kw)*1.59);background:linear-gradient(180deg,#0B0B0C 1%,rgba(11,11,12,0) 8%,rgba(11,11,12,0) 90%,rgba(11,11,12,.45));pointer-events:none}
+.lapAct,.lapTop,.deck{display:none}
+/* ===== v0.14 iPhone Duo · book pose (open flat, landscape): scene left, functions right ===== */
+html.fold-book #app{max-width:none}
+html.fold-book main{padding:10px 28px 24px}
+html.fold-book #view{display:grid;grid-template-columns:1fr 1fr;column-gap:56px;align-items:start;max-width:none}
+html.fold-book #view>*{grid-column:2;min-width:0}
+html.fold-book #view>.top,html.fold-book #view>.banner{grid-column:1 / -1}
+html.fold-book #view:not(:has(> .stage))>:not(.top):not(.banner){grid-column:auto;width:100%;max-width:560px;margin-left:auto;margin-right:auto}
+html.fold-book #view>.printWrap{grid-column:1;max-width:430px!important}
+html.fold-book .sticky{left:calc(50% + 28px);right:28px}
+html.fold-book .printWrap.kpfw:after{z-index:1}html.fold-book .kpk.kpf:after{display:none}html.fold-book .kpk.kpf{background:none;-webkit-mask-image:linear-gradient(90deg,transparent 1%,#000 7%,#000 93%,transparent 99%);mask-image:linear-gradient(90deg,transparent 1%,#000 7%,#000 93%,transparent 99%)}
+html.fold-book .printWrap.kpw{--kw:min(430px,calc(50vw - 56px))}
+html.fold-book .printWrap.kpfw:before,html.fold-book .printWrap.kpfw:after{left:calc(-28px - max(0px,(50vw - 486px)/2));-webkit-mask-image:linear-gradient(90deg,#000 0,#000 47%,rgba(0,0,0,.55) 66%,transparent 96%);mask-image:linear-gradient(90deg,#000 0,#000 47%,rgba(0,0,0,.55) 66%,transparent 96%)}
+html.fold-book .printWrap.kpfw:before{background-position:calc(28px + max(0px,(50vw - 486px)/2) + min(430px,calc(50vw - 56px))*.4365) 100%,0 0}
+html.fold-book #view>.stage{grid-column:1;grid-row:2 / span 60;position:sticky;top:10px;height:calc(100dvh - 92px);display:flex;align-items:center;justify-content:center;overflow:auto;border-radius:24px;margin:0}
+html.fold-book #view>.stage+*{margin-top:0}
+html.fold-book .stage>.rmStage{width:min(calc(50vw - 84px),calc(100dvh - 110px));margin:0!important;max-width:none}
+html.fold-book .stage>.cab,html.fold-book .stage>.booth{width:min(100%,430px);margin:0;align-self:flex-start}
+html.fold-book .tabs{left:calc(50% + 28px);right:28px;max-width:none;margin:0}
+html.fold-book #view>.stage:has(> .kwall){overflow:visible;z-index:0;--S:calc(50vw - 56px);align-self:stretch}
+html.fold-book #view:has(> .stage > .kwall)>:not(.stage){position:relative;z-index:1}
+html.fold-book .stage>.kwall{--kw:min(calc(50vw - 84px),calc((100dvh - 104px)/1.59));width:calc(200% + 84px);height:calc(100% + 10px);margin:-10px calc(-100% - 56px) 0 -28px;border-radius:0;display:flex;align-items:flex-end;justify-content:flex-start;align-self:stretch;background-position:calc(var(--S)/2 + 28px - var(--kw)*.0635) 100%,0 0;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 47%,rgba(0,0,0,.55) 66%,transparent 96%);mask-image:linear-gradient(90deg,#000 0,#000 47%,rgba(0,0,0,.55) 66%,transparent 96%)}
+html.fold-book .stage>.kwall>.kx{margin:0 0 0 calc((var(--S) - var(--kw))/2 + 28px)!important;border-radius:0}
+html.fold-book .stage>.kwall>.kx:after,html.fold-book .stage>.kwall:before{display:none}
+html.fold-book .stage>.kwall:after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(180deg,#0B0B0C,rgba(11,11,12,0) 16%,rgba(11,11,12,0) calc(100% - var(--kw)*.159),rgba(11,11,12,.45))}
+/* ===== v0.14 iPhone Duo · laptop pose (half folded, portrait): scene on top, functions below ===== */
+html.fold-lap #app,html.fold-lap #view{max-width:none}
+html.fold-lap #view>.stage{position:sticky;top:0;z-index:6;height:calc(50dvh - 66px);margin:0 -18px 18px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;background:#0B0B0C;box-shadow:0 1px 0 #2A2A2C}
+html.fold-lap .stage>.rmStage{width:calc(50dvh - 66px);margin:0!important;max-width:none}
+html.fold-lap .stage>.cab,html.fold-lap .stage>.booth{width:min(100%,430px);margin:0}
+html.fold-lap #view>:not(.stage):not(.top):not(.lapTop):not(.deck){max-width:560px;margin-left:auto;margin-right:auto}
+html.fold-lap .lapAct{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;height:64px;border-radius:32px;border:0;background:#E0262F;color:#fff;font-family:'Unbounded',sans-serif;font-weight:800;font-size:17px;margin-bottom:14px;text-decoration:none;cursor:pointer}
+html.fold-lap .stage>.kwall{--kw:calc((50dvh - 66px)/1.59/.8);width:100%;height:100%;margin:0;border-radius:0;display:flex;align-items:flex-start;justify-content:center;background-size:calc(var(--kw)*.127) calc(var(--kw)*1.59),auto;background-position:50% 0,0 0}
+html.fold-lap .stage>.kwall>.kx{border-radius:0}
+/* laptop home console */
+html.fold-lap[data-pg=home] .tabs{display:none}
+html.fold-lap[data-pg=home] main{padding-bottom:0}
+html.fold-lap .lapTop{display:block;position:relative;margin:-16px -18px 0;height:calc(50dvh - var(--safe-t));overflow:hidden;--kw:calc((50dvh - var(--safe-t) - 70px)/1.59);background:url(room/kwall.webp) 50% 100%/calc(var(--kw)*.127) calc(var(--kw)*1.59) repeat-x,linear-gradient(#0B0B0C,#394F3A 45%)}
+.lapTop:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#0B0B0C 0,rgba(11,11,12,0) 20%,rgba(11,11,12,0) 80%,rgba(11,11,12,.35));pointer-events:none;z-index:5}
+.lapTop>.top.hdr.onk{position:absolute;left:18px;right:18px;top:12px;z-index:8;margin:0;width:auto}
+.kx.lapM{position:absolute;bottom:-1px;margin:0!important;background:none!important;border-radius:0;overflow:visible;z-index:2}
+.kx.lapM:after{display:none}
+.kx.lapM:before{content:"";position:absolute;left:4%;right:4%;bottom:2.2%;height:5%;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.75),transparent);z-index:-1}
+.lapM.k1{left:calc(50% - var(--kw) - 10px)}.lapM.k2{left:calc(50% + 10px)}
+.lapGo{position:absolute;inset:0;z-index:9}
+html.fold-lap .deck{display:flex;flex-direction:column;position:relative;margin:0 -18px;min-height:calc(50dvh);padding:16px 18px calc(18px + var(--safe-b));background:linear-gradient(180deg,#3E1117 0,#2A0B10 30%,#140708 100%);box-shadow:0 -1px 0 rgba(255,255,255,.14)}
+.deck:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.015) 0 2px,transparent 2px 5px);pointer-events:none}
+.dstat{position:relative;display:flex;gap:8px;margin-bottom:12px}.dstat>*{flex:1;min-width:0;border-radius:14px;background:rgba(11,11,12,.55);border:1px solid rgba(255,255,255,.08);padding:9px 10px;color:inherit;text-decoration:none}
+.dstat span{display:block;font-family:'Doto',monospace;font-weight:900;font-size:9px;letter-spacing:2px;color:#FFB547;white-space:nowrap}.dstat b{display:block;font-family:'Unbounded',sans-serif;font-weight:700;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dkeys{position:relative;flex:1;display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:1.25fr 1fr .72fr;gap:10px;min-height:300px}
+.dk{position:relative;border-radius:18px;padding:12px 14px;color:#17181A;text-decoration:none;background:linear-gradient(90deg,#8D9197 0,#D9DCE0 9%,#F1F2F4 22%,#C9CCD1 50%,#EEF0F2 76%,#B4B8BE 92%,#7E8288 100%);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),0 5px 0 #55585D,0 10px 18px rgba(0,0,0,.5);display:flex;flex-direction:column;justify-content:space-between;min-width:0;overflow:hidden}
+.dk:active{transform:translateY(3px);box-shadow:inset 0 2px 0 rgba(255,255,255,.85),0 2px 0 #55585D,0 5px 10px rgba(0,0,0,.5)}
+.dk b{display:block;font-family:'Unbounded',sans-serif;font-weight:800;font-size:15px;line-height:1.1}.dk>span{font-family:'Doto',monospace;font-weight:900;font-size:9.5px;letter-spacing:1.5px}.dk small{display:block;font-size:12px;color:#3A3D42;margin-top:3px}
+.dk svg{width:26px;height:26px;display:block;margin-bottom:6px}
+.dk.red{grid-column:1 / span 2;color:#fff;background:radial-gradient(circle at 30% 25%,#F2545B,#D81F29 55%,#9E1219);box-shadow:inset 0 2px 0 rgba(255,255,255,.35),0 5px 0 #7A0E14,0 10px 18px rgba(0,0,0,.5)}.dk.red small{color:#FFD9D9}.dk.red b{font-size:22px}
+.dk.red .pic{position:absolute;right:16px;bottom:14px;width:40px;height:40px;margin:0}
+.dk.amb{background:linear-gradient(180deg,#FFD98A,#FFB547);box-shadow:inset 0 2px 0 rgba(255,255,255,.6),0 5px 0 #8A5A12,0 10px 18px rgba(0,0,0,.5)}.dk.amb small{color:#5A3A08}
+.dk .led{position:absolute;right:12px;top:12px;width:8px;height:8px;border-radius:50%;background:#7BE08A;box-shadow:0 0 8px #7BE08A}
+.dk.wl{grid-column:1 / span 3;flex-direction:row;align-items:center;justify-content:flex-start;gap:12px}.dk.wl svg{margin:0;flex:none}.dk.wl>span{margin-left:auto}
 </style>
 </head>
 <body>
@@ -1606,6 +1661,61 @@ function vendHTML(list){
     list.map(function(t, i){ return '<div class="vslot">'+miniCard(t, i)+'<i class="rail" aria-hidden="true"></i><span class="vlab" aria-hidden="true">'+slotCode(i)+' · '+pad(t.no||0,4)+'</span></div>'; }).join('')+
     '</div></div><div class="vendFoot" aria-hidden="true"><span>PUSH</span><i></i></div></section><div class="cabBot" aria-hidden="true"></div></div>';
 }
+/* ---- v0.14 iPhone Duo poses ---- */
+function foldCalc(){
+  var w = innerWidth, hh = innerHeight, sw = Math.min(screen.width,screen.height), sh = Math.max(screen.width,screen.height), c = document.documentElement.classList;
+  var book = w>=820 && hh>=560 && w>hh, lap = !book && w>=600 && hh>w && w/hh>=0.6;
+  var outer = !book && !lap && ((sw>=440 && sh<=720) || (w>=440 && w<600 && hh<=720));
+  var changed = c.contains('fold-book')!==book || c.contains('fold-lap')!==lap;
+  c.toggle('fold-book', book); c.toggle('fold-lap', lap); c.toggle('duo-outer', outer);
+  return changed;
+}
+foldCalc();
+var foldT; window.addEventListener('resize', function(){ clearTimeout(foldT); foldT = setTimeout(function(){ if (foldCalc() && typeof render==='function') render(); }, 160); });
+var FOLD_STAGE = {home:'.kwall', gacha:'.kwall', me:'.rmStage', collection:'.cab', year:'.yboard', 'new':'.fmach', edit:'.fmach'};
+function foldWrap(){
+  var c = document.documentElement.classList, V = document.getElementById('view');
+  if (!c.contains('fold-book') && !c.contains('fold-lap')) return;
+  if (V.querySelector(':scope > .stage, :scope > .lapTop')) return;
+  var pg = (location.hash||'#home').slice(1).split('/')[0] || 'home', sel = FOLD_STAGE[pg]; if (!sel) return;
+  var el = V.querySelector(':scope > '+sel); if (!el) return;
+  var st = document.createElement('div'); st.className = 'stage';
+  var top = V.querySelector(':scope > .top'); V.insertBefore(st, top ? top.nextSibling : V.firstChild); st.appendChild(el);
+  if (c.contains('fold-lap') && pg==='gacha') { var b = document.createElement('button'); b.className = 'lapAct'; b.setAttribute('data-act','gachaPull'); b.textContent = 'PULL · ดึงคันโยกสุ่มหนัง'; st.after(b); }
+}
+new MutationObserver(foldWrap).observe(document.getElementById('view'), {childList:true});
+function lapHomeHTML(n, ri, cy, ch, nr, wn){
+  var u = rmCount(), need = u < RM_AT.length ? RM_AT[u]-n : 0, pool = gachaPool().length;
+  var hd = '<div class="top hdr onk">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="icon mus" data-act="musicTog" aria-pressed="'+MUSIC.on+'" aria-label="เพลงประกอบ lo-fi">'+IC_MUSIC+'</button><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>';
+  var k1 = '<section class="kx lapM k1" aria-label="ตู้พิมพ์ตั๋ว"><img decoding="sync" class="kxbg" src="room/kcut.webp" alt="" width="1000" height="1590">'+
+      '<div class="kxo kxsign" aria-hidden="true"><b>NOW SHOWING</b><span>A TICKET TO ANYWHERE</span></div>'+
+      '<div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+n+' TICKETS</span></div>'+
+      '<a class="kxo kxst" href="#new" data-act="start"><b>PRESS</b><b>START</b></a>'+
+      '<div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div>'+
+      '<div class="kxtk" aria-hidden="true"><div>★ ADMIT ONE ★</div></div><img decoding="sync" class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section>';
+  var k2 = '<section class="kx sx lapM k2" aria-label="Movie Roulette"><img decoding="sync" class="kxbg" src="room/scut.webp" alt="" width="1000" height="1590">'+
+      '<div class="kxo kxsign sxsign" aria-hidden="true"><b>MOVIE ROULETTE</b><span>A TICKET TO ANYWHERE</span></div>'+
+      [0,1,2].map(function(i){ return '<div class="sxr r'+i+'" aria-hidden="true"><div class="sxs">'+sxCell('q')+'</div></div>'; }).join('')+
+      '<i class="sxa l" aria-hidden="true"></i><i class="sxa r" aria-hidden="true"></i>'+
+      '<span class="sxl l0" aria-hidden="true">GENRE</span><span class="sxl l1" aria-hidden="true">TYPE</span><span class="sxl l2" aria-hidden="true">FILM</span>'+
+      '<span class="sxpull" aria-hidden="true">PULL</span><img decoding="sync" class="sxlev" src="room/slot-lever.webp" alt="">'+
+      '<img decoding="sync" class="sxlip" src="room/slot.webp" alt="" aria-hidden="true"><a class="lapGo" href="#gacha" aria-label="เปิด Movie Roulette"></a></section>';
+  var SV = function(p){ return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+p+'</svg>'; };
+  return '<div class="lapTop">'+hd+k1+k2+'</div>'+
+    '<div class="deck"><div class="dstat">'+
+      '<a href="#collection"><span>TICKETS</span><b>'+n+'</b></a>'+
+      '<a href="#year"><span>GOAL '+cy+'</span><b>'+(ch?ch.n+'/'+ch.goal:'SET')+'</b></a>'+
+      '<a href="#me"><span>NEXT ITEM</span><b>'+(need>0?need+' FILM'+(need>1?'S':''):'ALL')+'</b></a>'+
+      '<a href="#watch"><span>IN CINEMAS</span><b>'+(nr==null?'—':(nr===0?'TODAY':nr+'d'))+'</b></a></div>'+
+    '<div class="dkeys">'+
+      '<a class="dk red" href="#new" data-act="start"><span>01 · PRINT</span><div><b>PRESS START</b><small>พิมพ์ตั๋วใบใหม่จากตู้ด้านบน</small></div>'+SV('<rect x="3" y="7" width="18" height="10" rx="1.5"/><path d="M7 7v10M17 7v10"/>').replace('<svg','<svg class="pic"')+'</a>'+
+      '<a class="dk amb" href="#gacha"><i class="led"></i><span>02 · ROULETTE</span><div><b>PULL</b><small>'+(pool?'สุ่มจาก '+pool+' เรื่อง':'ยังไม่มีเรื่องให้สุ่ม')+'</small></div></a>'+
+      '<a class="dk" href="#collection"><span>03</span><div>'+SV('<rect x="4" y="4" width="7" height="7"/><rect x="13" y="4" width="7" height="7"/><rect x="4" y="13" width="7" height="7"/><rect x="13" y="13" width="7" height="7"/>')+'<b>COLLECTION</b></div></a>'+
+      '<a class="dk" href="#me"><span>04</span><div>'+SV('<path d="M3 11l9-7 9 7v9H3z"/><path d="M9 20v-6h6v6"/>')+'<b>MY ROOM</b></div></a>'+
+      '<a class="dk" href="#year"><span>05</span><div>'+SV('<path d="M5 20V12M10 20V6M15 20v-9M20 20V9"/>')+'<b>YEAR</b></div></a>'+
+      '<a class="dk wl" href="#watch">'+SV('<path d="M8 6h12M8 12h12M8 18h12M4 6h.01M4 12h.01M4 18h.01"/>')+'<div><b>WATCHLIST</b><small>หนังที่อยากดู '+wn+' เรื่อง</small></div><span>06 →</span></a>'+
+    '</div></div>';
+}
 function setTabs(active){
   var tabs = document.getElementById('tabs');
   tabs.style.display = active ? '' : 'none';
@@ -1613,6 +1723,7 @@ function setTabs(active){
     if (a.getAttribute('data-tab') === active) a.setAttribute('aria-current','page'); else a.removeAttribute('aria-current');
   });
   document.getElementById('view').className = active ? '' : 'noTabs';
+  document.documentElement.setAttribute('data-pg', active||'');
 }
 function toast(msg){
   var el = document.createElement('div'); el.className='toast'; el.setAttribute('role','status'); el.textContent = msg;
@@ -2326,7 +2437,7 @@ function viewGacha(){
   setTabs('gacha');
   var pool = gachaPool();
   V.innerHTML = '<div class="top hdr onk">'+logoHTML(22)+'<a class="rmBtn" href="#watch" style="display:inline-flex;align-items:center;text-decoration:none">Watchlist</a></div><h1 class="sr">Movie Roulette</h1>'+
-    '<section class="kx sx" id="gw" aria-label="Movie Roulette"><img decoding="sync" class="kxbg" src="room/slot.webp" alt="" width="1000" height="1590">'+
+    '<div class="kwall"><section class="kx sx" id="gw" aria-label="Movie Roulette"><img decoding="sync" class="kxbg" src="room/slot.webp" alt="" width="1000" height="1590">'+
       '<div class="kxo kxsign sxsign" id="sxsign" aria-hidden="true"><b>MOVIE ROULETTE</b><span>A TICKET TO ANYWHERE</span></div>'+
       [0,1,2].map(function(i){ return '<div class="sxr r'+i+'" aria-hidden="true"><div class="sxs" id="sxs'+i+'">'+sxCell('q')+'</div></div>'; }).join('')+
       '<i class="sxa l" aria-hidden="true"></i><i class="sxa r" aria-hidden="true"></i>'+
@@ -2334,7 +2445,7 @@ function viewGacha(){
       '<span class="sxpull" aria-hidden="true">PULL</span><img decoding="sync" class="sxlev" id="sxlev" src="room/slot-lever.webp" alt="">'+
       '<button class="sxhit" data-act="gachaPull" aria-label="ดึงคันโยก Movie Roulette"'+(pool.length?'':' disabled')+'></button>'+
       '<div class="sxtk" id="sxtk"></div><img decoding="sync" class="sxlip" src="room/slot.webp" alt="" aria-hidden="true">'+
-      '<span class="gxcount">'+(pool.length ? 'สุ่มจาก '+pool.length+' เรื่องในรายการอยากดู' : 'ยังไม่มีเรื่องให้สุ่ม')+'</span></section>'+
+      '<span class="gxcount">'+(pool.length ? 'สุ่มจาก '+pool.length+' เรื่องในรายการอยากดู' : 'ยังไม่มีเรื่องให้สุ่ม')+'</span></section></div>'+
     '<div style="display:flex;justify-content:center;margin-top:14px"><button class="chip" data-act="gachaReleased" aria-pressed="'+S.gachaReleased+'" style="border-color:rgba(243,235,221,.4)">เฉพาะเรื่องที่เข้าโรงแล้ว</button></div>'+
     '<div id="gres" aria-live="polite"></div>'+(S.watch.length?'':'<a class="btn out sm" href="#watchnew" style="margin-top:14px">+ เพิ่มหนังที่อยากดูก่อน</a>');
 }
@@ -3655,12 +3766,12 @@ function viewHome(){
   V.innerHTML =
     (DB.mem ? '<div class="banner">โหมดชั่วคราว: เบราว์เซอร์นี้ไม่อนุญาตให้เก็บข้อมูล ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+
     '<div class="top hdr onk">'+logoHTML(22)+'<span style="display:flex;gap:8px"><button class="icon mus" data-act="musicTog" aria-pressed="'+MUSIC.on+'" aria-label="เพลงประกอบ lo-fi">'+IC_MUSIC+'</button><a class="icon" href="#settings" aria-label="ตั้งค่าและสำรองข้อมูล">'+IC.gear+'</a><a class="icon cream" href="#me" aria-label="โปรไฟล์ของฉัน">'+(blobURL(S.profile.photoId)?'<img src="'+blobURL(S.profile.photoId)+'" alt="">':ICON('user',20))+'</a></span></div>'+
-    '<section class="kx" aria-label="ตู้พิมพ์ตั๋ว"><img decoding="sync" class="kxbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
+    '<div class="kwall"><section class="kx" aria-label="ตู้พิมพ์ตั๋ว"><img decoding="sync" class="kxbg" src="room/kiosk.webp" alt="" width="1000" height="1590">'+
       '<div class="kxo kxsign" aria-hidden="true"><b>NOW SHOWING</b><span>A TICKET TO ANYWHERE</span></div>'+
       '<div class="kxo kxscr"><span class="l1"><span>NOW PRINTING</span><span>'+(ri>=0?'RANK '+pad(ri+1):'RANK --')+'</span></span><b>'+ticketNo(S.meta.nextNo).replace(' ','')+'<span class="cur">_</span></b><span class="l3">'+(ri>=0?RANKS[ri].en:'FIRST RANK IN '+(10-n))+' · '+n+' TICKETS</span><span class="sr">'+fmtDate(todayISO(), true)+'</span></div>'+
       '<a class="kxo kxst" href="#new" data-act="start"><b>PRESS</b><b>START</b><small>พิมพ์ตั๋วใหม่</small></a>'+
       '<div class="kxo kxtg" aria-hidden="true">TICKETS</div><div class="kxo kxlb c" aria-hidden="true">INSERT<br>MEMORY</div><div class="kxo kxlb p" aria-hidden="true">TUVA CO<br>EST 2026</div>'+
-      '<div class="kxtk" aria-hidden="true"><div>★ ADMIT ONE ★</div></div><img decoding="sync" class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section>'+
+      '<div class="kxtk" aria-hidden="true"><div>★ ADMIT ONE ★</div></div><img decoding="sync" class="kxlip" src="room/kiosk.webp" alt="" aria-hidden="true"></section></div>'+
     '<div class="hrow">'+
       (ch ? circleBtn('#year', ch.n+'/'+ch.goal, 'เป้าปีนี้', 'เป้าหมายปีนี้ '+ch.n+' จาก '+ch.goal) : circleBtn('#year', '+', 'ตั้งเป้าปี', 'ตั้งเป้าดูหนังปีนี้'))+
       circleBtn('#watch', nr==null?'—':(nr===0?'TODAY':nr+'d'), 'หนังเข้าโรง', nr==null?'ยังไม่มีหนังรอเข้าโรง':'อีก '+nr+' วันหนังเข้าโรง')+
@@ -3669,6 +3780,7 @@ function viewHome(){
     (otd ? '<a class="otd" href="#ticket/'+otd.id+'"><span class="th">'+(blobURL(otd.posterId)?'<img src="'+blobURL(otd.posterId)+'" alt="">':'<span style="display:block;height:100%;border-top:4px solid '+GMAP[otd.genre].c+'"></span>')+'</span>'+
       '<span style="flex:1;min-width:0"><span class="eyebrow" style="display:block">ON THIS DAY · '+(+cy - +otd.date.slice(0,4))+' ปีก่อน</span><span style="font-size:15px;font-weight:400">วันนี้เมื่อ '+(+cy - +otd.date.slice(0,4))+' ปีก่อน คุณดู '+esc(otd.title)+'</span></span>'+IC.chev+'</a>' : '')+
     '<p class="betaNote"><b>BETA</b> ตั๋วทั้งหมดเก็บอยู่ในเครื่องนี้เท่านั้น ถ้าล้างข้อมูลเว็บไซต์หรือแคชของเบราว์เซอร์ ข้อมูลจะหาย · <a href="#settings">สำรองข้อมูลไว้ก่อน</a></p>';
+  if (document.documentElement.classList.contains('fold-lap')) V.innerHTML = (DB.mem ? '<div class="banner">โหมดชั่วคราว: ข้อมูลจะหายเมื่อปิดหน้า</div>' : '')+lapHomeHTML(n, ri, cy, ch, nr, wn);
 }
 /* ---- compact print ticket ---- */
 function ticketMini(t){
@@ -4475,8 +4587,8 @@ function viewMe(){
 }
 document.addEventListener('click', function(e){ var b = e.target.closest('[data-x^="rm"]'); if (b) rmAct(b.getAttribute('data-x'), b); });
 
-var APP_VER = '0.13.0';
-var WHATS_NEW = [['IPHONE DUO','รองรับ iPhone Duo ทั้งจอนอกและจอใน ตู้ย่อให้เห็นเต็มตัว จอใหญ่แนวนอนแบ่งเป็นสองฝั่ง','#6EC1CF'],['MUSIC + SOUND','เพลง lo-fi เปิดปิดได้ที่ปุ่มโน้ตเพลงหน้าแรก และเสียงปุ่มตู้ คันโยก วงล้อ','#FFB547'],['MOVIE ROULETTE','ตู้สุ่มหนังชื่อใหม่ ย้ายมาอยู่แถบเมนูล่าง ดึงคันโยก 3 วงล้อ: แนว · ประเภท · หนังที่ได้','#C9CCD1'],['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
+var APP_VER = '0.14.0';
+var WHATS_NEW = [['IPHONE DUO','กางจอเต็ม: ตู้อยู่จอซ้าย ฟังก์ชันอยู่จอขวา พับครึ่งแบบโน้ตบุ๊ก: ตู้อยู่จอบน ปุ่มทั้งหมดอยู่จอล่าง ผนังเขียวเต็มขอบจอทุกเครื่อง','#E0262F'],['MUSIC + SOUND','เพลง lo-fi เปิดปิดได้ที่ปุ่มโน้ตเพลงหน้าแรก และเสียงปุ่มตู้ คันโยก วงล้อ','#FFB547'],['MOVIE ROULETTE','ตู้สุ่มหนังชื่อใหม่ ย้ายมาอยู่แถบเมนูล่าง ดึงคันโยก 3 วงล้อ: แนว · ประเภท · หนังที่ได้','#C9CCD1'],['NEW TICKET BOOTH','ตู้กดตั๋วโฉมใหม่ ตู้โลหะเงินทั้งหน้าแรก หน้าพิมพ์ตั๋ว ตู้ตั๋ว ชั้นวาง และรูปแชร์','#C9CCD1'],['MY ROOM','หน้า ME มีห้องใต้หลังคา เลือกสีห้อง สีแสง และใส่โปสเตอร์ในกรอบได้','#FFB547'],['ROOM ITEMS','ดูครบ 2 เรื่องได้ของชิ้นแรก จากนั้นทุก 2-3 เรื่องได้ของแต่งห้องเพิ่ม','#E0262F'],['NEW CINEMA ID','บัตรใหม่ มีฉายาตามแนวหนังที่ดูมากที่สุด แชร์ห้อง + บัตรลงสตอรี่ได้','#C3A6F5'],['COMPACT VENDING','ตู้ตั๋วใบเล็กลง เห็นตั๋วได้มากขึ้นในจอเดียว','#FFB547'],['MISSED IT','Watchlist ติ๊กได้ว่าหนังออกโรงแล้ว พลาดดู','#E0262F'],['NEW GENRES','เพิ่มแนวหนัง THRILLER และ FANTASY (สีรุ้ง)','#C3A6F5'],['MOVING SHELF','ชั้นวางเลื่อนเอง ปัดแล้วหันปกหนัง และแชร์คอลเลกชันปีนี้ได้','#C5D46E']];
 var IG_URL = 'https://www.instagram.com/tuva.club/';
 function maybeWhatsNew(){
   var seen = null; try { seen = localStorage.getItem('mtb-seen-ver'); } catch(x){}
