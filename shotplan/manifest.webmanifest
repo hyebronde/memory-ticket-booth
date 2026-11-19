@@ -1,6 +1,6 @@
 {
-  "name": "Floorshot · วางแผนไฟและช็อต",
-  "short_name": "Floorshot",
+  "name": "DP Plans · วางแผนไฟและช็อต",
+  "short_name": "DP Plans",
   "description": "วางไฟ กล้อง และบล็อกช็อตจากมุมบน แล้วส่งออก PDF ให้ทีม",
   "start_url": "./",
   "scope": "./",

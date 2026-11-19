@@ -1,5 +1,5 @@
 'use strict';
-/* Floorshot — top-down lighting, camera & shot planner. All data stays on the device (IndexedDB). */
+/* DP Plans — top-down lighting, camera & shot planner. All data stays on the device (IndexedDB). */
 
 // ---------- helpers ----------
 const $ = (s, r = document) => r.querySelector(s);
@@ -114,7 +114,7 @@ const DB = {
   db: null,
   open() {
     return new Promise((res, rej) => {
-      const r = indexedDB.open('floorshot', 1);
+      const r = indexedDB.open('dpplans', 1);
       r.onupgradeneeded = () => { r.result.createObjectStore('projects', { keyPath: 'id' }); r.result.createObjectStore('meta'); };
       r.onsuccess = () => { DB.db = r.result; res(); };
       r.onerror = () => rej(r.error);
@@ -1127,7 +1127,7 @@ $('#btnUndo').onclick = () => undoRedo(-1);
 $('#btnRedo').onclick = () => undoRedo(1);
 $('#btnExport').onclick = () => openExport();
 $('#btnImport').onclick = async () => {
-  const f = await pickFile('.json,.floorshot,application/json'); if (!f) return;
+  const f = await pickFile('.json,.dpplans,application/json'); if (!f) return;
   try {
     const data = JSON.parse(await f.text());
     const p = data.project || data;
@@ -1272,7 +1272,7 @@ function sheetHeader(ctx, sc, cont) {
   ctx.fillText(sceneTitle(sc) + (cont ? '  (ต่อ)' : ''), SM, SM + 105);
   ctx.fillStyle = '#6b6860'; ctx.font = `500 32px ${FONT}`;
   ctx.fillText([sc.location, sc.time].filter(Boolean).join('  ·  '), SM, SM + 155);
-  ctx.textAlign = 'right'; ctx.fillStyle = INK; ctx.font = `700 34px ${FONT}`; ctx.fillText('Floorshot', SW - SM, SM + 20);
+  ctx.textAlign = 'right'; ctx.fillStyle = INK; ctx.font = `700 34px ${FONT}`; ctx.fillText('DP Plans', SW - SM, SM + 20);
   ctx.fillStyle = '#86827a'; ctx.font = `500 24px ${FONT}`; ctx.fillText('Lighting & shot plan', SW - SM, SM + 54);
   ctx.textAlign = 'left';
   ctx.fillStyle = '#e6e2d9'; ctx.fillRect(SM, SM + 190, SW - SM * 2, 3);
@@ -1364,12 +1364,12 @@ async function buildSheets(scenes) {
   pages.forEach((c, i) => {
     const ctx = c.getContext('2d'); ctx.textAlign = 'right'; ctx.fillStyle = '#9b978e'; ctx.font = `500 24px ${FONT}`;
     ctx.fillText(`${i + 1} / ${pages.length}`, SW - SM, SH - SM + 40);
-    ctx.textAlign = 'left'; ctx.fillText(`สร้างด้วย Floorshot · ${new Date().toLocaleDateString('th-TH')}`, SM, SH - SM + 40);
+    ctx.textAlign = 'left'; ctx.fillText(`สร้างด้วย DP Plans · ${new Date().toLocaleDateString('th-TH')}`, SM, SH - SM + 40);
   });
   return pages;
 }
 const toBlob = (c, type = 'image/png', q) => new Promise(r => c.toBlob(r, type, q));
-const fileSafe = s => String(s).replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 60) || 'floorshot';
+const fileSafe = s => String(s).replace(/[\\/:*?"<>|]+/g, '-').replace(/\s+/g, ' ').trim().slice(0, 60) || 'dpplans';
 
 function csvOf(scenes) {
   const q = v => `"${String(v ?? '').replace(/"/g, '""')}"`;
@@ -1409,7 +1409,7 @@ function openExport() {
       <button data-ex="plan">ภาพแปลนอย่างเดียว<small>PNG ความละเอียดสูง</small></button>
       <button data-ex="csv">Shot list → Sheets<small>ไฟล์ CSV เปิดใน Google Sheets / Excel</small></button>
       <button data-ex="gear">รายการอุปกรณ์<small>เช็กลิสต์ไฟ กล้อง เลนส์ กริป</small></button>
-      <button data-ex="json">ไฟล์โปรเจกต์<small>ส่งให้ทีมเปิดแก้ไขต่อใน Floorshot</small></button>
+      <button data-ex="json">ไฟล์โปรเจกต์<small>ส่งให้ทีมเปิดแก้ไขต่อใน DP Plans</small></button>
     </div><div class="ready" hidden id="exReady"></div>`, { wide: true });
   const scenes = () => scope === 'all' ? S.proj.scenes : [S.scene];
   const prev = async () => {
@@ -1452,7 +1452,7 @@ function openExport() {
         $('#rCopy', m).onclick = () => navigator.clipboard.writeText(t).then(() => toast('คัดลอกแล้ว'), () => toast('คัดลอกไม่ได้'));
       } else if (kind === 'json') {
         gcPhotos(S.proj);
-        offer([new File([JSON.stringify({ app: 'floorshot', v: 1, project: S.proj })], fileSafe(S.proj.name) + '.floorshot.json', { type: 'application/json' })], 'ไฟล์โปรเจกต์พร้อมแล้ว', '<p class="muted" style="margin:0 0 8px;font-size:13px">ทีมเปิด Floorshot → นำเข้าไฟล์โปรเจกต์</p>');
+        offer([new File([JSON.stringify({ app: 'dpplans', v: 1, project: S.proj })], fileSafe(S.proj.name) + '.dpplans.json', { type: 'application/json' })], 'ไฟล์โปรเจกต์พร้อมแล้ว', '<p class="muted" style="margin:0 0 8px;font-size:13px">ทีมเปิด DP Plans → นำเข้าไฟล์โปรเจกต์</p>');
       }
     } catch (err) {
       console.error(err);
